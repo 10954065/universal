@@ -13,6 +13,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   agentRules: false,
+  experimental: {
+    // Admin image uploads go through a server action (validated to 10 MB in media-actions.ts).
+    serverActions: { bodySizeLimit: "11mb" },
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [400, 640, 828, 1080, 1280, 1600, 2048],
