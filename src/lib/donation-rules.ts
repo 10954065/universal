@@ -1,5 +1,5 @@
 /*
- * Pure donation rules (no I/O) — unit tested in tests/unit/donation-rules.test.ts.
+ * Pure donation rules (no I/O), unit tested in tests/unit/donation-rules.test.ts.
  */
 
 export const MIN_DONATION_MINOR = 100; // GH₵ 1.00

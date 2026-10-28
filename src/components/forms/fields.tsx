@@ -159,7 +159,7 @@ export function SpamGuard({ token }: { token: string }) {
   );
 }
 
-export function SubmitButton({ children, pendingLabel = "Sending…" }: { children: ReactNode; pendingLabel?: string }) {
+export function SubmitButton({ children, pendingLabel = "Sending..." }: { children: ReactNode; pendingLabel?: string }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending} aria-disabled={pending} className={buttonClasses("navy", "w-full sm:w-auto")}>

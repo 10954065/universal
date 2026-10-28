@@ -14,7 +14,7 @@ export default async function AdminLeadershipPage() {
     <AdminPage title="Leadership" actions={<AdminLinkButton href="/admin/leadership/new">Add leader</AdminLinkButton>}>
       <div className="mb-6">
         <Notice tone="warning">
-          Publish only approved profiles with confirmed names and titles. Four studio portraits are in the Media library, but they have not been matched to names — please confirm who is pictured before using them.
+          Publish only approved profiles with confirmed names and titles. Four studio portraits are in the Media library, but they have not been matched to names. Please confirm who is pictured before using them.
         </Notice>
       </div>
       <DataTable head={["Name", "Role", "Order", "Status", ""]} empty={leaders.length === 0 && <EmptyRow>No leadership profiles yet.</EmptyRow>}>

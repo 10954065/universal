@@ -51,7 +51,7 @@ export function EventRow({ event }: { event: EventSummary }) {
         <p className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-[0.9375rem] text-navy-800">
           <span>
             {formatTime(event.startsAt)}
-            {event.endsAt ? ` – ${formatTime(event.endsAt)}` : ""}
+            {event.endsAt ? ` to ${formatTime(event.endsAt)}` : ""}
           </span>
           {event.venue && (
             <span className="inline-flex items-center gap-1.5">

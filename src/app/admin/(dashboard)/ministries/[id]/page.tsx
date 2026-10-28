@@ -51,7 +51,7 @@ export default async function EditMinistryPage({ params, searchParams }: Props) 
       </Panel>
       {ministry && (
         <div className="mt-6">
-          <ConfirmButton action={deleteMinistry} hidden={{ id: ministry.id }} label="Delete ministry" confirmText={`“${ministry.name}” will be permanently deleted.`} />
+          <ConfirmButton action={deleteMinistry} hidden={{ id: ministry.id }} label="Delete ministry" confirmText={`"${ministry.name}" will be permanently deleted.`} />
         </div>
       )}
     </AdminPage>

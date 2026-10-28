@@ -50,7 +50,7 @@ export const nullableId = z
   .transform((value) => (value ? value : null));
 export const sortOrder = z.coerce.number().int().min(0).max(9999).catch(0);
 
-/** "2026-11-02T17:00" (ministry time = GMT) → Date, or null when empty. */
+/** Converts "2026-11-02T17:00" (ministry time, GMT) to a Date, or null when empty. */
 export const nullableDateTime = z
   .string()
   .trim()

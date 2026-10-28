@@ -31,10 +31,7 @@ export function Hero({ eyebrow, heading, text, image, primary, secondary, nextGa
 
         <div className="grain relative z-10 -mt-24 px-5 pb-16 sm:px-8 lg:order-1 lg:col-span-7 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:py-24 lg:pl-[max(2.5rem,calc((100vw-78rem)/2+2.5rem))] lg:pr-14">
           <div className="animate-rise motion-reduce:animate-none">
-            <p className="eyebrow flex items-center gap-3 text-gold">
-              <span aria-hidden="true" className="rule-gold" />
-              {eyebrow}
-            </p>
+            <p className="eyebrow text-gold">{eyebrow}</p>
             <h1 id="hero-heading" className="mt-6 font-display text-[clamp(2.6rem,1.4rem+3.6vw,5rem)] font-semibold leading-[1.02] text-ivory">
               <Emphasis text={heading} accentClassName="text-gold" />
             </h1>

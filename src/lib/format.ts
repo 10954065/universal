@@ -55,10 +55,10 @@ export function formatClock(value: string): string {
 }
 
 export function formatEventWindow(startsAt: Date, endsAt: Date | null): string {
-  const start = `${formatLongDate(startsAt)} · ${formatTime(startsAt)}`;
+  const start = `${formatLongDate(startsAt)}, ${formatTime(startsAt)}`;
   if (!endsAt) return start;
   const sameDay = formatShortDate(startsAt) === formatShortDate(endsAt);
-  return sameDay ? `${start} – ${formatTime(endsAt)}` : `${start} – ${formatLongDate(endsAt)} · ${formatTime(endsAt)}`;
+  return sameDay ? `${start} to ${formatTime(endsAt)}` : `${start} to ${formatLongDate(endsAt)}, ${formatTime(endsAt)}`;
 }
 
 /** Formats an amount held in minor units (pesewas) as "GH₵ 50.00". */

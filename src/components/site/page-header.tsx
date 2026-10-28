@@ -5,7 +5,8 @@ import { Photo, type PhotoSource } from "@/components/ui/photo";
 import { Breadcrumbs, type Crumb } from "@/components/site/breadcrumbs";
 
 interface PageHeaderProps {
-  eyebrow: string;
+  /** Short status shown above the title, e.g. "Cancelled". Omit on normal pages. */
+  eyebrow?: string;
   title: string;
   intro?: ReactNode;
   image?: PhotoSource | null;
@@ -24,11 +25,8 @@ export function PageHeader({ eyebrow, title, intro, image, crumbs, children }: P
         <Container className={`relative z-10 py-16 sm:py-20 ${image ? "lg:col-span-7 lg:flex lg:items-center lg:py-24" : "lg:py-28"}`}>
           <div className="animate-rise motion-reduce:animate-none">
             {crumbs && <Breadcrumbs items={crumbs} />}
-            <p className="eyebrow mt-8 flex items-center gap-3 text-gold-ink">
-              <span aria-hidden="true" className="rule-gold" />
-              {eyebrow}
-            </p>
-            <h1 className="mt-5 max-w-3xl font-display text-display-xl font-semibold text-navy-900">
+            {eyebrow && <p className="eyebrow mt-8 text-gold-ink">{eyebrow}</p>}
+            <h1 className={`${eyebrow ? "mt-4" : "mt-8"} max-w-3xl font-display text-display-xl font-semibold text-navy-900`}>
               <Emphasis text={title} />
             </h1>
             {intro && <div className="mt-7 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{intro}</div>}

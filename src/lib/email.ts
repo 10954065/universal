@@ -2,7 +2,7 @@ import "server-only";
 
 /*
  * Transactional email through the Resend HTTP API.
- * When RESEND_API_KEY is not configured, sendEmail reports `skipped` — it never
+ * When RESEND_API_KEY is not configured, sendEmail reports `skipped` and never
  * pretends a message was delivered. Callers store submissions in the database
  * first, so nothing is lost when email is unavailable.
  */
@@ -41,7 +41,7 @@ export async function sendEmail(message: EmailMessage): Promise<EmailResult> {
       signal: AbortSignal.timeout(10_000),
     });
     if (!response.ok) {
-      // Log status only — never the message body or recipient details.
+      // Log status only, never the message body or recipient details.
       console.error(`[email] Resend responded ${response.status}`);
       return { status: "failed", reason: `Provider responded ${response.status}` };
     }

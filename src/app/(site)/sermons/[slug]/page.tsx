@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const image = sermon.thumbnail?.url ?? video?.thumbnailUrl;
   return {
     title: sermon.title,
-    description: sermon.summary || [sermon.speaker?.name, sermon.scripture].filter(Boolean).join(" — ") || undefined,
+    description: sermon.summary || [sermon.speaker?.name, sermon.scripture].filter(Boolean).join(", ") || undefined,
     alternates: { canonical: `/sermons/${sermon.slug}` },
     openGraph: { type: "article", publishedTime: sermon.preachedAt.toISOString(), ...(image ? { images: [{ url: image }] } : {}) },
     robots: sermon.isSample ? { index: false } : undefined,

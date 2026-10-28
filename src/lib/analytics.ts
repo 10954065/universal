@@ -1,6 +1,6 @@
 /**
  * Privacy-conscious analytics events. Only event names and non-identifying
- * properties are sent — never form contents, prayer text, names, emails or
+ * properties are sent, never form contents, prayer text, names, emails or
  * payment details. No-op when analytics is not configured.
  */
 export type AnalyticsEvent =

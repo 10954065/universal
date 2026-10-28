@@ -44,7 +44,7 @@ export default async function RegistrationsPage({ searchParams }: Props) {
                     >
                       <span className="font-medium text-navy-900">{event.title}</span>
                       <span className="block text-xs text-muted">
-                        {formatShortDate(event.startsAt)} · {people}
+                        {formatShortDate(event.startsAt)}, {people}
                         {event.registrationCapacity ? ` / ${event.registrationCapacity}` : ""} people
                       </span>
                     </Link>
@@ -58,7 +58,7 @@ export default async function RegistrationsPage({ searchParams }: Props) {
           <div>
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <h2 className="font-display text-2xl font-semibold text-navy-900">
-                {selected.title} <span className="text-base font-normal text-muted">— {totalPeople} people</span>
+                {selected.title} <span className="text-base font-normal text-muted">({totalPeople} people)</span>
               </h2>
               <a href={`/admin/export/registrations?event=${selected.id}`} download className="min-h-10 border border-navy-900/25 px-4 py-2 text-sm font-medium hover:border-navy-900">
                 Export CSV
@@ -69,9 +69,9 @@ export default async function RegistrationsPage({ searchParams }: Props) {
                 <tr key={registration.id}>
                   <td className="px-4 py-3 font-medium text-navy-900">{registration.name}</td>
                   <td className="px-4 py-3 text-muted">{registration.email}</td>
-                  <td className="px-4 py-3 text-muted">{registration.phone ?? "—"}</td>
+                  <td className="px-4 py-3 text-muted">{registration.phone ?? "Not given"}</td>
                   <td className="px-4 py-3 text-muted">{registration.attendees}</td>
-                  <td className="max-w-xs px-4 py-3 text-muted">{registration.notes ?? "—"}</td>
+                  <td className="max-w-xs px-4 py-3 text-muted">{registration.notes ?? "None"}</td>
                   <td className="px-4 py-3 text-right">
                     <ConfirmButton action={deleteRegistration} hidden={{ id: registration.id }} label="Remove" confirmText={`Remove ${registration.name}'s registration?`} />
                   </td>

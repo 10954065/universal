@@ -27,7 +27,7 @@ import { isEmailConfigured } from "@/lib/email";
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, home] = await Promise.all([getSiteSettings(), getHomepage()]);
   return {
-    title: { absolute: settings.seoTitle || `${settings.ministryName} — ${stripEmphasis(home?.heroHeading ?? "Welcome")}` },
+    title: { absolute: settings.seoTitle || `${settings.ministryName} | ${stripEmphasis(home?.heroHeading ?? "Welcome")}` },
     alternates: { canonical: "/" },
   };
 }
@@ -56,10 +56,10 @@ export default async function HomePage() {
   const sermon = home.featuredSermon?.status === "PUBLISHED" ? home.featuredSermon : latestSermon;
   const firstService = services[0];
   const nextGathering = firstService
-    ? `Join us ${WEEKDAY_LABELS[firstService.day]}s at ${formatClock(firstService.startTime)}${firstService.location ? ` · ${firstService.location}` : ""}`
+    ? `Join us ${WEEKDAY_LABELS[firstService.day]}s at ${formatClock(firstService.startTime)}${firstService.location ? `, ${firstService.location}` : ""}`
     : null;
 
-  // Sections render in this order; numbering follows whichever are visible.
+  // Sections render in this order.
   const visible = {
     welcome: true,
     services: home.showServices,
@@ -68,8 +68,6 @@ export default async function HomePage() {
     events: home.showEvents,
     outreach: home.showOutreach && Boolean(home.outreachHeading && home.outreachText),
   };
-  const order = Object.entries(visible).filter(([, shown]) => shown).map(([key]) => key);
-  const indexOf = (key: string) => String(order.indexOf(key) + 1).padStart(2, "0");
 
   return (
     <>
@@ -84,22 +82,20 @@ export default async function HomePage() {
         nextGathering={nextGathering}
       />
       <Welcome
-        index={indexOf("welcome")}
         heading={home.welcomeHeading}
         text={home.welcomeText}
         image={home.welcomeImage}
         accentImage={photos.get("worship-singer.jpg") ?? null}
       />
-      {visible.services && <Services index={indexOf("services")} services={services} />}
-      {visible.ministries && <MinistriesShowcase index={indexOf("ministries")} ministries={ministries} />}
-      {visible.sermon && sermon && <FeaturedSermon index={indexOf("sermon")} sermon={sermon} />}
-      {visible.events && <UpcomingEvents index={indexOf("events")} events={events} />}
+      {visible.services && <Services services={services} />}
+      {visible.ministries && <MinistriesShowcase ministries={ministries} />}
+      {visible.sermon && sermon && <FeaturedSermon sermon={sermon} />}
+      {visible.events && <UpcomingEvents events={events} />}
       {home.showScripture && home.scriptureText && home.scriptureReference && (
         <Scripture text={home.scriptureText} reference={home.scriptureReference} translation={home.scriptureTranslation} />
       )}
       {visible.outreach && (
         <Outreach
-          index={indexOf("outreach")}
           heading={home.outreachHeading!}
           text={home.outreachText!}
           image={home.outreachImage}

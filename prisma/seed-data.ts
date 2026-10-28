@@ -44,7 +44,7 @@ export const PHOTOS: SeedPhoto[] = [
   { file: "outreach-team-1.jpg", alt: "Ministry team members in matching shirts shake hands in the sanctuary" },
   { file: "outreach-team-2.jpg", alt: "Ministry team members in matching shirts stand together in the sanctuary" },
   { file: "outreach-field-front.jpg", alt: "An outreach team in matching shirts and caps stands together outdoors" },
-  { file: "outreach-field-back.jpg", alt: "Outreach team members seen from behind, their shirts reading “Let us trade our salvation too” with John 3:16", focalY: 40 },
+  { file: "outreach-field-back.jpg", alt: "Outreach team members seen from behind, their shirts reading 'Let us trade our salvation too' with John 3:16", focalY: 40 },
   { file: "worship-singer-2.jpg", alt: "A worshipper sings beside a window during the service", focalX: 40, focalY: 35 },
   { file: "portrait-clergy-1.jpg", alt: "Studio portrait of a minister in clerical collar", focalY: 30 },
   { file: "portrait-clergy-2.jpg", alt: "Studio portrait of a minister in clerical collar and glasses", focalY: 30 },
@@ -64,22 +64,22 @@ export const PHOTOS: SeedPhoto[] = [
 ];
 
 export const HOMEPAGE = {
-  heroHeading: "Growing in Faith. Living in Love. Sharing the *Hope of Christ.*",
+  heroHeading: "Growing in Faith. Living in Love. Sharing the Hope of Christ.",
   heroText:
     "Discover a community committed to worship, spiritual growth, fellowship, and sharing God's love with the world.",
   heroImage: "worship-hero.jpg",
-  welcomeHeading: "There is a place for *you* here.",
+  welcomeHeading: "Welcome",
   welcomeText:
-    "Whether you are exploring faith for the first time or looking for a church family to belong to, you are welcome. We gather to worship God, to grow together in His Word, and to share His love in practical ways — and we would love to meet you.",
+    "You are welcome here. We meet to worship God, learn from the Bible and look after one another. We would love to meet you.",
   welcomeImage: "congregation-shiloh.jpg",
-  // Psalm 23 appears on the sanctuary backdrop. King James Version — public domain.
+  // Psalm 23 appears on the sanctuary backdrop. King James Version (public domain).
   scriptureText:
     "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul.",
-  scriptureReference: "Psalm 23:1–3",
+  scriptureReference: "Psalm 23:1-3",
   scriptureTranslation: "KJV",
-  outreachHeading: "Faith that goes *beyond our walls.*",
+  outreachHeading: "Outreach",
   outreachText:
-    "Love is meant to be lived. Through fellowship, evangelism and practical care, we look for ways to carry the hope of Christ into our community.",
+    "We share the gospel and help people in our community through fellowship, evangelism and practical care.",
   outreachImage: "outreach-field-back.jpg",
 };
 
@@ -90,16 +90,16 @@ export interface SeedMinistry {
   image: string;
 }
 
-/** Suggested departments — created as DRAFT until the ministry confirms each one. */
+/** Suggested departments, created as DRAFT until the ministry confirms each one. */
 export const SUGGESTED_MINISTRIES: SeedMinistry[] = [
-  { slug: "worship-and-praise", name: "Worship & Praise", summary: "Leading the congregation into God's presence through song, music and praise.", image: "worship-leader.jpg" },
-  { slug: "prayer-ministry", name: "Prayer Ministry", summary: "Standing together in intercession for the church, our families and our nation.", image: "prayer-woman.jpg" },
-  { slug: "youth-ministry", name: "Youth Ministry", summary: "Helping young people know Christ, grow in faith and discover their calling.", image: "youth-member.jpg" },
-  { slug: "childrens-ministry", name: "Children's Ministry", summary: "Teaching children the love of God in ways they can understand and enjoy.", image: "children-ministry.jpg" },
-  { slug: "mens-fellowship", name: "Men's Fellowship", summary: "Men encouraging one another to lead, serve and live faithfully.", image: "men-group.jpg" },
-  { slug: "womens-fellowship", name: "Women's Fellowship", summary: "Women growing together in prayer, the Word and sisterhood.", image: "women-group.jpg" },
-  { slug: "outreach-and-evangelism", name: "Outreach & Evangelism", summary: "Sharing the good news of Jesus Christ and serving our community.", image: "outreach-field-front.jpg" },
-  { slug: "bible-study-and-discipleship", name: "Bible Study & Discipleship", summary: "Going deeper in the Scriptures and growing as followers of Jesus.", image: "children-bible-reading.jpg" },
+  { slug: "worship-and-praise", name: "Worship & Praise", summary: "Leads worship through song and music during services.", image: "worship-leader.jpg" },
+  { slug: "prayer-ministry", name: "Prayer Ministry", summary: "Prays for the church, our families and our nation.", image: "prayer-woman.jpg" },
+  { slug: "youth-ministry", name: "Youth Ministry", summary: "For young people who want to know Christ and grow in faith.", image: "youth-member.jpg" },
+  { slug: "childrens-ministry", name: "Children's Ministry", summary: "Teaches children about God's love in ways they understand.", image: "children-ministry.jpg" },
+  { slug: "mens-fellowship", name: "Men's Fellowship", summary: "Men supporting one another in faith and service.", image: "men-group.jpg" },
+  { slug: "womens-fellowship", name: "Women's Fellowship", summary: "Women growing together in prayer and the Word.", image: "women-group.jpg" },
+  { slug: "outreach-and-evangelism", name: "Outreach & Evangelism", summary: "Shares the good news of Jesus and serves the community.", image: "outreach-field-front.jpg" },
+  { slug: "bible-study-and-discipleship", name: "Bible Study & Discipleship", summary: "Studies the Bible together and helps believers grow as followers of Jesus.", image: "children-bible-reading.jpg" },
 ];
 
 export interface SeedSection {
@@ -114,7 +114,7 @@ export interface SeedSection {
 
 const PRIVACY_POLICY = `**Last updated:** see the date of publication on this page.
 
-This policy explains how ${"{ministry}"} ("we", "us") collects and uses personal information through this website. We are committed to handling your information with care and in line with the Data Protection Act, 2012 (Act 843) of Ghana.
+This policy explains how ${"{ministry}"} ("we", "us") collects and uses personal information through this website. We handle your information in line with the Data Protection Act, 2012 (Act 843) of Ghana.
 
 ## Information we collect
 
@@ -134,7 +134,7 @@ Prayer requests are private. They are visible only to authorised ministry staff,
 
 ## Who we share it with
 
-We do not sell your information. We use a small number of trusted service providers to operate this website — our hosting and database provider, our email delivery provider and, for online giving, our payment processor — and they handle your information only on our behalf.
+We do not sell your information. We use a small number of service providers to run this website: our hosting and database provider, our email delivery provider and, for online giving, our payment processor. They handle your information only on our behalf.
 
 ## How long we keep it
 
@@ -178,7 +178,7 @@ export const PAGE_SECTIONS: SeedSection[] = [
   { key: "about.overview", page: "about", title: "Who we are", sortOrder: 1, editorNote: "Official introduction to the ministry. Required before launch." },
   { key: "about.mission", page: "about", title: "Our Mission", sortOrder: 2, editorNote: "Mission statement exactly as approved (shown on the banner in the sanctuary)." },
   { key: "about.vision", page: "about", title: "Our Vision", sortOrder: 3, editorNote: "Vision statement exactly as approved (shown on the banner in the sanctuary)." },
-  { key: "about.values", page: "about", title: "Our Core Values", sortOrder: 4, editorNote: "Use a bulleted list, one value per line, e.g. '- **Prayer** — short description'." },
+  { key: "about.values", page: "about", title: "Our Core Values", sortOrder: 4, editorNote: "Use a bulleted list, one value per line, e.g. '- **Prayer**: short description'." },
   { key: "about.beliefs", page: "about", title: "What We Believe", sortOrder: 5, editorNote: "Statement of faith. Publish only the ministry's approved wording." },
   { key: "about.history", page: "about", title: "Our Story", sortOrder: 6, editorNote: "Founding story and history. Publish only verified facts." },
   {
@@ -186,8 +186,8 @@ export const PAGE_SECTIONS: SeedSection[] = [
     page: "visit",
     title: "What to expect",
     sortOrder: 1,
-    editorNote: "PROPOSED COPY — please review. Describe a typical service in the ministry's own words.",
-    body: "Come as you are. Our gatherings include heartfelt worship, prayer and teaching from the Bible, and there is always time to meet people afterwards. If it is your first time, let someone know — we would be glad to welcome you and answer any questions.",
+    editorNote: "PROPOSED COPY: please review. Describe a typical service in the ministry's own words.",
+    body: "Our services include worship, prayer and teaching from the Bible, with time to meet people afterwards. If it is your first visit, let someone know and we will be glad to welcome you and answer any questions.",
     publish: true,
   },
   { key: "visit.directions", page: "visit", title: "Finding us", sortOrder: 2, editorNote: "Directions, landmarks, and public transport tips." },
@@ -202,7 +202,7 @@ export const PAGE_SECTIONS: SeedSection[] = [
     page: "privacy",
     title: "Privacy Policy",
     sortOrder: 1,
-    editorNote: "TEMPLATE — accurately describes how this website handles data, but must be reviewed by the ministry (and ideally a legal adviser) before launch.",
+    editorNote: "TEMPLATE: accurately describes how this website handles data, but must be reviewed by the ministry (and ideally a legal adviser) before launch.",
     body: PRIVACY_POLICY,
     publish: true,
   },
@@ -211,7 +211,7 @@ export const PAGE_SECTIONS: SeedSection[] = [
     page: "terms",
     title: "Terms and Conditions",
     sortOrder: 1,
-    editorNote: "TEMPLATE — must be reviewed and approved by the ministry before launch.",
+    editorNote: "TEMPLATE: must be reviewed and approved by the ministry before launch.",
     body: TERMS,
     publish: true,
   },

@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: Props) {
         </p>
         <blockquote className="max-w-md font-display text-3xl italic leading-snug">
           &ldquo;Let all things be done decently and in order.&rdquo;
-          <cite className="eyebrow mt-4 block not-italic text-gold">1 Corinthians 14:40 · KJV</cite>
+          <cite className="eyebrow mt-4 block not-italic text-gold">1 Corinthians 14:40 (KJV)</cite>
         </blockquote>
       </div>
       <div className="flex items-center justify-center px-5 py-16">

@@ -76,8 +76,8 @@ export async function submitContact(_previous: FormState, formData: FormData): P
   await notifyStaff(`New enquiry: ${data.subject ?? "Website message"}`, "New contact enquiry", [
     ["Name", data.name],
     ["Email", data.email],
-    ["Phone", data.phone ?? "—"],
-    ["Subject", data.subject ?? "—"],
+    ["Phone", data.phone ?? "Not given"],
+    ["Subject", data.subject ?? "None"],
     ["Message", data.message],
   ]);
   return { status: "success", message: `Thank you, ${data.name.split(" ")[0]}. Your message has been received and a member of our team will be in touch.` };
@@ -117,10 +117,10 @@ export async function submitVisit(_previous: FormState, formData: FormData): Pro
   await notifyStaff("New visit planned", "Someone is planning to visit", [
     ["Name", data.name],
     ["Email", data.email],
-    ["Phone", data.phone ?? "—"],
+    ["Phone", data.phone ?? "Not given"],
     ["Planned date", data.visitDate ? data.visitDate.toISOString().slice(0, 10) : "Not specified"],
     ["Party size", String(data.partySize)],
-    ["Message", data.message ?? "—"],
+    ["Message", data.message ?? "None"],
   ]);
   return { status: "success", message: `Wonderful, ${data.name.split(" ")[0]}! We have your details and look forward to welcoming you.` };
 }

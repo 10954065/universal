@@ -17,7 +17,7 @@ export default async function AdminHomepagePage() {
   ]);
 
   return (
-    <AdminPage title="Homepage" description="Edit the first impression visitors get. Wrap words in *asterisks* in a heading to give them the gold italic accent.">
+    <AdminPage title="Homepage" description="Edit the text and photos on the homepage.">
       <AdminForm action={saveHomepage} submitLabel="Save homepage">
         <Panel title="Hero">
           <div className="space-y-5">
@@ -50,7 +50,7 @@ export default async function AdminHomepagePage() {
             <Notice>Use a public-domain translation (such as KJV or WEB) or one the ministry has permission to reproduce, and check the wording carefully.</Notice>
             <TextArea name="scriptureText" label="Scripture text" defaultValue={home?.scriptureText} rows={3} maxLength={800} />
             <FormGrid>
-              <Field name="scriptureReference" label="Reference" defaultValue={home?.scriptureReference} placeholder="Psalm 23:1–3" />
+              <Field name="scriptureReference" label="Reference" defaultValue={home?.scriptureReference} placeholder="Psalm 23:1-3" />
               <Field name="scriptureTranslation" label="Translation" defaultValue={home?.scriptureTranslation} placeholder="KJV" />
             </FormGrid>
           </div>
@@ -71,7 +71,7 @@ export default async function AdminHomepagePage() {
               label="Featured sermon"
               hint="Leave on automatic to always feature the most recent published sermon."
               defaultValue={home?.featuredSermonId}
-              options={[{ value: "", label: "Automatic — latest sermon" }, ...sermons.map((sermon) => ({ value: sermon.id, label: sermon.title }))]}
+              options={[{ value: "", label: "Automatic (latest sermon)" }, ...sermons.map((sermon) => ({ value: sermon.id, label: sermon.title }))]}
             />
             <div className="grid gap-4 sm:grid-cols-2">
               <Checkbox name="showServices" label="Show service times" defaultChecked={home?.showServices ?? true} />

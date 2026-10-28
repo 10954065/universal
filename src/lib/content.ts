@@ -93,7 +93,7 @@ export const getPageSections = cache(async (page: string) =>
   }),
 );
 
-/** Returns published sections for a page as a key → section map. */
+/** Returns published sections for a page, keyed by section key. */
 export async function getPageSectionMap(page: string) {
   const sections = await getPageSections(page);
   return new Map(sections.map((section) => [section.key, section]));
@@ -197,7 +197,7 @@ export const getEventBySlug = cache(async (slug: string) =>
   }),
 );
 
-/** Total people registered (sum of party sizes) — what event capacity is measured against. */
+/** Total people registered (sum of party sizes). Event capacity is measured against this. */
 export async function getRegisteredAttendees(eventId: string): Promise<number> {
   const result = await db.eventRegistration.aggregate({ where: { eventId }, _sum: { attendees: true } });
   return result._sum.attendees ?? 0;

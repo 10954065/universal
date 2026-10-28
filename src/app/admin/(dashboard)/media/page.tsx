@@ -46,14 +46,14 @@ export default async function MediaLibraryPage({ searchParams }: Props) {
                 <Image src={selected.url} alt={selected.alt} fill sizes="22rem" className="object-cover" style={{ objectPosition: `${selected.focalX}% ${selected.focalY}%` }} />
               </div>
               <p className="mb-4 text-xs text-muted">
-                {selected.width}×{selected.height} · {(selected.sizeBytes / 1024).toFixed(0)} KB
+                {selected.width}×{selected.height}, {(selected.sizeBytes / 1024).toFixed(0)} KB
               </p>
               <AdminForm action={updateMedia} key={selected.id}>
                 <input type="hidden" name="id" value={selected.id} />
                 <Field name="alt" label="Alt text" required defaultValue={selected.alt} hint="Describe what is visible. Do not name people unless they have agreed." />
                 <FormGrid>
-                  <Field name="focalX" type="number" label="Focus left→right %" min={0} max={100} defaultValue={selected.focalX} />
-                  <Field name="focalY" type="number" label="Focus top→bottom %" min={0} max={100} defaultValue={selected.focalY} />
+                  <Field name="focalX" type="number" label="Horizontal focus (%)" min={0} max={100} defaultValue={selected.focalX} />
+                  <Field name="focalY" type="number" label="Vertical focus (%)" min={0} max={100} defaultValue={selected.focalY} />
                 </FormGrid>
               </AdminForm>
               <div className="mt-4">

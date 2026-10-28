@@ -22,13 +22,13 @@ export default async function UsersPage() {
     <AdminPage title="Staff accounts" description="Who can sign in to this dashboard, and what they can do.">
       <div className="mb-8 grid gap-4 text-sm md:grid-cols-3">
         <Notice>
-          <strong>Super Administrator</strong> — everything, including settings, giving records, staff accounts and prayer requests.
+          <strong>Super Administrator:</strong> everything, including settings, giving records, staff accounts and prayer requests.
         </Notice>
         <Notice>
-          <strong>Content Administrator</strong> — website content, media, enquiries, registrations and subscribers. No prayer requests or giving records.
+          <strong>Content Administrator:</strong> website content, media, enquiries, registrations and subscribers. No prayer requests or giving records.
         </Notice>
         <Notice>
-          <strong>Ministry Staff</strong> — enquiries, event registrations and private prayer requests. Cannot edit the website.
+          <strong>Ministry Staff:</strong> enquiries, event registrations and private prayer requests. Cannot edit the website.
         </Notice>
       </div>
 

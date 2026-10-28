@@ -17,10 +17,10 @@ interface Props {
 }
 
 const EVENT_STATUS = [
-  { value: "DRAFT", label: "Draft — not visible" },
+  { value: "DRAFT", label: "Draft (not visible)" },
   { value: "PUBLISHED", label: "Published" },
-  { value: "CANCELLED", label: "Cancelled — shown with a cancelled notice" },
-  { value: "ARCHIVED", label: "Archived — only in past events" },
+  { value: "CANCELLED", label: "Cancelled (shown with a cancelled notice)" },
+  { value: "ARCHIVED", label: "Archived (only in past events)" },
 ];
 
 export default async function EditEventPage({ params, searchParams }: Props) {

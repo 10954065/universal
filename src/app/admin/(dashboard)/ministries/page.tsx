@@ -21,7 +21,7 @@ export default async function AdminMinistriesPage() {
         {ministries.map((ministry) => (
           <tr key={ministry.id}>
             <td className="px-4 py-3 font-medium text-navy-900">{ministry.name}</td>
-            <td className="px-4 py-3 text-muted">{ministry.leaderName ?? "—"}</td>
+            <td className="px-4 py-3 text-muted">{ministry.leaderName ?? "Not set"}</td>
             <td className="px-4 py-3 text-muted">{ministry.sortOrder}</td>
             <td className="px-4 py-3">
               <StatusBadge status={ministry.status} />

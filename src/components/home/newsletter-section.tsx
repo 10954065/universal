@@ -10,9 +10,8 @@ export function NewsletterSection() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <p className="eyebrow text-gold-ink">Stay connected</p>
-            <h2 id="newsletter-heading" className="mt-4 font-display text-display-md font-semibold text-navy-900">
-              Ministry updates, <em className="font-medium text-gold-ink">in your inbox</em>
+            <h2 id="newsletter-heading" className="font-display text-display-md font-semibold text-navy-900">
+              Ministry updates by email
             </h2>
             <p className="mt-4 leading-relaxed text-muted">Devotionals, programme announcements and news. We will never share your email address.</p>
           </div>

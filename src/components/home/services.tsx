@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ServiceList, type ServiceItem } from "@/components/site/service-list";
 
-export function Services({ services, index }: { services: ServiceItem[]; index?: string }) {
+export function Services({ services }: { services: ServiceItem[] }) {
   return (
     <section aria-labelledby="services-heading" className="grain relative bg-sand py-24 sm:py-28">
       <Container>
@@ -11,11 +11,9 @@ export function Services({ services, index }: { services: ServiceItem[]; index?:
           <div className="reveal lg:col-span-4">
             <SectionHeading
               id="services-heading"
-              eyebrow="Gather with us"
-              index={index}
-              title="Worship *with us*"
+              title="Service times"
               size="md"
-              intro="Everyone is welcome — come as you are, and bring a friend."
+              intro="Everyone is welcome. Feel free to bring a friend."
             />
             <div className="mt-9">
               <ButtonLink href="/plan-your-visit" variant="outline" arrow className="plausible-event-name=Plan+Visit+Click">

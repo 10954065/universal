@@ -36,7 +36,7 @@ export default async function AnnouncementsPage({ searchParams }: Props) {
             <Field name="message" label="Message" required maxLength={240} defaultValue={editing?.message} placeholder="e.g. Join us this Friday for a special prayer meeting" />
             <FormGrid>
               <Field name="linkLabel" label="Link text" maxLength={40} defaultValue={editing?.linkLabel} />
-              <Field name="linkHref" label="Link" defaultValue={editing?.linkHref} hint="/events/your-event or https://…" />
+              <Field name="linkHref" label="Link" defaultValue={editing?.linkHref} hint="/events/your-event or a full https:// address" />
               <Field name="startsAt" type="datetime-local" label="Show from" defaultValue={toLocalDateTimeInput(editing?.startsAt)} hint="Ghana time. Leave blank to show immediately." />
               <Field name="endsAt" type="datetime-local" label="Show until" defaultValue={toLocalDateTimeInput(editing?.endsAt)} hint="Leave blank to show until switched off." />
             </FormGrid>
@@ -57,7 +57,7 @@ export default async function AnnouncementsPage({ searchParams }: Props) {
             <tr key={item.id}>
               <td className="max-w-md px-4 py-3 text-navy-900">{item.message}</td>
               <td className="px-4 py-3 text-muted">
-                {item.startsAt ? formatShortDate(item.startsAt) : "Now"} – {item.endsAt ? formatShortDate(item.endsAt) : "No end"}
+                {item.startsAt ? formatShortDate(item.startsAt) : "Now"} to {item.endsAt ? formatShortDate(item.endsAt) : "No end"}
               </td>
               <td className="px-4 py-3">
                 <StatusBadge status={live ? "ACTIVE" : item.active ? "PENDING" : "ARCHIVED"} />

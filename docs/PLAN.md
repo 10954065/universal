@@ -1,4 +1,4 @@
-# Universal Trinity Ministry — Implementation Plan
+# Universal Trinity Ministry Implementation Plan
 
 ## 1. Audit (2026-10-28)
 

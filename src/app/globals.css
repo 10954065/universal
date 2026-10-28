@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Universal Trinity Ministry — design tokens.
+ * Universal Trinity Ministry design tokens.
  * Change the palette here; every component reads these variables.
  * Contrast notes (WCAG 2.2): gold #C8A45D is only used for text on navy (7.3:1).
  * On ivory, gold text uses --color-gold-ink (5.4:1); muted text uses #5B6270 (5.6:1).
@@ -114,22 +114,13 @@
 }
 
 @layer components {
-  /* Small uppercase label used above headings, e.g. "01 — Welcome". */
+  /* Small uppercase label, e.g. "When" or "Speaker". */
   .eyebrow {
     font-family: var(--font-sans);
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
-  }
-
-  /* Hairline gold rule used as a restrained decorative accent. */
-  .rule-gold {
-    display: inline-block;
-    height: 1px;
-    width: 2.5rem;
-    background: var(--color-gold);
-    vertical-align: middle;
   }
 
   /* Rich text rendered from CMS markdown. */

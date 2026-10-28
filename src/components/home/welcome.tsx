@@ -11,7 +11,7 @@ interface WelcomeProps {
 }
 
 /** Asymmetric welcome: wide photograph with an overlapping portrait, text offset to the right. */
-export function Welcome({ heading, text, image, accentImage, index }: WelcomeProps & { index?: string }) {
+export function Welcome({ heading, text, image, accentImage }: WelcomeProps) {
   return (
     <section aria-labelledby="welcome-heading" className="overflow-hidden py-24 sm:py-32">
       <Container>
@@ -25,12 +25,9 @@ export function Welcome({ heading, text, image, accentImage, index }: WelcomePro
                 <Photo image={accentImage} sizes="20vw" />
               </div>
             )}
-            <p aria-hidden="true" className="absolute -left-3 -top-8 hidden font-display text-[9rem] leading-none text-sand-300 lg:block">
-              &ldquo;
-            </p>
           </div>
           <div className="reveal lg:col-span-5 lg:pl-10">
-            <SectionHeading id="welcome-heading" eyebrow="Welcome" index={index} title={heading} size="md" />
+            <SectionHeading id="welcome-heading" title={heading} size="md" />
             <p className="mt-7 text-lg leading-relaxed text-muted">{text}</p>
             <div className="mt-10 flex flex-wrap items-center gap-6">
               <ButtonLink href="/about" variant="navy" arrow>

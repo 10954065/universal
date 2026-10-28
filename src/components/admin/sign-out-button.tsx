@@ -19,7 +19,7 @@ export function SignOutButton() {
       }}
       className="text-mist underline underline-offset-4 hover:text-gold disabled:opacity-60"
     >
-      {pending ? "Signing out…" : "Sign out"}
+      {pending ? "Signing out..." : "Sign out"}
     </button>
   );
 }

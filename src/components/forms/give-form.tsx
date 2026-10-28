@@ -60,7 +60,7 @@ export function GiveForm({ token, categories }: GiveFormProps) {
         maxLength={254}
         state={state}
       />
-      <SubmitButton pendingLabel="Connecting to Paystack…">Continue to secure payment</SubmitButton>
+      <SubmitButton pendingLabel="Connecting to Paystack...">Continue to secure payment</SubmitButton>
     </form>
   );
 }

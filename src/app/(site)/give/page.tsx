@@ -34,8 +34,7 @@ export default async function GivePage() {
   return (
     <>
       <PageHeader
-        eyebrow="Giving"
-        title="Give with a *grateful heart*"
+        title="Giving"
         intro={
           settings.givingIntro ??
           "Your generosity helps us worship, teach, care for one another and serve our community. Thank you for partnering with us."
@@ -55,7 +54,7 @@ export default async function GivePage() {
 
       <section aria-labelledby="ways-to-give" className="bg-sand py-20 sm:py-24">
         <Container>
-          <SectionHeading id="ways-to-give" eyebrow="Ways to give" title="Choose what works *for you*" size="md" />
+          <SectionHeading id="ways-to-give" title="Ways to give" size="md" />
           <div className={`mt-12 grid gap-6 ${online ? "lg:grid-cols-12" : ""}`}>
             <div className={online ? "space-y-6 lg:col-span-6" : "grid gap-6 md:grid-cols-2"}>
               {methods.map(({ icon: Icon, title, body }) => (

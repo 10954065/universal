@@ -2,8 +2,8 @@ import { applyVerifiedTransaction, isValidWebhookSignature, verifyTransaction } 
 
 /**
  * Paystack webhook. The signature is verified against the raw body, and the
- * transaction is then re-verified with Paystack's API before any status change —
- * the webhook payload alone is never trusted.
+ * transaction is then re-verified with Paystack's API before any status change.
+ * The webhook payload alone is never trusted.
  */
 export async function POST(request: Request) {
   const rawBody = await request.text();
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   const reference = event.data?.reference;
   if (typeof reference !== "string" || !/^UTM-[A-Z0-9-]{4,40}$/.test(reference)) {
-    // Not one of ours — acknowledge so Paystack stops retrying.
+    // Not one of ours. Acknowledge it so Paystack stops retrying.
     return new Response("Ignored", { status: 200 });
   }
 

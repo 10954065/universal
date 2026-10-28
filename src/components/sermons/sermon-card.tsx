@@ -17,7 +17,7 @@ export interface SermonSummary {
   thumbnail: PhotoSource | null;
 }
 
-/** Thumbnail order: uploaded image → YouTube frame → typographic panel. */
+/** Thumbnail order: uploaded image, then YouTube frame, then a typographic panel. */
 export function SermonThumbnail({ sermon, sizes, priority = false }: { sermon: SermonSummary; sizes: string; priority?: boolean }) {
   const video = parseVideoUrl(sermon.videoUrl);
   if (sermon.thumbnail) return <Photo image={sermon.thumbnail} sizes={sizes} priority={priority} alt="" />;
@@ -48,7 +48,7 @@ export function SermonCard({ sermon }: { sermon: SermonSummary }) {
       </div>
       <div className="flex flex-1 flex-col pt-5">
         <p className="eyebrow text-gold-ink">
-          {[sermon.category?.name, formatShortDate(sermon.preachedAt)].filter(Boolean).join(" · ")}
+          {[sermon.category?.name, formatShortDate(sermon.preachedAt)].filter(Boolean).join(", ")}
         </p>
         <h3 className="mt-3 font-display text-[1.65rem] font-semibold leading-tight text-navy-900">
           <Link href={`/sermons/${sermon.slug}`} className="after:absolute after:inset-0 group-hover:underline group-hover:decoration-gold group-hover:decoration-1 group-hover:underline-offset-4">
@@ -56,7 +56,7 @@ export function SermonCard({ sermon }: { sermon: SermonSummary }) {
           </Link>
         </h3>
         <p className="mt-2 text-[0.9375rem] text-muted">
-          {[sermon.speaker?.name, sermon.scripture].filter(Boolean).join(" — ")}
+          {[sermon.speaker?.name, sermon.scripture].filter(Boolean).join(", ")}
         </p>
       </div>
     </article>

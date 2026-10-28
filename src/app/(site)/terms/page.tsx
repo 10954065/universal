@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
-  return <LegalPage page="terms" href="/terms" eyebrow="Website terms" />;
+  return <LegalPage page="terms" href="/terms" />;
 }

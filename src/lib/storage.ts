@@ -24,7 +24,7 @@ export async function putFile(key: string, data: Buffer, contentType: string): P
   return { url: `/uploads/${key}`, storageKey: `local:${key}` };
 }
 
-/** Deletes an uploaded file. Bundled library photos (`static/…`) are never deleted from disk. */
+/** Deletes an uploaded file. Bundled library photos (`static/`) are never deleted from disk. */
 export async function deleteFile(storageKey: string): Promise<void> {
   if (storageKey.startsWith("blob:")) {
     await del(storageKey.slice(5));

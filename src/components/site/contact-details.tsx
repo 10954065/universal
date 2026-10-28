@@ -3,7 +3,7 @@ import type { SiteSettingsView } from "@/lib/content";
 import { safeExternalUrl, safeMapEmbedUrl, telHref, whatsappHref } from "@/lib/safe-url";
 import { SocialIcon, SocialLinks } from "@/components/site/social-links";
 
-/** Official contact channels — only those configured in Admin → Settings are shown. */
+/** Official contact channels. Only those configured in Site settings are shown. */
 export function ContactDetails({ settings }: { settings: SiteSettingsView }) {
   const address = [settings.addressLine, settings.city, settings.region, settings.country].filter(Boolean).join(", ");
   const hasAddress = Boolean(settings.addressLine || settings.city);

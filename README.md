@@ -1,4 +1,4 @@
-# Universal Trinity Ministry — website and dashboard
+# Universal Trinity Ministry website and dashboard
 
 The public website for Universal Trinity Ministry (Ghana) and the private dashboard staff use to run it.
 
@@ -30,13 +30,13 @@ cp .env.example .env            # then fill in BETTER_AUTH_SECRET (see below)
 npm run db:up                   # PostgreSQL on localhost:5447 (also creates utm_test)
 npm run db:migrate              # create the tables
 npm run db:seed                 # settings, page sections, photos, draft ministries
-npm run admin:create -- --email you@example.org --name "Your Name"
+npm run admin:create you@example.org "Your Name"
 npm run dev                     # http://localhost:3000
 ```
 
 `admin:create` prints a one-time temporary password. Sign in at `/admin/login` and change it under **My account**.
 
-To see the sermon and event pages with content while developing, set `SEED_SAMPLE_CONTENT="true"` in `.env` and run `npm run db:seed` again. This adds sermons and events titled **"[Sample] …"**, which are hidden from search engines. The seed refuses to create them when `NODE_ENV=production`.
+To see the sermon and event pages with content while developing, set `SEED_SAMPLE_CONTENT="true"` in `.env` and run `npm run db:seed` again. This adds sermons and events titled **"[Sample] ..."**, which are hidden from search engines. The seed refuses to create them when `NODE_ENV=production`.
 
 Generate secrets with:
 
@@ -86,7 +86,7 @@ Super Administrators add staff under **Staff accounts**, which shows a temporary
 | `npm run db:migrate` | Create a migration from schema changes (development) |
 | `npm run db:deploy` | Apply existing migrations (production) |
 | `npm run db:seed` | Insert default settings and content (safe to re-run) |
-| `npm run admin:create -- --email … --name "…" [--role …]` | Create or reset a staff account from the command line |
+| `npm run admin:create <email> "<full name>" [role]` | Create or reset a staff account from the command line. Role is SUPER_ADMIN (default), CONTENT_ADMIN or MINISTRY_STAFF. |
 | `npm test` | Unit and integration tests |
 | `npm run test:e2e` | End-to-end tests in Chromium (desktop and mobile) |
 
@@ -113,11 +113,11 @@ Integration and end-to-end tests refuse to run unless the database name ends in 
    ```bash
    DATABASE_URL="<direct Neon URL>" npm run db:deploy
    DATABASE_URL="<direct Neon URL>" npm run db:seed
-   DATABASE_URL="<direct Neon URL>" npm run admin:create -- --email pastor@example.org --name "Full Name"
+   DATABASE_URL="<direct Neon URL>" npm run admin:create pastor@example.org "Full Name"
    ```
 
    Run `npm run db:deploy` again whenever a release adds a migration, before or immediately after deploying it.
-6. **Deploy.** Then add the domain under **Settings → Domains** in Vercel.
+6. **Deploy.** Then add the domain under **Settings**, then **Domains**, in Vercel.
 7. **Scheduled job.** [vercel.json](vercel.json) runs `/api/cron/retention` daily at 03:00 GMT. It deletes prayer requests older than the retention period set in **Site settings** (default 180 days) and newsletter sign-ups never confirmed within 30 days. Vercel sends `CRON_SECRET` automatically.
 8. **Preview deployments.** Give previews their own Neon branch so they never write to the live database.
 
@@ -130,10 +130,10 @@ Integration and end-to-end tests refuse to run unless the database name ends in 
 ### Online giving (Paystack)
 
 1. The ministry opens its own Paystack account (Ghana) and completes verification.
-2. Set `PAYSTACK_SECRET_KEY`. Use the `sk_test_…` key first.
+2. Set `PAYSTACK_SECRET_KEY`. Use the test key (it starts with `sk_test_`) first.
 3. In the Paystack dashboard, set the **Webhook URL** to `https://<domain>/api/paystack/webhook`.
 4. Add giving categories in **Giving setup**, then switch on **Online giving** in **Site settings**.
-5. Make a test gift. It should appear under **Donations** as *success* only after Paystack confirms it. Then switch to the `sk_live_…` key.
+5. Make a test gift. It should appear under **Donations** as *success* only after Paystack confirms it. Then switch to the live key (it starts with `sk_live_`).
 
 A gift is marked successful only when Paystack's server confirms the reference, amount and currency. Webhooks must carry a valid HMAC-SHA512 signature. Staff cannot mark a gift as paid.
 

@@ -7,6 +7,6 @@ export async function getMediaOptions() {
 }
 
 export const STATUS_OPTIONS = [
-  { value: "DRAFT", label: "Draft — not visible on the website" },
-  { value: "PUBLISHED", label: "Published — visible to everyone" },
+  { value: "DRAFT", label: "Draft (not visible on the website)" },
+  { value: "PUBLISHED", label: "Published (visible to everyone)" },
 ];

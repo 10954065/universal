@@ -16,7 +16,7 @@ export interface MinistryTile {
  * Bento composition: the first ministry is featured large, the rest tile around it.
  * Tiles keep their summary visible (not hover-only) for touch and screen-reader users.
  */
-export function MinistriesShowcase({ ministries, index }: { ministries: MinistryTile[]; index?: string }) {
+export function MinistriesShowcase({ ministries }: { ministries: MinistryTile[] }) {
   const shown = ministries.slice(0, 5);
   return (
     <section aria-labelledby="ministries-heading" className="py-24 sm:py-32">
@@ -24,10 +24,8 @@ export function MinistriesShowcase({ ministries, index }: { ministries: Ministry
         <div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <SectionHeading
             id="ministries-heading"
-            eyebrow="Our ministries"
-            index={index}
-            title="Find your *place* to belong"
-            intro="Every member has a part to play. Discover where you can grow, serve and build friendships."
+            title="Ministries"
+            intro="Groups and departments you can join."
           />
           <ButtonLink href="/ministries" variant="text" className="shrink-0">
             All ministries

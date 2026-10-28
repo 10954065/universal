@@ -38,8 +38,7 @@ export default async function SermonsPage({ searchParams }: Props) {
   return (
     <>
       <PageHeader
-        eyebrow="Sermon library"
-        title="Messages of *hope*"
+        title="Sermons"
         intro="Watch or listen to recent messages, and search by topic, speaker or scripture."
         crumbs={[{ label: "Sermons", href: "/sermons" }]}
       />
@@ -111,7 +110,7 @@ export default async function SermonsPage({ searchParams }: Props) {
 
           {libraryEmpty ? (
             <EmptyState
-              title="Our sermon library is being built"
+              title="No sermons yet"
               action={
                 <ButtonLink href="/plan-your-visit" variant="outline">
                   Join us in person

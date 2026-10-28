@@ -67,7 +67,7 @@ export default async function EventPage({ params }: Props) {
       )}
 
       <PageHeader
-        eyebrow={cancelled ? "Cancelled" : ended ? "Past event" : "Event"}
+        eyebrow={cancelled ? "Cancelled" : ended ? "Past event" : undefined}
         title={event.title}
         intro={event.summary}
         image={event.image}

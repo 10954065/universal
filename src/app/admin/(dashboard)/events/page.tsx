@@ -23,7 +23,7 @@ export default async function AdminEventsPage() {
               {(event.endsAt ?? event.startsAt) < now && <span className="ml-2 text-xs text-muted">(past)</span>}
             </td>
             <td className="px-4 py-3 text-muted">
-              {formatShortDate(event.startsAt)} · {formatTime(event.startsAt)}
+              {formatShortDate(event.startsAt)}, {formatTime(event.startsAt)}
             </td>
             <td className="px-4 py-3 text-muted">
               {event.registrationEnabled ? (
@@ -31,7 +31,7 @@ export default async function AdminEventsPage() {
                   {event._count.registrations}
                 </Link>
               ) : (
-                "—"
+                "None"
               )}
             </td>
             <td className="px-4 py-3">

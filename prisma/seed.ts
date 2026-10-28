@@ -5,7 +5,7 @@
  *   npm run db:seed
  *
  * Sample sermons/events are created ONLY when SEED_SAMPLE_CONTENT=true and
- * NODE_ENV is not "production". They are titled "[Sample] …" and flagged isSample.
+ * NODE_ENV is not "production". They are titled "[Sample] ..." and flagged isSample.
  */
 import "dotenv/config";
 import { readFileSync, statSync } from "node:fs";
@@ -113,7 +113,7 @@ async function seedSamples(media: Map<string, string>) {
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
   const sermons = [
     { slug: "sample-the-lord-is-my-shepherd", title: "[Sample] The Lord Is My Shepherd", scripture: "Psalm 23", days: 7, image: "pulpit-shepherd.jpg" },
-    { slug: "sample-walking-in-love", title: "[Sample] Walking in Love", scripture: "1 Corinthians 13:4–7", days: 14, image: "pulpit-preacher-1.jpg" },
+    { slug: "sample-walking-in-love", title: "[Sample] Walking in Love", scripture: "1 Corinthians 13:4-7", days: 14, image: "pulpit-preacher-1.jpg" },
     { slug: "sample-a-house-of-prayer", title: "[Sample] A House of Prayer", scripture: "Matthew 21:13", days: 21, image: "prayer-man.jpg" },
   ];
   for (const sermon of sermons) {

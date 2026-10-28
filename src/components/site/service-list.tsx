@@ -44,7 +44,7 @@ export function ServiceList({ services, tone = "light" }: ServiceListProps) {
     <ul className={`divide-y border-y ${dark ? "divide-ivory/15 border-ivory/15" : "divide-navy-900/12 border-navy-900/15"}`}>
       {services.map((service) => {
         const online = safeExternalUrl(service.onlineUrl);
-        const time = service.endTime ? `${formatClock(service.startTime)} – ${formatClock(service.endTime)}` : formatClock(service.startTime);
+        const time = service.endTime ? `${formatClock(service.startTime)} to ${formatClock(service.endTime)}` : formatClock(service.startTime);
         return (
           <li key={service.id} className="grid gap-x-8 gap-y-2 py-7 sm:grid-cols-[10rem_1fr_auto] sm:items-baseline">
             <p className={`font-display text-3xl font-semibold ${dark ? "text-gold" : "text-gold-ink"}`}>{WEEKDAY_LABELS[service.day]}</p>

@@ -76,7 +76,7 @@ export default async function PageContentPage({ searchParams }: Props) {
                   rows={16}
                   hint={
                     <>
-                      Markdown formatting: blank line between paragraphs, <code>## Heading</code>, <code>- list item</code>, <code>**bold**</code>, <code>[link text](https://…)</code>.
+                      Markdown formatting: blank line between paragraphs, <code>## Heading</code>, <code>- list item</code>, <code>**bold**</code>, <code>[link text](https://example.org)</code>.
                     </>
                   }
                 />

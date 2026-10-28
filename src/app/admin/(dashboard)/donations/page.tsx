@@ -37,7 +37,7 @@ export default async function DonationsPage({ searchParams }: Props) {
   return (
     <AdminPage
       title="Donations"
-      description="Online gifts processed by Paystack. A gift is only marked successful after server-side verification with Paystack — staff cannot mark gifts as paid."
+      description="Online gifts processed by Paystack. A gift is only marked successful after server-side verification with Paystack. Staff cannot mark gifts as paid."
       actions={
         <a href={`/admin/export/donations?${exportQuery}`} download className="min-h-10 border border-navy-900/25 px-4 py-2 text-sm font-medium hover:border-navy-900">
           Export CSV
@@ -94,7 +94,7 @@ export default async function DonationsPage({ searchParams }: Props) {
             <tr key={donation.id}>
               <td className="px-4 py-3 font-mono text-xs text-navy-900">{donation.reference}</td>
               <td className="px-4 py-3 text-muted">
-                {donation.donorName ?? "—"}
+                {donation.donorName ?? "Not given"}
                 <span className="block text-xs">{donation.donorEmail}</span>
               </td>
               <td className="px-4 py-3 text-muted">{donation.category?.name ?? "General"}</td>
@@ -103,7 +103,7 @@ export default async function DonationsPage({ searchParams }: Props) {
               <td className="px-4 py-3">
                 <StatusBadge status={donation.status} />
               </td>
-              <td className="px-4 py-3 text-xs text-muted">{last ? `${last.kind.toLowerCase()}${last.message ? `: ${last.message}` : ""}` : "—"}</td>
+              <td className="px-4 py-3 text-xs text-muted">{last ? `${last.kind.toLowerCase()}${last.message ? `: ${last.message}` : ""}` : "None"}</td>
             </tr>
           );
         })}

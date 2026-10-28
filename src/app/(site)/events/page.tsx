@@ -30,8 +30,7 @@ export default async function EventsPage({ searchParams }: Props) {
   return (
     <>
       <PageHeader
-        eyebrow="Events"
-        title="Gather, grow and *celebrate*"
+        title="Events"
         intro="Special services, programmes and community gatherings. Everyone is welcome."
         image={photos.get("praise-hand-raised.jpg") ?? null}
         crumbs={[{ label: "Events", href: "/events" }]}
@@ -60,14 +59,14 @@ export default async function EventsPage({ searchParams }: Props) {
             ) : (
               <div className="mt-12">
                 <EmptyState
-                  title="New gatherings are being planned"
+                  title="No upcoming events"
                   action={
                     <ButtonLink href="/plan-your-visit" variant="outline">
                       Join a regular service
                     </ButtonLink>
                   }
                 >
-                  There are no upcoming events published right now. Please check back soon.
+                  Please check back soon.
                 </EmptyState>
               </div>
             )

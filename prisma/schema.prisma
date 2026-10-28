@@ -1,4 +1,4 @@
-// Universal Trinity Ministry — database schema.
+// Universal Trinity Ministry database schema.
 // Public content always carries a `status`; public queries only read PUBLISHED rows.
 
 generator client {
@@ -308,7 +308,7 @@ model MediaAsset {
   height        Int?
   mimeType      String
   sizeBytes     Int
-  // Image focal point, percent (0–100). Keeps faces in frame when cropped.
+  // Image focal point, percent (0 to 100). Keeps faces in frame when cropped.
   focalX        Int      @default(50)
   focalY        Int      @default(50)
   uploadedById  String?

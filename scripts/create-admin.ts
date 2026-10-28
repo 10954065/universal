@@ -1,7 +1,7 @@
 /**
  * Creates (or promotes) a staff account from the command line.
  *
- *   npm run admin:create -- --email pastor@example.org --name "Full Name" [--role SUPER_ADMIN]
+ *   npm run admin:create pastor@example.org "Full Name" [SUPER_ADMIN | CONTENT_ADMIN | MINISTRY_STAFF]
  *
  * The password is read from the ADMIN_PASSWORD environment variable if set;
  * otherwise a strong random password is generated and printed ONCE.
@@ -18,16 +18,15 @@ const ROLES = ["SUPER_ADMIN", "CONTENT_ADMIN", "MINISTRY_STAFF"] as const;
 type Role = (typeof ROLES)[number];
 
 async function main() {
-  const { values } = parseArgs({
-    options: { email: { type: "string" }, name: { type: "string" }, role: { type: "string", default: "SUPER_ADMIN" } },
-  });
-  const email = values.email?.trim().toLowerCase();
-  const name = values.name?.trim();
-  const role = values.role as Role;
+  const { positionals } = parseArgs({ allowPositionals: true });
+  const email = positionals[0]?.trim().toLowerCase();
+  const name = positionals[1]?.trim();
+  const role = (positionals[2] ?? "SUPER_ADMIN").toUpperCase() as Role;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Provide a valid --email");
-  if (!name) throw new Error('Provide --name "Full Name"');
-  if (!ROLES.includes(role)) throw new Error(`--role must be one of ${ROLES.join(", ")}`);
+  const usage = 'Usage: npm run admin:create <email> "<full name>" [role]';
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error(`Provide a valid email address. ${usage}`);
+  if (!name) throw new Error(`Provide the person's full name in quotes. ${usage}`);
+  if (!ROLES.includes(role)) throw new Error(`Role must be one of ${ROLES.join(", ")}`);
 
   const supplied = process.env.ADMIN_PASSWORD;
   if (supplied && supplied.length < 12) throw new Error("ADMIN_PASSWORD must be at least 12 characters");
@@ -53,7 +52,7 @@ async function main() {
 
     console.info(`\n${existing ? "Updated" : "Created"} ${role} account for ${email}.`);
     if (!supplied) {
-      console.info(`Temporary password (shown once — store it securely and change it after signing in):\n\n  ${password}\n`);
+      console.info(`Temporary password (shown once, so store it securely and change it after signing in):\n\n  ${password}\n`);
     }
   } finally {
     await db.$disconnect();

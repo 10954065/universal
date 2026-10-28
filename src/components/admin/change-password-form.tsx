@@ -52,7 +52,7 @@ export function ChangePasswordForm() {
         </div>
       ))}
       <button disabled={pending} className="min-h-11 bg-navy-900 px-6 text-sm font-semibold text-ivory hover:bg-navy-700 disabled:opacity-60">
-        {pending ? "Saving…" : "Change password"}
+        {pending ? "Saving..." : "Change password"}
       </button>
     </form>
   );

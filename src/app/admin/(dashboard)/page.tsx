@@ -62,7 +62,7 @@ export default async function AdminOverviewPage({ searchParams }: Props) {
         {denied && <Notice tone="warning">Your role does not include access to that page.</Notice>}
         {sampleCount > 0 && (
           <Notice tone="warning">
-            {sampleCount} sample sermon(s)/event(s) created for development are in the database. Delete them before launch — they are titled “[Sample]”.
+            {sampleCount} sample sermon(s)/event(s) created for development are in the database. Delete them before launch. They are titled &quot;[Sample]&quot;.
           </Notice>
         )}
 

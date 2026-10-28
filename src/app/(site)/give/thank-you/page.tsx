@@ -13,7 +13,7 @@ interface Props {
 }
 
 /**
- * Paystack redirects here after checkout. The redirect itself proves nothing —
+ * Paystack redirects here after checkout. The redirect itself proves nothing:
  * the transaction is verified server-to-server before anything is confirmed.
  */
 export default async function GiveThankYouPage({ searchParams }: Props) {
@@ -40,7 +40,7 @@ export default async function GiveThankYouPage({ searchParams }: Props) {
       ? { icon: CheckCircle2, tone: "text-success", title: "Thank you for your gift", text: "Your payment has been verified. A receipt from Paystack has been sent to your email." }
       : status === "FAILED" || status === "ABANDONED"
         ? { icon: XCircle, tone: "text-danger", title: "The payment was not completed", text: "No gift was recorded. If money left your account, please contact us with your reference." }
-        : { icon: Clock, tone: "text-gold-ink", title: "We are confirming your payment", text: verificationFailed ? "We could not reach the payment provider just now. Your payment will be confirmed automatically — there is no need to pay again." : "This can take a moment. Your payment will be confirmed automatically — please do not pay again." };
+        : { icon: Clock, tone: "text-gold-ink", title: "We are confirming your payment", text: verificationFailed ? "We could not reach the payment provider just now. Your payment will be confirmed automatically, so there is no need to pay again." : "This can take a moment. Your payment will be confirmed automatically. Please do not pay again." };
 
   return (
     <section className="py-24 sm:py-32">

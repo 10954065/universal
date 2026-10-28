@@ -24,9 +24,8 @@ export default async function ContactPage({ searchParams }: Props) {
   return (
     <>
       <PageHeader
-        eyebrow="Contact us"
-        title="We would love to *hear from you*"
-        intro="Whether you have a question, need support or would like to get involved, our team is here for you."
+        title="Contact us"
+        intro="Send us a message and someone from the church will get back to you."
         image={photos.get("joyful-member.jpg") ?? null}
         crumbs={[{ label: "Contact", href: "/contact" }]}
       />

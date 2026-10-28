@@ -21,9 +21,8 @@ export default async function LeadershipPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Our leadership"
-        title="Called to *serve*"
-        intro="The men and women who shepherd, teach and serve our church family."
+        title="Our leaders"
+        intro="The pastors and leaders of our church."
         crumbs={[
           { label: "About Us", href: "/about" },
           { label: "Our Leadership", href: "/leadership" },
@@ -33,14 +32,14 @@ export default async function LeadershipPage() {
         <Container>
           {leaders.length === 0 ? (
             <EmptyState
-              title="Leadership profiles are on their way"
+              title="Leader profiles will be added soon"
               action={
                 <ButtonLink href="/contact" variant="outline">
                   Contact the ministry
                 </ButtonLink>
               }
             >
-              We are preparing introductions to our pastors and ministry leaders. Please check back soon.
+              Please check back soon.
             </EmptyState>
           ) : (
             <ul className="space-y-24">

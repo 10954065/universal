@@ -21,13 +21,13 @@ interface OutreachProps {
 }
 
 /** Text left, layered photographs right; published outreach programmes listed beneath. */
-export function Outreach({ heading, text, image, secondaryImage, programmes, index }: OutreachProps & { index?: string }) {
+export function Outreach({ heading, text, image, secondaryImage, programmes }: OutreachProps) {
   return (
     <section aria-labelledby="outreach-heading" className="overflow-hidden bg-sand py-24 sm:py-32">
       <Container>
         <div className="grid items-center gap-16 lg:grid-cols-12">
           <div className="reveal lg:col-span-5">
-            <SectionHeading id="outreach-heading" eyebrow="Community & outreach" index={index} title={heading} size="md" />
+            <SectionHeading id="outreach-heading" title={heading} size="md" />
             <p className="mt-7 text-lg leading-relaxed text-muted">{text}</p>
             {programmes.length > 0 && (
               <ul className="mt-10 divide-y divide-navy-900/12 border-y border-navy-900/15">

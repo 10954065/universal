@@ -5,7 +5,7 @@ import { getSessionCookie } from "better-auth/cookies";
  * Runs before every page request:
  * 1. Generates a per-request nonce and a strict Content Security Policy.
  * 2. Redirects visitors without a session cookie away from /admin (an optimistic
- *    check only — every admin page and action re-verifies the session and role).
+ *    check only; every admin page and action re-verifies the session and role).
  */
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

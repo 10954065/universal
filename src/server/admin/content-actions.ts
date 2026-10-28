@@ -80,7 +80,7 @@ const settingsSchema = z.object({
   city: nullableText(80),
   region: nullableText(80),
   country: requiredText(80),
-  mapEmbedUrl: nullableUrl.refine((value) => value === null || value.startsWith("https://www.google.com/maps/embed"), "Paste the src link from Google Maps → Share → Embed a map."),
+  mapEmbedUrl: nullableUrl.refine((value) => value === null || value.startsWith("https://www.google.com/maps/embed"), "Paste the src link from Google Maps (Share, then Embed a map)."),
   directionsUrl: nullableUrl,
   facebookUrl: nullableUrl,
   instagramUrl: nullableUrl,
@@ -211,7 +211,7 @@ export async function savePageSection(_state: FormState, formData: FormData): Pr
     const { id, ...data } = parsed.data;
     if (data.status === "PUBLISHED" && !data.body.trim()) return { status: "error", fieldErrors: { body: ["Add content before publishing."] } };
     const record = await db.pageSection.update({ where: { id }, data });
-    await audit(user.id, "page-section.updated", "PageSection", record.id, `${record.key} → ${data.status}`);
+    await audit(user.id, "page-section.updated", "PageSection", record.id, `${record.key} set to ${data.status}`);
     return saved(data.status === "PUBLISHED" ? "Saved and published." : "Saved as draft (not visible on the website).");
   } catch (error) {
     return failure(error, "savePageSection");

@@ -7,7 +7,7 @@ interface EmptyStateProps {
   tone?: "light" | "dark";
 }
 
-/** A considered "nothing here yet" panel — never fake content. */
+/** Shown when a list is empty, instead of placeholder content. */
 export function EmptyState({ title, children, action, tone = "light" }: EmptyStateProps) {
   const dark = tone === "dark";
   return (

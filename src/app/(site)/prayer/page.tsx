@@ -27,9 +27,8 @@ export default async function PrayerPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Prayer requests"
-        title="You do not have to *carry it alone*"
-        intro="Whatever you are facing, we would be honoured to pray with you. Share as much or as little as you wish."
+        title="Prayer requests"
+        intro="Tell us what you would like us to pray about. You can include your name or stay anonymous."
         image={photos.get("prayer-bowed.jpg") ?? null}
         crumbs={[{ label: "Prayer Requests", href: "/prayer" }]}
       />
@@ -40,7 +39,7 @@ export default async function PrayerPage() {
               <p className="font-display text-display-sm italic leading-snug text-navy-900">
                 &ldquo;Casting all your care upon him; for he careth for you.&rdquo;
               </p>
-              <p className="eyebrow mt-4 text-gold-ink">1 Peter 5:7 · KJV</p>
+              <p className="eyebrow mt-4 text-gold-ink">1 Peter 5:7 (KJV)</p>
               <ul className="mt-12 space-y-8">
                 {promises.map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-4">

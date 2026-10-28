@@ -63,9 +63,9 @@ export default async function ServicesPage({ searchParams }: Props) {
             <td className="px-4 py-3 font-medium text-navy-900">{service.name}</td>
             <td className="px-4 py-3 text-muted">
               {WEEKDAY_LABELS[service.day]} {formatClock(service.startTime)}
-              {service.endTime ? ` – ${formatClock(service.endTime)}` : ""}
+              {service.endTime ? ` to ${formatClock(service.endTime)}` : ""}
             </td>
-            <td className="px-4 py-3 text-muted">{service.location ?? "—"}</td>
+            <td className="px-4 py-3 text-muted">{service.location ?? "Not set"}</td>
             <td className="px-4 py-3">
               <StatusBadge status={service.active ? "ACTIVE" : "ARCHIVED"} />
             </td>

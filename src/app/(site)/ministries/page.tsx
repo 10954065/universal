@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/site/page-header";
 
 export const metadata: Metadata = {
   title: "Our Ministries",
-  description: "Discover the ministries of Universal Trinity Ministry and find a place to grow, serve and belong.",
+  description: "The ministries and groups of Universal Trinity Ministry.",
   alternates: { canonical: "/ministries" },
 };
 
@@ -19,9 +19,8 @@ export default async function MinistriesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Our ministries"
-        title="Grow, serve and *belong*"
-        intro="There is a place for everyone to grow in faith, use their gifts and build lasting friendships."
+        title="Ministries"
+        intro="Find a group where you can grow in faith and get involved."
         image={photos.get("children-families.jpg") ?? null}
         crumbs={[{ label: "Our Ministries", href: "/ministries" }]}
       />
@@ -29,14 +28,14 @@ export default async function MinistriesPage() {
         <Container>
           {ministries.length === 0 ? (
             <EmptyState
-              title="Ministry details are being prepared"
+              title="Ministry details will be added soon"
               action={
                 <ButtonLink href="/contact" variant="outline">
                   Ask how to get involved
                 </ButtonLink>
               }
             >
-              We are putting together information about each of our ministries. Get in touch and we will help you find where you fit.
+              Get in touch and we will help you find a group to join.
             </EmptyState>
           ) : (
             <ol className="grid gap-x-10 gap-y-16 md:grid-cols-2">

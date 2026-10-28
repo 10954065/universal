@@ -3,7 +3,7 @@ import { runRetention } from "@/lib/retention";
 
 /**
  * Daily data-retention job (scheduled in vercel.json). Requires
- * `Authorization: Bearer $CRON_SECRET` — Vercel Cron sends this automatically.
+ * `Authorization: Bearer $CRON_SECRET`. Vercel Cron sends this automatically.
  */
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;

@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 
 /*
  * Authentication: Better Auth with email + password, sessions stored in Postgres
- * (httpOnly, SameSite=Lax, Secure over HTTPS). Public sign-up is disabled —
+ * (httpOnly, SameSite=Lax, Secure over HTTPS). Public sign-up is disabled:
  * accounts are created by `npm run admin:create` or by a Super Administrator.
  * Passwords are hashed with scrypt by Better Auth.
  */

@@ -16,7 +16,7 @@ export function NewsletterForm({ token, consentText }: { token: string; consentT
       <FormMessage state={state} />
       <TextField formId="newsletter" name="email" type="email" label="Email address" autoComplete="email" required maxLength={254} state={state} />
       <CheckboxField formId="newsletter" name="consent" required state={state} label={consentText} />
-      <SubmitButton pendingLabel="Subscribing…">Subscribe</SubmitButton>
+      <SubmitButton pendingLabel="Subscribing...">Subscribe</SubmitButton>
     </form>
   );
 }

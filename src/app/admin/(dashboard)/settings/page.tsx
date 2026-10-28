@@ -42,14 +42,14 @@ export default async function SettingsPage() {
               <Field name="country" label="Country" required defaultValue={s?.country ?? "Ghana"} />
               <Field name="directionsUrl" label="Directions link" defaultValue={s?.directionsUrl} hint="A Google Maps share link." />
             </FormGrid>
-            <Field name="mapEmbedUrl" label="Map embed link" defaultValue={s?.mapEmbedUrl} hint="Google Maps → Share → Embed a map → copy only the https://www.google.com/maps/embed?… address." />
+            <Field name="mapEmbedUrl" label="Map embed link" defaultValue={s?.mapEmbedUrl} hint="In Google Maps choose Share, then Embed a map, and copy only the https://www.google.com/maps/embed address." />
           </div>
         </Panel>
         <Panel title="Official social media">
           <FormGrid>
-            <Field name="facebookUrl" label="Facebook" defaultValue={s?.facebookUrl} placeholder="https://facebook.com/…" />
-            <Field name="instagramUrl" label="Instagram" defaultValue={s?.instagramUrl} placeholder="https://instagram.com/…" />
-            <Field name="youtubeUrl" label="YouTube" defaultValue={s?.youtubeUrl} placeholder="https://youtube.com/@…" />
+            <Field name="facebookUrl" label="Facebook" defaultValue={s?.facebookUrl} placeholder="https://facebook.com/yourpage" />
+            <Field name="instagramUrl" label="Instagram" defaultValue={s?.instagramUrl} placeholder="https://instagram.com/yourpage" />
+            <Field name="youtubeUrl" label="YouTube" defaultValue={s?.youtubeUrl} placeholder="https://youtube.com/@yourchannel" />
             <Field name="tiktokUrl" label="TikTok" defaultValue={s?.tiktokUrl} />
             <Field name="xUrl" label="X (Twitter)" defaultValue={s?.xUrl} />
           </FormGrid>

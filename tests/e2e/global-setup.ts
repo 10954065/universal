@@ -27,7 +27,7 @@ export default async function globalSetup() {
   }
 
   const password = randomBytes(18).toString("base64url");
-  run(`npx tsx scripts/create-admin.ts --email ${E2E_ADMIN_EMAIL} --name "E2E Administrator" --role SUPER_ADMIN`, { ADMIN_PASSWORD: password });
+  run(`npx tsx scripts/create-admin.ts ${E2E_ADMIN_EMAIL} "E2E Administrator" SUPER_ADMIN`, { ADMIN_PASSWORD: password });
   // Test workers start after global setup and inherit this variable.
   process.env.E2E_ADMIN_PASSWORD = password;
 }

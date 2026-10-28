@@ -37,7 +37,6 @@ export default async function MinistryPage({ params }: Props) {
   return (
     <>
       <PageHeader
-        eyebrow="Ministry"
         title={ministry.name}
         intro={ministry.summary}
         image={ministry.image}

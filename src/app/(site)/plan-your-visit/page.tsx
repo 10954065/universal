@@ -26,9 +26,8 @@ export default async function PlanYourVisitPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Plan your visit"
-        title="We saved you a *seat*"
-        intro="Visiting a new church can feel like a big step. Here is everything you need to know before you come."
+        title="Plan your visit"
+        intro="Service times, directions and what to expect on your first visit."
         image={photos.get("minister-banner.jpg") ?? null}
         crumbs={[{ label: "Plan Your Visit", href: "/plan-your-visit" }]}
       >
@@ -41,7 +40,7 @@ export default async function PlanYourVisitPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <SectionHeading id="visit-times" eyebrow="When" index="01" title="Service *times*" size="md" />
+              <SectionHeading id="visit-times" title="Service times" size="md" />
             </div>
             <div className="lg:col-span-8">
               <ServiceList services={services} />
@@ -53,7 +52,7 @@ export default async function PlanYourVisitPage() {
       {sections.length > 0 && (
         <section aria-labelledby="visit-expect" className="bg-sand py-20 sm:py-24">
           <Container>
-            <SectionHeading id="visit-expect" eyebrow="Before you come" index="02" title="What to *expect*" size="md" />
+            <SectionHeading id="visit-expect" title="What to expect" size="md" />
             <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2">
               {sections.map((section) => (
                 <div key={section.key} className="reveal border-t border-navy-900/15 pt-8">
@@ -70,7 +69,7 @@ export default async function PlanYourVisitPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <SectionHeading id="visit-where" eyebrow="Where" index={sections.length > 0 ? "03" : "02"} title="Finding *us*" size="md" />
+              <SectionHeading id="visit-where" title="How to find us" size="md" />
               <div className="mt-10">
                 <ContactDetails settings={settings} />
               </div>
@@ -88,8 +87,7 @@ export default async function PlanYourVisitPage() {
             <div className="lg:col-span-4">
               <SectionHeading
                 id="visit-form-heading"
-                eyebrow="Let us know"
-                title="We'll look out for *you*"
+                title="Let us know you're coming"
                 size="md"
                 intro="Tell us when you plan to come and we will make sure someone is ready to welcome you."
               />

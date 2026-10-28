@@ -12,7 +12,7 @@ describe("Ghana time (GMT, no daylight saving)", () => {
 
   it("describes an event window, collapsing the date when it ends the same day", () => {
     const start = new Date("2026-11-01T17:00:00Z");
-    expect(formatEventWindow(start, new Date("2026-11-01T19:00:00Z"))).toMatch(/5:00 pm – 7:00 pm$/);
+    expect(formatEventWindow(start, new Date("2026-11-01T19:00:00Z"))).toMatch(/5:00 pm to 7:00 pm$/);
     expect(formatEventWindow(start, null)).toMatch(/5:00 pm$/);
     expect(formatEventWindow(start, new Date("2026-11-03T12:00:00Z"))).toContain("3 November 2026");
   });

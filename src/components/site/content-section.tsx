@@ -18,7 +18,6 @@ export function ContentSection({ title, body, label, tone = "ivory" }: ContentSe
             <div className="lg:sticky lg:top-28">
               {label && <p className="eyebrow text-gold-ink">{label}</p>}
               <h2 className="mt-4 font-display text-display-md font-semibold text-navy-900">{title}</h2>
-              <span aria-hidden="true" className="rule-gold mt-6" />
             </div>
           </div>
           <div className="reveal lg:col-span-7 lg:col-start-6">

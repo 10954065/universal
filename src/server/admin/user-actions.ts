@@ -37,7 +37,7 @@ export async function createStaff(_state: FormState, formData: FormData): Promis
     await audit(admin.id, "user.created", "User", id, `${email} as ${role}`);
     return {
       status: "success",
-      message: `Account created for ${email}. Temporary password (shown once — share it securely and ask them to change it): ${password}`,
+      message: `Account created for ${email}. Temporary password (shown once, so share it securely and ask them to change it): ${password}`,
     };
   } catch (error) {
     return failure(error, "createStaff");

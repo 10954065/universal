@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 /**
  * Records who changed what. Summaries must never contain private content
- * (prayer text, message bodies, passwords) — only identifiers and titles.
+ * (prayer text, message bodies, passwords), only identifiers and titles.
  */
 export async function audit(userId: string, action: string, entity: string, entityId?: string | null, summary?: string) {
   try {

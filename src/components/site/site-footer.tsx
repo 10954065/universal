@@ -18,7 +18,7 @@ export function SiteFooter({ settings }: { settings: SiteSettingsView }) {
           <div className="lg:col-span-5">
             <Wordmark name={settings.ministryName} logo={settings.logo} tone="dark" />
             <p className="mt-6 max-w-sm leading-relaxed">
-              {settings.footerText || "A community gathered in worship, growing in the Word, and sharing the love of Christ."}
+              {settings.footerText || "A church in Ghana. Everyone is welcome."}
             </p>
             <div className="mt-8">
               <SocialLinks settings={settings} />

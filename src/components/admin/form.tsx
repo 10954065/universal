@@ -63,7 +63,7 @@ function Submit({ label }: { label: string }) {
       className="inline-flex min-h-11 items-center gap-2 bg-navy-900 px-6 text-sm font-semibold text-ivory transition-colors hover:bg-navy-700 disabled:opacity-60"
     >
       {pending && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-ivory/40 border-t-ivory" />}
-      {pending ? "Saving…" : label}
+      {pending ? "Saving..." : label}
     </button>
   );
 }
@@ -354,7 +354,7 @@ function ConfirmSubmit({ tone, label }: { tone: "danger" | "neutral"; label: str
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending} className={`min-h-10 px-4 text-sm font-semibold text-white ${tone === "danger" ? "bg-danger" : "bg-navy-900"} disabled:opacity-60`}>
-      {pending ? "Working…" : label}
+      {pending ? "Working..." : label}
     </button>
   );
 }

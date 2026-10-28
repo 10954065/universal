@@ -22,7 +22,7 @@ export function PrayerForm({ token }: { token: string }) {
         state={state}
         checked={anonymous}
         onChange={(event) => setAnonymous(event.currentTarget.checked)}
-        label={<span className="font-semibold">Submit anonymously — do not record my name or contact details</span>}
+        label={<span className="font-semibold">Submit anonymously (do not record my name or contact details)</span>}
       />
       {!anonymous && (
         <div className="grid gap-6 sm:grid-cols-2">
@@ -55,7 +55,7 @@ export function PrayerForm({ token }: { token: string }) {
           </>
         }
       />
-      <SubmitButton pendingLabel="Sending securely…">Send prayer request</SubmitButton>
+      <SubmitButton pendingLabel="Sending securely...">Send prayer request</SubmitButton>
     </form>
   );
 }

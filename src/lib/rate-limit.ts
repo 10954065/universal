@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 /*
  * Postgres-backed fixed-window rate limiter. Works across serverless instances
  * (unlike in-memory counters). Clients are identified by a salted hash of their
- * IP address — raw IP addresses are never stored.
+ * IP address. Raw IP addresses are never stored.
  */
 
 export interface RateLimitRule {

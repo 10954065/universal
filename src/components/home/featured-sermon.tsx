@@ -6,11 +6,11 @@ import type { SermonSummary } from "@/components/sermons/sermon-card";
 import { formatLongDate } from "@/lib/format";
 
 /** Editorial sermon feature on navy: player left, message details right. */
-export function FeaturedSermon({ sermon, index }: { sermon: SermonSummary; index?: string }) {
+export function FeaturedSermon({ sermon }: { sermon: SermonSummary }) {
   return (
     <section aria-labelledby="sermon-heading" className="on-dark grain relative bg-navy-900 py-24 sm:py-32">
       <Container>
-        <SectionHeading eyebrow="Latest message" index={index} title="Hear the *Word*" tone="dark" size="md" className="reveal" />
+        <SectionHeading title="Latest sermon" tone="dark" size="md" className="reveal" />
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-center">
           <div className="reveal lg:col-span-7">
             <SermonPlayer

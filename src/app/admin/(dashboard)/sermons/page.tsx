@@ -37,7 +37,7 @@ export default async function AdminSermonsPage({ searchParams }: Props) {
               {sermon.title}
               {sermon.isSample && <span className="ml-2 text-xs font-semibold text-gold-ink">SAMPLE</span>}
             </td>
-            <td className="px-4 py-3 text-muted">{sermon.speaker?.name ?? "—"}</td>
+            <td className="px-4 py-3 text-muted">{sermon.speaker?.name ?? "Not set"}</td>
             <td className="px-4 py-3 text-muted">{formatShortDate(sermon.preachedAt)}</td>
             <td className="px-4 py-3">
               <StatusBadge status={sermon.status} />

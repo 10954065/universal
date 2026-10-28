@@ -25,7 +25,7 @@ export function RegistrationForm({ eventId, token, maxAttendees }: { eventId: st
       <TextField formId="register" name="phone" type="tel" label="Phone" autoComplete="tel" maxLength={30} state={state} />
       <TextField formId="register" name="attendees" type="number" label="Number attending" min={1} max={maxAttendees} defaultValue="1" required state={state} />
       <TextAreaField formId="register" name="notes" label="Notes" hint="Dietary or access needs, for example." maxLength={1000} rows={3} state={state} />
-      <SubmitButton pendingLabel="Registering…">Register</SubmitButton>
+      <SubmitButton pendingLabel="Registering...">Register</SubmitButton>
     </form>
   );
 }

@@ -85,7 +85,7 @@ export default async function EnquiriesPage({ searchParams }: Props) {
                 <div>
                   <dt className="text-muted">Planned visit</dt>
                   <dd className="text-navy-900">
-                    {selected.visitDate ? formatLongDate(selected.visitDate) : "Date not given"} · party of {selected.partySize ?? 1}
+                    {selected.visitDate ? formatLongDate(selected.visitDate) : "Date not given"}, party of {selected.partySize ?? 1}
                   </dd>
                 </div>
               )}

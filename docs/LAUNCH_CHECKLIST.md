@@ -1,15 +1,15 @@
-# Launch Checklist — Information Required from the Ministry
+# Launch Checklist: Information Required from the Ministry
 
 Nothing below has been invented. Each item is either empty in the CMS or is marked as proposed copy awaiting approval. Most items can be entered directly in the admin dashboard (`/admin`) without a developer.
 
 ## Identity & brand
-- [ ] Official logo (SVG or high-resolution PNG). A typographic wordmark is used until supplied. *(Admin → Settings)*
-- [ ] Confirm official name and branch naming: photos show "Universal Trinity Ministry — Shiloh Emmanuel Temple". Are there other branches? (The photos show two different sanctuaries.)
+- [ ] Official logo (SVG or high-resolution PNG). A typographic wordmark is used until supplied. *(Dashboard: Site settings)*
+- [ ] Confirm official name and branch naming: photos show "Universal Trinity Ministry, Shiloh Emmanuel Temple". Are there other branches? (The photos show two different sanctuaries.)
 - [ ] Confirm brand colours, or approve the proposed navy / ivory / gold palette.
 - [ ] Permission to publish each photograph and the people in them (especially photos of children).
 
 ## About
-- [ ] Mission statement. A banner in the photos shows one but it is not legible enough to transcribe. *(Admin → Pages → About)*
+- [ ] Mission statement. A banner in the photos shows one but it is not legible enough to transcribe. *(Dashboard: Page content, About)*
 - [ ] Vision statement (same as above).
 - [ ] Core values.
 - [ ] Statement of faith / beliefs.
@@ -22,7 +22,7 @@ Nothing below has been invented. Each item is either empty in the CMS or is mark
 - [ ] Names, official titles, biographies and approved photos. Four studio clergy portraits exist in the media library but are **not** attributed to anyone.
 
 ## Services & visiting
-- [ ] Service names, days, start/end times, venue(s). *(Admin → Services)*
+- [ ] Service names, days, start/end times, venue(s). *(Dashboard: Service times)*
 - [ ] Online streaming link, if any.
 - [ ] Physical address, directions, and confirmed map location.
 - [ ] Parking, accessibility, children's facilities, dress guidance (only if the ministry wants these published).

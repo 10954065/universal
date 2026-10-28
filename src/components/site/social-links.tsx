@@ -34,7 +34,7 @@ export function SocialIcon({ network, className = "h-5 w-5" }: { network: Networ
   );
 }
 
-/** Lists only the official channels configured in Admin → Settings. Renders nothing when none are set. */
+/** Lists only the official channels configured in Site settings. Renders nothing when none are set. */
 export function getSocialChannels(settings: SiteSettingsView): { network: Network; href: string }[] {
   const candidates: [Network, string | undefined][] = [
     ["facebook", safeExternalUrl(settings.facebookUrl)],

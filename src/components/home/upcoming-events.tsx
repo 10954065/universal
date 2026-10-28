@@ -4,12 +4,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { EventRow, type EventSummary } from "@/components/events/event-row";
 
-export function UpcomingEvents({ events, index }: { events: EventSummary[]; index?: string }) {
+export function UpcomingEvents({ events }: { events: EventSummary[] }) {
   return (
     <section aria-labelledby="events-heading" className="py-24 sm:py-32">
       <Container>
         <div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading id="events-heading" eyebrow="What's coming up" index={index} title="Upcoming *events*" />
+          <SectionHeading id="events-heading" title="Upcoming events" />
           {events.length > 0 && (
             <ButtonLink href="/events" variant="text" className="shrink-0">
               View all events
@@ -25,7 +25,7 @@ export function UpcomingEvents({ events, index }: { events: EventSummary[]; inde
             </div>
           ) : (
             <EmptyState
-              title="New gatherings are being planned"
+              title="No upcoming events"
               action={
                 <ButtonLink href="/contact" variant="outline">
                   Ask about upcoming events

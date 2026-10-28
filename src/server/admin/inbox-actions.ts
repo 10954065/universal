@@ -24,7 +24,7 @@ export async function updateEnquiry(_state: FormState, formData: FormData): Prom
     if (!parsed.ok) return parsed.state;
     const { id, ...data } = parsed.data;
     await db.contactEnquiry.update({ where: { id }, data });
-    await audit(user.id, "enquiry.updated", "ContactEnquiry", id, `status → ${data.status}`);
+    await audit(user.id, "enquiry.updated", "ContactEnquiry", id, `status set to ${data.status}`);
     return saved();
   } catch (error) {
     return failure(error, "updateEnquiry");
@@ -46,7 +46,7 @@ export async function setPrayerStatus(formData: FormData) {
   const id = String(formData.get("id"));
   const status = z.enum(["NEW", "READ", "PRAYED_FOR", "ARCHIVED"]).parse(formData.get("status"));
   await db.prayerRequest.update({ where: { id }, data: { status } });
-  // The audit trail records the status change only — never the request text.
+  // The audit trail records the status change only, never the request text.
   await audit(user.id, "prayer.status", "PrayerRequest", id, status);
   redirect(`/admin/prayer?id=${id}`);
 }

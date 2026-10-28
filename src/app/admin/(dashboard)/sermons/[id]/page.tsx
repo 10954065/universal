@@ -72,7 +72,7 @@ export default async function EditSermonPage({ params, searchParams }: Props) {
           <TextArea name="notes" label="Sermon notes" defaultValue={sermon?.notes} rows={8} hint="Markdown supported." />
           <TextArea name="transcript" label="Transcript" defaultValue={sermon?.transcript} rows={6} hint="Optional, but improves accessibility." />
           <FormGrid>
-            <ImagePicker name="thumbnailId" label="Thumbnail" hint="Optional — YouTube's thumbnail is used otherwise." media={media} defaultValue={sermon?.thumbnailId} />
+            <ImagePicker name="thumbnailId" label="Thumbnail" hint="Optional. YouTube's thumbnail is used otherwise." media={media} defaultValue={sermon?.thumbnailId} />
             <div className="space-y-5">
               <Field name="slug" label="Web address" defaultValue={sermon?.slug} hint="Leave blank to create from the title." />
               <Select name="status" label="Visibility" defaultValue={sermon?.status ?? "DRAFT"} options={STATUS_OPTIONS} />
@@ -82,7 +82,7 @@ export default async function EditSermonPage({ params, searchParams }: Props) {
       </Panel>
       {sermon && (
         <div className="mt-6">
-          <ConfirmButton action={deleteSermon} hidden={{ id: sermon.id }} label="Delete sermon" confirmText={`“${sermon.title}” will be permanently deleted.`} />
+          <ConfirmButton action={deleteSermon} hidden={{ id: sermon.id }} label="Delete sermon" confirmText={`"${sermon.title}" will be permanently deleted.`} />
         </div>
       )}
     </AdminPage>

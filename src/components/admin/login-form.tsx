@@ -51,7 +51,7 @@ export function LoginForm({ destination }: { destination: string }) {
         disabled={pending}
         className="inline-flex min-h-12 w-full items-center justify-center bg-navy-900 text-sm font-semibold uppercase tracking-[0.14em] text-ivory hover:bg-navy-700 disabled:opacity-60"
       >
-        {pending ? "Signing in…" : "Sign in"}
+        {pending ? "Signing in..." : "Sign in"}
       </button>
     </form>
   );

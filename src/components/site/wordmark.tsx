@@ -10,7 +10,7 @@ interface WordmarkProps {
 
 /**
  * Temporary typographic wordmark. When the ministry uploads its official logo
- * (Admin → Settings), the logo image is shown instead.
+ * (Site settings), the logo image is shown instead.
  */
 export function Wordmark({ name, logo, tone = "light" }: WordmarkProps) {
   const dark = tone === "dark";
@@ -18,7 +18,7 @@ export function Wordmark({ name, logo, tone = "light" }: WordmarkProps) {
   const last = words.length > 1 ? words.pop() : undefined;
 
   return (
-    <Link href="/" className="group inline-flex items-center" aria-label={logo ? `${name} — home` : undefined}>
+    <Link href="/" className="group inline-flex items-center" aria-label={logo ? `${name}, home page` : undefined}>
       {logo ? (
         <span className="relative block h-11 w-40">
           <Image src={logo.url} alt="" fill sizes="160px" className="object-contain object-left" preload />
@@ -29,8 +29,7 @@ export function Wordmark({ name, logo, tone = "light" }: WordmarkProps) {
             {words.join(" ")}
           </span>
           {last && (
-            <span className={`mt-1 flex items-center gap-2 text-[0.6rem] font-semibold uppercase tracking-[0.42em] ${dark ? "text-gold" : "text-gold-ink"}`}>
-              <span aria-hidden="true" className="h-px w-5 bg-current" />
+            <span className={`mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.42em] ${dark ? "text-gold" : "text-gold-ink"}`}>
               {last}
             </span>
           )}

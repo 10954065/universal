@@ -17,15 +17,12 @@ export default async function NotFound() {
         {image && <Photo image={image} alt="" sizes="100vw" className="-z-10 opacity-25" />}
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-950 via-navy-950/90 to-navy-950/50" />
         <Container>
-          <p className="eyebrow flex items-center gap-3 text-gold">
-            <span aria-hidden="true" className="rule-gold" />
-            Error 404
-          </p>
+          <p className="eyebrow text-gold">Error 404</p>
           <h1 className="mt-6 max-w-2xl font-display text-display-xl font-semibold text-ivory">
-            This page has <em className="font-medium text-gold">wandered off.</em>
+            Page not found
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-mist">
-            The page you were looking for may have moved or no longer exists. Let us help you find your way home.
+            The page you were looking for may have moved or no longer exists.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/" arrow>

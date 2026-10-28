@@ -22,7 +22,7 @@ export function Pagination({ page, pageCount, hrefForPage }: PaginationProps) {
       )}
       {pages.map((candidate, index) => (
         <span key={candidate} className="flex items-center gap-2">
-          {index > 0 && candidate - (pages[index - 1] ?? candidate) > 1 && <span aria-hidden="true" className="px-1 text-muted">…</span>}
+          {index > 0 && candidate - (pages[index - 1] ?? candidate) > 1 && <span aria-hidden="true" className="px-1 text-muted">...</span>}
           <Link
             href={hrefForPage(candidate)}
             aria-current={candidate === page ? "page" : undefined}

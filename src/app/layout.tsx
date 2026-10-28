@@ -31,11 +31,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   const description =
     settings.seoDescription ||
-    "Universal Trinity Ministry — a Christ-centred community of worship, prayer, fellowship and service. Plan your visit, watch sermons and join us.";
+    "Universal Trinity Ministry is a church in Ghana. Find service times, watch sermons and plan your visit.";
   const ogImage = settings.ogImage?.url ?? "/images/ministry/congregation-shiloh.jpg";
   return {
     metadataBase: new URL(siteUrl()),
-    title: { default: settings.seoTitle || settings.ministryName, template: `%s · ${settings.ministryName}` },
+    title: { default: settings.seoTitle || settings.ministryName, template: `%s | ${settings.ministryName}` },
     description,
     applicationName: settings.ministryName,
     openGraph: {
