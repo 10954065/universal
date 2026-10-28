@@ -22,7 +22,7 @@ export function Hero({ eyebrow, heading, text, image, primary, secondary, nextGa
     <section aria-labelledby="hero-heading" className="on-dark relative overflow-hidden bg-navy-950">
       <div className="grid lg:min-h-[min(52rem,calc(100svh-5rem))] lg:grid-cols-12">
         <div className="relative aspect-[4/5] max-h-[70svh] w-full sm:aspect-[16/11] lg:order-2 lg:col-span-5 lg:aspect-auto lg:max-h-none">
-          {image && <Photo image={image} priority sizes="(min-width: 1024px) 42vw, 100vw" />}
+          {image && <Photo image={image} priority quality={60} sizes="(min-width: 1024px) 42vw, 100vw" />}
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/10 to-transparent lg:bg-gradient-to-r lg:from-navy-950 lg:via-navy-950/0 lg:to-transparent"

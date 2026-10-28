@@ -44,8 +44,11 @@ export default async function SermonsPage({ searchParams }: Props) {
         crumbs={[{ label: "Sermons", href: "/sermons" }]}
       />
 
-      <section className="py-16 sm:py-20">
+      <section className="py-16 sm:py-20" aria-labelledby="sermon-list-heading">
         <Container>
+          <h2 id="sermon-list-heading" className="sr-only">
+            All messages
+          </h2>
           {!libraryEmpty && (
             <form role="search" action="/sermons" method="get" className="grid gap-3 border-b border-line pb-10 md:grid-cols-[1fr_14rem_14rem_auto]">
               <div className="relative">

@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // 60 is used only for the full-bleed homepage hero, which sits under a dark gradient.
+    qualities: [60, 75],
     deviceSizes: [400, 640, 828, 1080, 1280, 1600, 2048],
     remotePatterns: [
       { protocol: "https", hostname: "i.ytimg.com" },

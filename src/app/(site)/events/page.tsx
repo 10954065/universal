@@ -36,8 +36,11 @@ export default async function EventsPage({ searchParams }: Props) {
         image={photos.get("praise-hand-raised.jpg") ?? null}
         crumbs={[{ label: "Events", href: "/events" }]}
       />
-      <section className="py-16 sm:py-20">
+      <section className="py-16 sm:py-20" aria-labelledby="event-list-heading">
         <Container>
+          <h2 id="event-list-heading" className="sr-only">
+            {view === "upcoming" ? "Upcoming events" : "Past events"}
+          </h2>
           <nav aria-label="Event lists" className="flex gap-8 border-b border-line">
             <Link href="/events" aria-current={view === "upcoming" ? "page" : undefined} className={tabClass(view === "upcoming")}>
               Upcoming ({upcoming.length})

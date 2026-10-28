@@ -18,10 +18,10 @@ export function Wordmark({ name, logo, tone = "light" }: WordmarkProps) {
   const last = words.length > 1 ? words.pop() : undefined;
 
   return (
-    <Link href="/" className="group inline-flex items-center" aria-label={`${name} — home`}>
+    <Link href="/" className="group inline-flex items-center" aria-label={logo ? `${name} — home` : undefined}>
       {logo ? (
         <span className="relative block h-11 w-40">
-          <Image src={logo.url} alt="" fill sizes="160px" className="object-contain object-left" priority />
+          <Image src={logo.url} alt="" fill sizes="160px" className="object-contain object-left" preload />
         </span>
       ) : (
         <span className="flex flex-col leading-none">
