@@ -38,7 +38,7 @@ export function VisitForm({ token }: { token: string }) {
         rows={4}
         state={state}
       />
-      <SubmitButton>Let us know you're coming</SubmitButton>
+      <SubmitButton>Let us know you&rsquo;re coming</SubmitButton>
     </form>
   );
 }
