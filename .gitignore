@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next.js / build
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# generated
+src/generated/
+
+# env
+.env
+.env.*
+!.env.example
+
+# testing
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# uploads written by the local storage driver
+public/uploads/
+
+# original full-size photographs (web copies live in public/images/ministry)
+assets/source-photos/
+
+# AI assistant files (never committed)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel
+.serena/
