@@ -40,7 +40,7 @@ Nothing below has been invented. Each item is either empty in the CMS or is mark
 - [ ] Approved giving categories (tithe, offering, building fund, etc.).
 - [ ] Bank name, account name, account number, branch.
 - [ ] Mobile Money network, number and registered name.
-- [ ] Decision on online giving; if yes, Paystack public and secret keys from the ministry's own Paystack account.
+- [ ] Decision on online giving; if yes, a verified Paystack account in the ministry's name and its **secret key** (test key first, then live). *(Developer sets it as an environment variable; never sent by email or chat.)*
 - [ ] Refund / donation policy wording.
 
 ## Content
@@ -58,6 +58,16 @@ Nothing below has been invented. Each item is either empty in the CMS or is mark
 ## Technical
 - [ ] Domain name.
 - [ ] Hosting account (Vercel recommended) and managed PostgreSQL (e.g. Neon, Supabase).
-- [ ] Resend account + verified sending domain for emails.
-- [ ] First Super Administrator's name and email.
+- [ ] Resend account + verified sending domain for emails, and the staff inbox that should receive enquiry notifications.
+- [ ] Decision on the newsletter sign-up (switch on only once email works).
+- [ ] First Super Administrator's name and email, and the list of other staff with their roles.
 - [ ] Analytics provider decision (optional).
+
+## Before going live (developer)
+These are set up by the developer; see the README's deployment section.
+- [ ] Production environment variables set, including `CRON_SECRET` and `BLOB_READ_WRITE_TOKEN`.
+- [ ] `npm run db:deploy` and `npm run db:seed` run against the production database. `SEED_SAMPLE_CONTENT` is **not** set, so no "[Sample]" sermons or events exist in production.
+- [ ] If online giving is on: Paystack webhook URL set to `https://<domain>/api/paystack/webhook`, and one test gift verified end to end.
+- [ ] A test enquiry, prayer request and (if enabled) newsletter sign-up sent from the live site and seen in the dashboard.
+- [ ] Every page reviewed while signed out: no draft wording, placeholder text or unapproved photos visible.
+- [ ] Privacy Policy and Terms approved by the ministry.
