@@ -34,6 +34,7 @@ assets/source-photos/
 .claude/
 CLAUDE.md
 CLAUDE.local.md
+AGENTS.md
 
 # misc
 .DS_Store
@@ -41,3 +42,6 @@ CLAUDE.local.md
 npm-debug.log*
 .vercel
 .serena/
+
+# browser tooling output
+.playwright-mcp/

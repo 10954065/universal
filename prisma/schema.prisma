@@ -1,0 +1,600 @@
+// Universal Trinity Ministry — database schema.
+// Public content always carries a `status`; public queries only read PUBLISHED rows.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ──────────────────────────────────────────────────────────────
+
+enum Role {
+  SUPER_ADMIN
+  CONTENT_ADMIN
+  MINISTRY_STAFF
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+  ARCHIVED
+}
+
+enum Weekday {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+enum EnquiryType {
+  CONTACT
+  VISIT
+}
+
+enum EnquiryStatus {
+  NEW
+  READ
+  IN_PROGRESS
+  RESOLVED
+  ARCHIVED
+}
+
+enum PrayerStatus {
+  NEW
+  READ
+  PRAYED_FOR
+  ARCHIVED
+}
+
+enum SubscriberStatus {
+  PENDING
+  ACTIVE
+  UNSUBSCRIBED
+}
+
+enum DonationStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  ABANDONED
+}
+
+enum DonationEventKind {
+  INITIALIZED
+  VERIFIED
+  WEBHOOK
+  VERIFICATION_FAILED
+}
+
+// ─── Authentication (Better Auth) ───────────────────────────────────────
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          Role      @default(MINISTRY_STAFF)
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  auditLogs     AuditLog[]
+  mediaAssets   MediaAsset[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// Used by Better Auth (sign-in throttling) and by public form rate limiting.
+model RateLimit {
+  id          String @id @default(cuid())
+  key         String @unique
+  count       Int
+  lastRequest BigInt
+
+  @@map("rate_limit")
+}
+
+// ─── Site configuration ─────────────────────────────────────────────────
+
+// Singleton row (id = 1).
+model SiteSettings {
+  id              Int     @id @default(1)
+  ministryName    String  @default("Universal Trinity Ministry")
+  shortName       String  @default("UTM")
+  tagline         String?
+  logoId          String?
+  logo            MediaAsset? @relation("SettingsLogo", fields: [logoId], references: [id], onDelete: SetNull)
+
+  // Contact
+  email           String?
+  phone           String?
+  whatsapp        String?
+  addressLine     String?
+  city            String?
+  region          String?
+  country         String  @default("Ghana")
+  mapEmbedUrl     String?
+  directionsUrl   String?
+
+  // Social (only official, verified URLs)
+  facebookUrl     String?
+  instagramUrl    String?
+  youtubeUrl      String?
+  tiktokUrl       String?
+  xUrl            String?
+
+  // SEO defaults
+  seoTitle        String?
+  seoDescription  String?
+  ogImageId       String?
+  ogImage         MediaAsset? @relation("SettingsOgImage", fields: [ogImageId], references: [id], onDelete: SetNull)
+
+  footerText      String?
+
+  // Giving
+  givingIntro          String?
+  bankInstructions     String?
+  momoInstructions     String?
+  givingContact        String?
+  onlineGivingEnabled  Boolean @default(false)
+
+  // Features
+  newsletterEnabled    Boolean @default(false)
+  prayerRetentionDays  Int     @default(180)
+
+  updatedAt       DateTime @updatedAt
+}
+
+// Singleton row (id = 1).
+model HomepageContent {
+  id                  Int      @id @default(1)
+  heroEyebrow         String   @default("UNIVERSAL TRINITY MINISTRY")
+  heroHeading         String
+  heroText            String
+  heroImageId         String?
+  heroImage           MediaAsset? @relation("HomeHero", fields: [heroImageId], references: [id], onDelete: SetNull)
+  primaryCtaLabel     String   @default("Plan Your Visit")
+  primaryCtaHref      String   @default("/plan-your-visit")
+  secondaryCtaLabel   String   @default("Explore Our Ministry")
+  secondaryCtaHref    String   @default("/about")
+
+  welcomeHeading      String
+  welcomeText         String
+  welcomeImageId      String?
+  welcomeImage        MediaAsset? @relation("HomeWelcome", fields: [welcomeImageId], references: [id], onDelete: SetNull)
+
+  scriptureText       String?
+  scriptureReference  String?
+  scriptureTranslation String?
+
+  outreachHeading     String?
+  outreachText        String?
+  outreachImageId     String?
+  outreachImage       MediaAsset? @relation("HomeOutreach", fields: [outreachImageId], references: [id], onDelete: SetNull)
+
+  featuredSermonId    String?
+  featuredSermon      Sermon?  @relation(fields: [featuredSermonId], references: [id], onDelete: SetNull)
+
+  showServices        Boolean  @default(true)
+  showMinistries      Boolean  @default(true)
+  showSermon          Boolean  @default(true)
+  showEvents          Boolean  @default(true)
+  showScripture       Boolean  @default(true)
+  showOutreach        Boolean  @default(true)
+  showNewsletter      Boolean  @default(true)
+
+  updatedAt           DateTime @updatedAt
+}
+
+model Announcement {
+  id         String    @id @default(cuid())
+  message    String
+  linkLabel  String?
+  linkHref   String?
+  active     Boolean   @default(true)
+  startsAt   DateTime?
+  endsAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([active, startsAt, endsAt])
+}
+
+model ServiceTime {
+  id         String   @id @default(cuid())
+  name       String
+  day        Weekday
+  startTime  String   // "HH:MM", 24-hour, ministry local time
+  endTime    String?
+  location   String?
+  onlineUrl  String?
+  notes      String?
+  sortOrder  Int      @default(0)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([active, sortOrder])
+}
+
+// Long-form editable copy for About, Plan Your Visit, Give and legal pages.
+// `key` identifies the slot, e.g. "about.mission" or "legal.privacy".
+model PageSection {
+  id         String        @id @default(cuid())
+  key        String        @unique
+  page       String
+  title      String
+  body       String        @default("")
+  status     PublishStatus @default(DRAFT)
+  sortOrder  Int           @default(0)
+  // Shown to editors only: why the section exists / what is needed.
+  editorNote String?
+  updatedAt  DateTime      @updatedAt
+
+  @@index([page, status, sortOrder])
+}
+
+// ─── Media ──────────────────────────────────────────────────────────────
+
+model MediaAsset {
+  id            String   @id @default(cuid())
+  url           String
+  storageKey    String   @unique
+  alt           String   @default("")
+  width         Int?
+  height        Int?
+  mimeType      String
+  sizeBytes     Int
+  // Image focal point, percent (0–100). Keeps faces in frame when cropped.
+  focalX        Int      @default(50)
+  focalY        Int      @default(50)
+  uploadedById  String?
+  uploadedBy    User?    @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt     DateTime @default(now())
+
+  settingsLogo     SiteSettings[]    @relation("SettingsLogo")
+  settingsOgImage  SiteSettings[]    @relation("SettingsOgImage")
+  homeHero         HomepageContent[] @relation("HomeHero")
+  homeWelcome      HomepageContent[] @relation("HomeWelcome")
+  homeOutreach     HomepageContent[] @relation("HomeOutreach")
+  ministries       Ministry[]
+  leaders          LeadershipProfile[]
+  sermons          Sermon[]
+  events           Event[]
+  outreach         OutreachProgramme[]
+
+  @@index([createdAt])
+}
+
+// ─── Ministries & leadership ────────────────────────────────────────────
+
+model Ministry {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  name          String
+  summary       String
+  description   String        @default("")
+  imageId       String?
+  image         MediaAsset?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  leaderName    String?
+  meetingInfo   String?
+  contactEmail  String?
+  contactPhone  String?
+  status        PublishStatus @default(DRAFT)
+  sortOrder     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model LeadershipProfile {
+  id                String        @id @default(cuid())
+  slug              String        @unique
+  name              String
+  role              String
+  imageId           String?
+  image             MediaAsset?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  bio               String        @default("")
+  responsibilities  String?
+  facebookUrl       String?
+  instagramUrl      String?
+  xUrl              String?
+  status            PublishStatus @default(DRAFT)
+  sortOrder         Int           @default(0)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model OutreachProgramme {
+  id          String        @id @default(cuid())
+  title       String
+  summary     String
+  details     String        @default("")
+  imageId     String?
+  image       MediaAsset?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  ctaLabel    String?
+  ctaHref     String?
+  status      PublishStatus @default(DRAFT)
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+// ─── Sermons ────────────────────────────────────────────────────────────
+
+model Speaker {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  sermons   Sermon[]
+  createdAt DateTime @default(now())
+}
+
+model SermonCategory {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  sermons   Sermon[]
+  createdAt DateTime @default(now())
+}
+
+model Sermon {
+  id           String          @id @default(cuid())
+  slug         String          @unique
+  title        String
+  speakerId    String?
+  speaker      Speaker?        @relation(fields: [speakerId], references: [id], onDelete: SetNull)
+  categoryId   String?
+  category     SermonCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  preachedAt   DateTime
+  scripture    String?
+  summary      String          @default("")
+  notes        String          @default("")
+  videoUrl     String?
+  audioUrl     String?
+  transcript   String?
+  thumbnailId  String?
+  thumbnail    MediaAsset?     @relation(fields: [thumbnailId], references: [id], onDelete: SetNull)
+  status       PublishStatus   @default(DRAFT)
+  isSample     Boolean         @default(false)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  featuredOn   HomepageContent[]
+
+  @@index([status, preachedAt])
+  @@index([speakerId])
+  @@index([categoryId])
+}
+
+// ─── Events ─────────────────────────────────────────────────────────────
+
+model Event {
+  id                    String        @id @default(cuid())
+  slug                  String        @unique
+  title                 String
+  summary               String
+  description           String        @default("")
+  imageId               String?
+  image                 MediaAsset?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  startsAt              DateTime
+  endsAt                DateTime?
+  venue                 String?
+  address               String?
+  contactEmail          String?
+  contactPhone          String?
+  status                EventStatus   @default(DRAFT)
+  featured              Boolean       @default(false)
+  registrationEnabled   Boolean       @default(false)
+  registrationCapacity  Int?
+  registrationDeadline  DateTime?
+  externalRegistrationUrl String?
+  isSample              Boolean       @default(false)
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  registrations         EventRegistration[]
+
+  @@index([status, startsAt])
+}
+
+model EventRegistration {
+  id         String   @id @default(cuid())
+  eventId    String
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name       String
+  email      String
+  phone      String?
+  attendees  Int      @default(1)
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  @@unique([eventId, email])
+  @@index([eventId, createdAt])
+}
+
+// ─── Visitor submissions ────────────────────────────────────────────────
+
+model ContactEnquiry {
+  id          String        @id @default(cuid())
+  type        EnquiryType   @default(CONTACT)
+  name        String
+  email       String
+  phone       String?
+  subject     String?
+  message     String
+  visitDate   DateTime?
+  partySize   Int?
+  status      EnquiryStatus @default(NEW)
+  staffNotes  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, createdAt])
+  @@index([type, createdAt])
+}
+
+// Private. Readable only by roles with the `prayer:read` permission.
+model PrayerRequest {
+  id          String       @id @default(cuid())
+  anonymous   Boolean      @default(false)
+  name        String?
+  contact     String?
+  request     String
+  consent     Boolean
+  status      PrayerStatus @default(NEW)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([status, createdAt])
+  @@index([createdAt])
+}
+
+model NewsletterSubscriber {
+  id                String           @id @default(cuid())
+  email             String           @unique
+  name              String?
+  status            SubscriberStatus @default(PENDING)
+  consentText       String
+  consentAt         DateTime
+  confirmTokenHash  String?          @unique
+  unsubscribeToken  String           @unique
+  confirmedAt       DateTime?
+  unsubscribedAt    DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@index([status, createdAt])
+}
+
+// ─── Giving ─────────────────────────────────────────────────────────────
+
+model GivingCategory {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  description String?
+  active      Boolean    @default(true)
+  sortOrder   Int        @default(0)
+  donations   Donation[]
+}
+
+model Donation {
+  id                String         @id @default(cuid())
+  reference         String         @unique
+  // Amount in the smallest currency unit (pesewas for GHS).
+  amountMinor       Int
+  currency          String         @default("GHS")
+  categoryId        String?
+  category          GivingCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  donorName         String?
+  donorEmail        String
+  status            DonationStatus @default(PENDING)
+  provider          String         @default("paystack")
+  providerTxnId     String?
+  channel           String?
+  paidAt            DateTime?
+  verifiedAt        DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  transactions      DonationTransaction[]
+
+  @@index([status, createdAt])
+  @@index([categoryId])
+}
+
+// Append-only audit trail of every provider interaction for a donation.
+model DonationTransaction {
+  id          String            @id @default(cuid())
+  donationId  String
+  donation    Donation          @relation(fields: [donationId], references: [id], onDelete: Cascade)
+  kind        DonationEventKind
+  status      String
+  amountMinor Int?
+  message     String?
+  createdAt   DateTime          @default(now())
+
+  @@index([donationId, createdAt])
+}
+
+// ─── Audit ──────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  entity     String
+  entityId   String?
+  summary    String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([entity, entityId])
+}

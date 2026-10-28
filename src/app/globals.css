@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+/*
+ * Universal Trinity Ministry — design tokens.
+ * Change the palette here; every component reads these variables.
+ * Contrast notes (WCAG 2.2): gold #C8A45D is only used for text on navy (7.3:1).
+ * On ivory, gold text uses --color-gold-ink (5.4:1); muted text uses #5B6270 (5.6:1).
+ */
+@theme {
+  --color-navy-950: #0a1220;
+  --color-navy-900: #101b2d;
+  --color-navy-800: #17253b;
+  --color-navy-700: #22344f;
+  --color-navy-600: #34496a;
+  --color-ivory: #f8f5ef;
+  --color-ivory-100: #fbf9f5;
+  --color-sand: #efe8da;
+  --color-sand-300: #e2d8c4;
+  --color-gold: #c8a45d;
+  --color-gold-300: #dcc28e;
+  --color-gold-ink: #7d6027;
+  --color-sage: #849581;
+  --color-sage-ink: #56664f;
+  --color-ink: #242424;
+  --color-muted: #5b6270;
+  --color-mist: #b9c0cc;
+  --color-line: #e3dccd;
+  --color-danger: #a12a2a;
+  --color-success: #2f6b3a;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-display-xl: clamp(2.75rem, 1.6rem + 5.2vw, 6rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-lg: clamp(2.25rem, 1.5rem + 3.2vw, 4.25rem);
+  --text-display-lg--line-height: 1.02;
+  --text-display-md: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-sm: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  --text-display-sm--line-height: 1.15;
+
+  --tracking-label: 0.22em;
+
+  --container-site: 78rem;
+  --container-prose: 42rem;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-soft) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-gold-300);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-gold);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Small uppercase label used above headings, e.g. "01 — Welcome". */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  /* Hairline gold rule used as a restrained decorative accent. */
+  .rule-gold {
+    display: inline-block;
+    height: 1px;
+    width: 2.5rem;
+    background: var(--color-gold);
+    vertical-align: middle;
+  }
+
+  /* Rich text rendered from CMS markdown. */
+  .prose-ministry {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-ink);
+  }
+  .prose-ministry > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-ministry h2 {
+    font-family: var(--font-display);
+    font-size: 1.875rem;
+    line-height: 1.15;
+    font-weight: 600;
+    color: var(--color-navy-900);
+    margin-top: 1.8em;
+  }
+  .prose-ministry h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-navy-900);
+    margin-top: 1.5em;
+  }
+  .prose-ministry a {
+    color: var(--color-navy-700);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 3px;
+  }
+  .prose-ministry ul,
+  .prose-ministry ol {
+    padding-left: 1.25rem;
+  }
+  .prose-ministry ul {
+    list-style: disc;
+  }
+  .prose-ministry ol {
+    list-style: decimal;
+  }
+  .prose-ministry li + li {
+    margin-top: 0.4em;
+  }
+  .prose-ministry li::marker {
+    color: var(--color-gold-ink);
+  }
+  .prose-ministry blockquote {
+    border-left: 2px solid var(--color-gold);
+    padding-left: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-style: italic;
+    color: var(--color-navy-800);
+  }
+  .prose-ministry strong {
+    font-weight: 600;
+    color: var(--color-navy-900);
+  }
+  .on-dark .prose-ministry {
+    color: var(--color-mist);
+  }
+  .on-dark .prose-ministry strong,
+  .on-dark .prose-ministry h2,
+  .on-dark .prose-ministry h3 {
+    color: var(--color-ivory);
+  }
+}
+
+@layer utilities {
+  /* Scroll-reveal: elements fade up when they enter the viewport (see Reveal script). */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal:not(.is-visible) {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    .js .reveal {
+      transition:
+        opacity 0.9s var(--ease-out-soft),
+        transform 0.9s var(--ease-out-soft);
+    }
+  }
+
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
