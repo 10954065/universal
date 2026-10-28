@@ -25,7 +25,7 @@ export function Wordmark({ name, logo, tone = "light" }: WordmarkProps) {
         </span>
       ) : (
         <span className="flex flex-col leading-none">
-          <span className={`font-display text-[1.45rem] font-semibold tracking-tight sm:text-[1.6rem] ${dark ? "text-ivory" : "text-navy-900"}`}>
+          <span className={`whitespace-nowrap font-display text-[1.45rem] font-semibold tracking-tight sm:text-[1.6rem] ${dark ? "text-ivory" : "text-navy-900"}`}>
             {words.join(" ")}
           </span>
           {last && (

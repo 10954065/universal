@@ -81,6 +81,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Prevent the page behind an open modal dialog (e.g. the mobile menu) from scrolling. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   ::selection {
     background: var(--color-gold-300);
     color: var(--color-navy-900);

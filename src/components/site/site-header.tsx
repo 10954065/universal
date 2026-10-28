@@ -17,7 +17,7 @@ export function SiteHeader({ ministryName, logo }: SiteHeaderProps) {
         <Wordmark name={ministryName} logo={logo} />
         <DesktopNav />
         <div className="flex items-center gap-3">
-          <ButtonLink href="/plan-your-visit" variant="navy" className="hidden !min-h-11 !px-5 sm:inline-flex">
+          <ButtonLink href="/plan-your-visit" variant="navy" className="hidden !min-h-11 !px-5 md:inline-flex">
             Plan Your Visit
           </ButtonLink>
           <MobileMenu ministryName={ministryName} />

@@ -62,7 +62,7 @@ export const getHomepage = cache(async () =>
       heroImage: image,
       welcomeImage: image,
       outreachImage: image,
-      featuredSermon: { include: { speaker: true, thumbnail: image } },
+      featuredSermon: { include: { speaker: true, category: true, thumbnail: image } },
     },
   }),
 );
@@ -193,9 +193,24 @@ export async function getPastEvents(limit = 12) {
 export const getEventBySlug = cache(async (slug: string) =>
   db.event.findFirst({
     where: { slug, status: { in: ["PUBLISHED", "CANCELLED", "ARCHIVED"] } },
-    include: { image, _count: { select: { registrations: true } } },
+    include: { image },
   }),
 );
+
+/** Total people registered (sum of party sizes) — what event capacity is measured against. */
+export async function getRegisteredAttendees(eventId: string): Promise<number> {
+  const result = await db.eventRegistration.aggregate({ where: { eventId }, _sum: { attendees: true } });
+  return result._sum.attendees ?? 0;
+}
+
+/** Looks up library photos by file name (e.g. "worship-singer.jpg"), for decorative accents. */
+export const getLibraryPhotos = cache(async (...files: string[]) => {
+  const assets = await db.mediaAsset.findMany({
+    where: { storageKey: { in: files.map((file) => `static/ministry/${file}`) } },
+    select: { storageKey: true, ...image.select },
+  });
+  return new Map(assets.map((asset) => [asset.storageKey.replace("static/ministry/", ""), asset]));
+});
 
 export const getActiveGivingCategories = cache(async () =>
   db.givingCategory.findMany({ where: { active: true }, orderBy: [{ sortOrder: "asc" }, { name: "asc" }] }),
