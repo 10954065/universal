@@ -185,7 +185,7 @@ export async function registerForEvent(_previous: FormState, formData: FormData)
         const booked = await tx.eventRegistration.aggregate({ where: { eventId: event.id }, _sum: { attendees: true } });
         const remaining = event.registrationCapacity - (booked._sum.attendees ?? 0);
         if (remaining < data.attendees) {
-          throw new RegistrationError(remaining > 0 ? `Only ${remaining} place${remaining === 1 ? "" : "s"} remain.` : "This event is now fully booked.");
+          throw new RegistrationError(remaining > 0 ? `Only ${remaining} ${remaining === 1 ? "place remains" : "places remain"}.` : "This event is now fully booked.");
         }
       }
       await tx.eventRegistration.create({

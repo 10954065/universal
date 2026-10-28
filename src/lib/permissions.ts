@@ -47,7 +47,8 @@ export const ROLE_LABELS: Record<Role, string> = {
 export const ROLES = Object.keys(ROLE_PERMISSIONS) as Role[];
 
 export function isRole(value: unknown): value is Role {
-  return typeof value === "string" && value in ROLE_PERMISSIONS;
+  // Own properties only: `in` would also accept inherited names such as "toString".
+  return typeof value === "string" && Object.hasOwn(ROLE_PERMISSIONS, value);
 }
 
 export function can(role: unknown, permission: Permission): boolean {
