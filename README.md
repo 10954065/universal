@@ -51,7 +51,8 @@ All variables are documented in [.env.example](.env.example).
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Public URL, no trailing slash. Used for canonical links, the sitemap, emails and payment redirects. |
-| `DATABASE_URL` | Yes | PostgreSQL connection string. |
+| `DATABASE_URL` | Yes | Direct PostgreSQL connection string. Used for migrations, and by the site when no pooled URL is set. |
+| `DATABASE_URL_POOLED` | Recommended on Vercel | Pooled connection string, used by the site at runtime. Prisma Postgres adds it automatically. Without it, busy pages can run out of database connections. |
 | `BETTER_AUTH_SECRET` | Yes | 32+ random characters. Signs sessions and anti-spam form tokens. |
 | `BETTER_AUTH_URL` | Yes | Same as the site URL. Sign-in requests from any other origin are rejected. |
 | `CRON_SECRET` | Yes in production | Protects the daily data-retention job. |
@@ -105,7 +106,7 @@ Integration and end-to-end tests refuse to run unless the database name ends in 
 ## Deploy to Vercel
 
 1. **Project.** Import this repository into Vercel. Leave the build command empty: Vercel then runs the `vercel-build` script, which applies migrations, runs the seed (it never overwrites existing rows) and builds the site.
-2. **Database.** In the Vercel project, open **Storage** and connect a Postgres database (Prisma Postgres or Neon). This adds `DATABASE_URL`. Use a direct connection string, not a pooled one, because migrations need it.
+2. **Database.** In the Vercel project, open **Storage** and connect a Postgres database (Prisma Postgres or Neon). Prisma Postgres adds `DATABASE_URL` (direct, used for migrations) and `DATABASE_URL_POOLED` (used by the site). With Neon, set `DATABASE_URL` to the direct string and `DATABASE_URL_POOLED` to the pooled one.
 3. **Images.** In **Storage**, create a public **Blob** store connected to the project. This adds `BLOB_READ_WRITE_TOKEN`.
 4. **Environment variables.** Add everything marked *Yes* in the table above for **Production**. Use the final domain for `NEXT_PUBLIC_SITE_URL` and `BETTER_AUTH_URL`. Do not set `SEED_SAMPLE_CONTENT`. Redeploy after changing `NEXT_PUBLIC_SITE_URL`, because it is fixed at build time.
 5. **First account.** Copy `DATABASE_URL` from the project and run once from your machine:
