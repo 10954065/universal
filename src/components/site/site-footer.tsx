@@ -77,11 +77,17 @@ export function SiteFooter({ settings }: { settings: SiteSettingsView }) {
           )}
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-muted sm:flex-row sm:items-center sm:gap-8">
+        <div className="mt-10 flex flex-col gap-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-muted lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
           <p>
             © {year} {settings.ministryName}
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-1">
+          <p>
+            Created by{" "}
+            <a href="https://www.sunleonrouterenterprise.com/" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline underline-offset-4 transition-opacity hover:opacity-60">
+              Sunleon Router Enterprise<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-1 lg:justify-self-end">
             {LEGAL_NAV.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="transition-colors hover:text-navy-900">
@@ -90,12 +96,6 @@ export function SiteFooter({ settings }: { settings: SiteSettingsView }) {
               </li>
             ))}
           </ul>
-          <p className="sm:ml-auto">
-            Created by{" "}
-            <a href="https://www.sunleonrouterenterprise.com/" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline underline-offset-4 transition-opacity hover:opacity-60">
-              Sunleon Router Enterprise<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </p>
         </div>
       </div>
     </footer>
