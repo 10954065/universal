@@ -31,7 +31,7 @@ export default async function PlanYourVisitPage() {
         image={photos.get("minister-banner.jpg") ?? null}
         crumbs={[{ label: "Plan Your Visit", href: "/plan-your-visit" }]}
       >
-        <a href="#let-us-know" className="inline-flex min-h-11 items-center text-sm font-semibold uppercase tracking-[0.14em] text-navy-900 underline decoration-gold-ink underline-offset-[6px]">
+        <a href="#let-us-know" className="inline-flex min-h-11 items-center text-[1.0625rem] font-medium text-navy-900 underline decoration-gold decoration-2 underline-offset-[6px]">
           Let us know you&apos;re coming
         </a>
       </PageHeader>
@@ -53,9 +53,9 @@ export default async function PlanYourVisitPage() {
         <section aria-labelledby="visit-expect" className="bg-sand py-20 sm:py-24">
           <Container>
             <SectionHeading id="visit-expect" title="What to expect" size="md" />
-            <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2">
+            <div className="mt-12 grid gap-4 md:grid-cols-2 md:gap-5">
               {sections.map((section) => (
-                <div key={section.key} className="reveal border-t border-navy-900/15 pt-8">
+                <div key={section.key} className="reveal rounded-tile bg-white p-8 sm:p-10">
                   <h3 className="font-display text-display-sm font-semibold text-navy-900">{section.title}</h3>
                   <RichText markdown={section.body} className="mt-4" />
                 </div>

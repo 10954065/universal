@@ -55,7 +55,7 @@ export default async function SermonPage({ params }: Props) {
         />
       )}
 
-      <section className="on-dark grain bg-navy-900 pb-16 pt-12 sm:pb-24">
+      <section className="on-dark bg-navy-950 pb-16 pt-12 sm:pb-24">
         <Container>
           <div className="[&_a]:text-mist [&_a:hover]:text-ivory [&_span[aria-current]]:text-ivory">
             <Breadcrumbs
@@ -77,7 +77,7 @@ export default async function SermonPage({ params }: Props) {
             <div className="lg:col-span-4">
               {sermon.category && <p className="eyebrow text-gold">{sermon.category.name}</p>}
               <h1 className="mt-4 font-display text-display-md font-semibold text-ivory">{sermon.title}</h1>
-              <dl className="mt-8 space-y-4 border-t border-ivory/15 pt-6 text-[0.9375rem]">
+              <dl className="mt-8 space-y-4 border-t border-white/12 pt-6 text-[0.9375rem]">
                 {sermon.speaker && (
                   <div className="flex justify-between gap-4">
                     <dt className="text-mist">Speaker</dt>
@@ -93,7 +93,7 @@ export default async function SermonPage({ params }: Props) {
                 {sermon.scripture && (
                   <div className="flex justify-between gap-4">
                     <dt className="text-mist">Scripture</dt>
-                    <dd className="text-right font-display text-xl italic text-gold">{sermon.scripture}</dd>
+                    <dd className="text-right font-medium text-gold">{sermon.scripture}</dd>
                   </div>
                 )}
               </dl>
@@ -106,7 +106,7 @@ export default async function SermonPage({ params }: Props) {
         <Container>
           <div className="grid gap-14 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              {sermon.summary && <p className="font-display text-2xl leading-snug text-navy-900">{sermon.summary}</p>}
+              {sermon.summary && <p className="font-display text-[1.75rem] font-medium leading-snug tracking-[-0.02em] text-navy-900">{sermon.summary}</p>}
               {sermon.notes && <RichText markdown={sermon.notes} className="mt-8" />}
               {sermon.transcript && (
                 <details className="group mt-10 border-y border-line py-5">

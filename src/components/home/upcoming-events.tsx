@@ -1,28 +1,31 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/ui/empty-state";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { EventRow, type EventSummary } from "@/components/events/event-row";
+import { EventCard, type EventSummary } from "@/components/events/event-row";
 
 export function UpcomingEvents({ events }: { events: EventSummary[] }) {
   return (
-    <section aria-labelledby="events-heading" className="py-24 sm:py-32">
+    <section aria-labelledby="events-heading" className="pb-24 sm:pb-32">
       <Container>
-        <div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading id="events-heading" title="Upcoming events" />
+        <div className="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <h2 id="events-heading" className="text-display-lg text-navy-900">
+            Calendar
+          </h2>
           {events.length > 0 && (
-            <ButtonLink href="/events" variant="text" className="shrink-0">
-              View all events
+            <ButtonLink href="/events" variant="text" className="self-start sm:self-auto">
+              All events
             </ButtonLink>
           )}
         </div>
-        <div className="reveal mt-12">
+        <div className="reveal mt-10">
           {events.length > 0 ? (
-            <div className="border-b border-navy-900/15">
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               {events.map((event) => (
-                <EventRow key={event.slug} event={event} />
+                <li key={event.slug} className="flex">
+                  <EventCard event={event} />
+                </li>
               ))}
-            </div>
+            </ul>
           ) : (
             <EmptyState
               title="No upcoming events"

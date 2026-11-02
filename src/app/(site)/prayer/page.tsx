@@ -36,14 +36,14 @@ export default async function PrayerPage() {
         <Container>
           <div className="grid gap-16 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <p className="font-display text-display-sm italic leading-snug text-navy-900">
+              <p className="font-display text-display-sm font-semibold text-navy-900">
                 &ldquo;Casting all your care upon him; for he careth for you.&rdquo;
               </p>
               <p className="eyebrow mt-4 text-gold-ink">1 Peter 5:7 (KJV)</p>
               <ul className="mt-12 space-y-8">
                 {promises.map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-4">
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-navy-900 text-gold">
+                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand text-navy-900">
                       <Icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.5} />
                     </span>
                     <div>
@@ -55,7 +55,7 @@ export default async function PrayerPage() {
               </ul>
             </div>
             <div className="lg:col-span-7 lg:col-start-6">
-              <div className="border border-line bg-ivory-100 p-6 sm:p-10">
+              <div className="rounded-tile bg-sand p-6 sm:p-10">
                 <h2 className="font-display text-display-sm font-semibold text-navy-900">Share your request</h2>
                 <div className="mt-8">
                   <PrayerForm token={createFormToken("prayer")} />

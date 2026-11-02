@@ -1,40 +1,31 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Photo, type PhotoSource } from "@/components/ui/photo";
-import { SectionHeading } from "@/components/ui/section-heading";
 
 interface WelcomeProps {
   heading: string;
   text: string;
   image: PhotoSource | null;
-  accentImage: PhotoSource | null;
 }
 
-/** Asymmetric welcome: wide photograph with an overlapping portrait, text offset to the right. */
-export function Welcome({ heading, text, image, accentImage }: WelcomeProps) {
+/** The welcome as a single statement centred over a dark, black-and-white photograph. */
+export function Welcome({ heading, text, image }: WelcomeProps) {
   return (
-    <section aria-labelledby="welcome-heading" className="overflow-hidden py-24 sm:py-32">
+    <section aria-labelledby="welcome-heading" className="pb-24 sm:pb-32">
       <Container>
-        <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-12">
-          <div className="reveal relative lg:col-span-7">
-            <div className="relative aspect-[3/2] overflow-hidden">
-              {image && <Photo image={image} sizes="(min-width: 1024px) 55vw, 100vw" />}
-            </div>
-            {accentImage && (
-              <div className="absolute -bottom-12 right-4 hidden aspect-[3/4] w-[34%] overflow-hidden border-[6px] border-ivory shadow-[0_30px_60px_-30px_rgba(16,27,45,0.5)] sm:block lg:-right-10">
-                <Photo image={accentImage} sizes="20vw" />
-              </div>
-            )}
-          </div>
-          <div className="reveal lg:col-span-5 lg:pl-10">
-            <SectionHeading id="welcome-heading" title={heading} size="md" />
-            <p className="mt-7 text-lg leading-relaxed text-muted">{text}</p>
-            <div className="mt-10 flex flex-wrap items-center gap-6">
-              <ButtonLink href="/about" variant="navy" arrow>
-                About Us
+        <div className="reveal on-dark relative isolate flex min-h-[28rem] items-center justify-center overflow-hidden bg-navy-900 px-6 py-20 text-center sm:px-16">
+          {image && <Photo image={image} sizes="(min-width: 1024px) 62rem, 100vw" alt="" className="-z-10 opacity-45 grayscale" />}
+          <div>
+            <h2 id="welcome-heading" className="label text-white/80">
+              {heading}
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-display-md text-white">{text}</p>
+            <div className="mt-10 flex flex-wrap justify-center gap-x-10 gap-y-3">
+              <ButtonLink href="/about" variant="text-light">
+                About us
               </ButtonLink>
-              <ButtonLink href="/leadership" variant="text">
-                Meet our leadership
+              <ButtonLink href="/leadership" variant="text-light">
+                Our leaders
               </ButtonLink>
             </div>
           </div>

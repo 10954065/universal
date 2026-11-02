@@ -41,13 +41,13 @@ export default async function AboutPage() {
       {overview && <ContentSection title={overview.title} body={overview.body} />}
 
       {(mission || vision) && (
-        <section aria-label="Mission and vision" className="on-dark grain bg-navy-900 py-20 sm:py-28">
+        <section aria-label="Mission and vision" className="on-dark bg-navy-950 py-20 sm:py-28">
           <Container>
-            <div className={`grid gap-px bg-ivory/10 ${mission && vision ? "lg:grid-cols-2" : ""}`}>
+            <div className={`grid gap-4 sm:gap-5 ${mission && vision ? "lg:grid-cols-2" : ""}`}>
               {[mission, vision].filter((item) => item !== undefined).map((item) => (
-                <div key={item.key} className="reveal bg-navy-900 p-8 sm:p-12">
-                  <h2 className="font-display text-display-md font-semibold text-ivory">{item.title}</h2>
-                  <RichText markdown={item.body} className="mt-6 [&_p]:font-display [&_p]:text-2xl [&_p]:italic [&_p]:leading-snug [&_p]:text-ivory" />
+                <div key={item.key} className="reveal rounded-tile bg-white/[0.06] p-8 ring-1 ring-white/10 sm:p-12">
+                  <h2 className="font-sans text-[0.9375rem] font-semibold tracking-normal text-gold">{item.title}</h2>
+                  <RichText markdown={item.body} className="mt-4 [&_p]:font-display [&_p]:text-[1.875rem] [&_p]:font-semibold [&_p]:leading-snug [&_p]:tracking-[-0.025em] [&_p]:text-white" />
                 </div>
               ))}
             </div>
@@ -57,12 +57,12 @@ export default async function AboutPage() {
 
       {mosaic.length === 3 && (
         <section aria-label="Life at the ministry" className="py-16 sm:py-20">
-          <Container size="wide">
+          <Container>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-[1.2fr_0.8fr_1fr] sm:gap-4">
               {mosaic.map((photo, index) => (
                 <div
                   key={photo.url}
-                  className={`reveal relative overflow-hidden ${index === 0 ? "col-span-2 aspect-[16/10] sm:col-span-1 sm:aspect-auto sm:h-[26rem]" : "aspect-square sm:aspect-auto sm:h-[26rem]"} ${index === 1 ? "sm:mt-16" : ""}`}
+                  className={`reveal relative overflow-hidden rounded-tile bg-sand ${index === 0 ? "col-span-2 aspect-[16/10] sm:col-span-1 sm:aspect-auto sm:h-[26rem]" : "aspect-square sm:aspect-auto sm:h-[26rem]"} ${index === 1 ? "sm:mt-16" : ""}`}
                 >
                   <Photo image={photo} sizes="(min-width: 640px) 33vw, 50vw" />
                 </div>

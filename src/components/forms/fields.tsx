@@ -7,7 +7,7 @@ import { buttonClasses } from "@/components/ui/button";
 import type { FormState } from "@/lib/form-state";
 
 const inputBase =
-  "w-full border bg-white px-4 text-base text-navy-900 transition-colors placeholder:text-muted/80 focus:border-navy-900 focus:outline-2 focus:outline-offset-0 focus:outline-gold aria-[invalid=true]:border-danger";
+  "w-full rounded-xl border bg-white px-4 text-[1.0625rem] text-navy-900 transition-[border-color,box-shadow] placeholder:text-muted/70 focus:border-navy-900 focus:shadow-[0_0_0_4px_rgb(18_18_18/0.08)] focus:outline-none aria-[invalid=true]:border-danger";
 
 interface FieldShellProps {
   id: string;
@@ -70,7 +70,7 @@ export function TextField({ name, label, hint, state, formId, required, defaultV
           aria-invalid={errors?.length ? true : undefined}
           aria-describedby={describedBy}
           defaultValue={state.values?.[name] ?? defaultValue}
-          className={`${inputBase} h-12 ${errors?.length ? "border-danger" : "border-navy-900/20"}`}
+          className={`${inputBase} h-12 ${errors?.length ? "border-danger" : "border-line"}`}
           {...props}
         />
       )}
@@ -100,7 +100,7 @@ export function TextAreaField({ name, label, hint, state, formId, required, rows
           aria-invalid={errors?.length ? true : undefined}
           aria-describedby={describedBy}
           defaultValue={state.values?.[name] ?? defaultValue}
-          className={`${inputBase} py-3 leading-relaxed ${errors?.length ? "border-danger" : "border-navy-900/20"}`}
+          className={`${inputBase} py-3 leading-relaxed ${errors?.length ? "border-danger" : "border-line"}`}
           {...props}
         />
       )}
@@ -128,7 +128,7 @@ export function CheckboxField({ name, label, state, formId, ...props }: Checkbox
           type="checkbox"
           aria-invalid={errors?.length ? true : undefined}
           aria-describedby={errorId}
-          className="mt-0.5 h-5 w-5 shrink-0 accent-navy-900"
+          className="mt-0.5 h-5 w-5 shrink-0 accent-accent"
           {...props}
         />
         <label htmlFor={id} className="text-[0.9375rem] leading-relaxed text-navy-800">
@@ -162,8 +162,8 @@ export function SpamGuard({ token }: { token: string }) {
 export function SubmitButton({ children, pendingLabel = "Sending..." }: { children: ReactNode; pendingLabel?: string }) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending} aria-disabled={pending} className={buttonClasses("navy", "w-full sm:w-auto")}>
-      {pending && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-ivory/40 border-t-ivory" />}
+    <button type="submit" disabled={pending} aria-disabled={pending} className={buttonClasses("primary", "w-full gap-2 sm:w-auto")}>
+      {pending && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />}
       {pending ? pendingLabel : children}
     </button>
   );
@@ -174,7 +174,7 @@ export function FormMessage({ state }: { state: FormState }) {
   return (
     <div aria-live="polite" role="status">
       {state.status === "error" && state.message && (
-        <p className="border-l-2 border-danger bg-danger/5 px-4 py-3 text-[0.9375rem] font-medium text-danger">{state.message}</p>
+        <p className="rounded-xl bg-danger/[0.07] px-4 py-3 text-[0.9375rem] font-medium text-danger">{state.message}</p>
       )}
     </div>
   );
@@ -183,9 +183,9 @@ export function FormMessage({ state }: { state: FormState }) {
 /** Replaces the form once the submission is confirmed by the server. */
 export function SuccessPanel({ message, children }: { message?: string; children?: ReactNode }) {
   return (
-    <div role="status" aria-live="polite" className="border border-success/30 bg-success/5 p-8 text-center">
-      <CheckCircle2 aria-hidden="true" className="mx-auto h-10 w-10 text-success" strokeWidth={1.5} />
-      <p className="mt-4 font-display text-2xl font-semibold text-navy-900">{message ?? "Thank you."}</p>
+    <div role="status" aria-live="polite" className="rounded-tile bg-sand p-10 text-center">
+      <CheckCircle2 aria-hidden="true" className="mx-auto h-12 w-12 text-success" strokeWidth={1.5} />
+      <p className="mt-4 text-2xl font-semibold tracking-[-0.02em] text-navy-900">{message ?? "Thank you."}</p>
       {children && <div className="mt-4 text-muted">{children}</div>}
     </div>
   );

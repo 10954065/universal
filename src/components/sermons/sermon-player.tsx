@@ -25,7 +25,7 @@ export function SermonPlayer({ title, videoUrl, audioUrl, poster }: SermonPlayer
 
   if (video) {
     return (
-      <div className="relative aspect-video w-full overflow-hidden bg-navy-950">
+      <div className="relative aspect-video w-full overflow-hidden rounded-tile bg-navy-950">
         {playing ? (
           <iframe
             src={video.embedUrl}
@@ -44,11 +44,19 @@ export function SermonPlayer({ title, videoUrl, audioUrl, poster }: SermonPlayer
             }}
             className="group absolute inset-0 flex h-full w-full items-center justify-center"
           >
-            {posterUrl && <Image src={posterUrl} alt="" fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover opacity-80 transition-opacity group-hover:opacity-90" />}
-            <span aria-hidden="true" className="absolute inset-0 bg-navy-950/35" />
-            <span className="relative inline-flex items-center gap-4 bg-ivory px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-navy-900 transition-transform duration-300 group-hover:scale-[1.03]">
-              <Play aria-hidden="true" className="h-4 w-4 fill-current" />
-              Play sermon<span className="sr-only">: {title}</span>
+            {posterUrl && (
+              <Image
+                src={posterUrl}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 70vw, 100vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transition-none"
+              />
+            )}
+            <span aria-hidden="true" className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/15" />
+            <span className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-white/90 text-navy-900 shadow-[0_8px_30px_rgb(0_0_0/0.25)] backdrop-blur-md transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-95">
+              <Play aria-hidden="true" className="ml-1 h-7 w-7 fill-current" />
+              <span className="sr-only">Play sermon: {title}</span>
             </span>
           </button>
         )}
@@ -59,8 +67,8 @@ export function SermonPlayer({ title, videoUrl, audioUrl, poster }: SermonPlayer
 
   if (audio) {
     return (
-      <div className="border border-line bg-ivory-100 p-6">
-        <p className="eyebrow text-gold-ink">Listen</p>
+      <div className="rounded-card bg-sand p-6">
+        <p className="eyebrow text-muted">Listen</p>
         <audio controls preload="none" src={audio} className="mt-4 w-full" onPlay={() => track("Sermon Play", { provider: "audio" })}>
           Your browser does not support audio playback. <a href={audio}>Download the recording</a>.
         </audio>
@@ -69,9 +77,9 @@ export function SermonPlayer({ title, videoUrl, audioUrl, poster }: SermonPlayer
   }
 
   return (
-    <div className="grain relative flex aspect-video w-full items-center justify-center overflow-hidden bg-navy-900 p-8 text-center">
-      {posterUrl && <Image src={posterUrl} alt="" fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover opacity-30" />}
-      <p className="relative max-w-sm font-display text-2xl italic text-ivory">A recording of this message is not yet available.</p>
+    <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-tile bg-navy-900 p-8 text-center">
+      {posterUrl && <Image src={posterUrl} alt="" fill sizes="(min-width: 1024px) 70vw, 100vw" className="object-cover opacity-30" />}
+      <p className="relative max-w-sm text-xl font-semibold tracking-[-0.015em] text-ivory">A recording of this message is not yet available.</p>
     </div>
   );
 }

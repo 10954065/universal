@@ -6,18 +6,17 @@ interface ScriptureProps {
   translation: string | null;
 }
 
-/** Large centred scripture quotation with a hairline frame. */
+/** A single verse set large on a white band, with the reference in small monospace. */
 export function Scripture({ text, reference, translation }: ScriptureProps) {
   return (
-    <section aria-label="Scripture" className="relative overflow-hidden bg-ivory py-24 sm:py-36">
-      <div aria-hidden="true" className="absolute inset-x-0 top-1/2 h-px bg-line" />
-      <Container size="site">
-        <figure className="reveal relative mx-auto max-w-4xl bg-ivory px-2 text-center sm:px-12">
-          <blockquote className="font-display text-display-md font-medium italic text-navy-900">
+    <section aria-label="Scripture" className="bg-ivory py-24 sm:py-36">
+      <Container>
+        <figure className="reveal mx-auto max-w-4xl text-center">
+          <blockquote className="text-display-md text-navy-900">
             <p>{text}</p>
           </blockquote>
-          <figcaption className="mt-10">
-            <cite className="eyebrow not-italic text-gold-ink">
+          <figcaption className="label mt-10 text-muted">
+            <cite className="not-italic">
               {reference}
               {translation ? ` (${translation})` : ""}
             </cite>

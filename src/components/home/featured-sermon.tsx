@@ -1,17 +1,33 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { SermonPlayer } from "@/components/sermons/sermon-player";
 import type { SermonSummary } from "@/components/sermons/sermon-card";
 import { formatLongDate } from "@/lib/format";
 
-/** Editorial sermon feature on navy: player left, message details right. */
+/** The latest message: details on the left, the player on the right. */
 export function FeaturedSermon({ sermon }: { sermon: SermonSummary }) {
   return (
-    <section aria-labelledby="sermon-heading" className="on-dark grain relative bg-navy-900 py-24 sm:py-32">
+    <section aria-labelledby="sermon-heading" className="pb-24 sm:pb-32">
       <Container>
-        <SectionHeading title="Latest sermon" tone="dark" size="md" className="reveal" />
-        <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
+          <div className="reveal lg:col-span-5">
+            <p className="label text-muted">Latest sermon</p>
+            <h2 id="sermon-heading" className="mt-4 text-display-md text-navy-900">
+              {sermon.title}
+            </h2>
+            <p className="mt-5 font-mono text-[0.875rem] leading-relaxed text-muted">
+              {[sermon.speaker?.name, formatLongDate(sermon.preachedAt), sermon.scripture].filter(Boolean).join(", ")}
+            </p>
+            {sermon.summary && <p className="mt-5 text-lg leading-relaxed text-navy-800">{sermon.summary}</p>}
+            <div className="mt-8 flex flex-col gap-2">
+              <ButtonLink href={`/sermons/${sermon.slug}`} variant="text" className="self-start">
+                Watch the message
+              </ButtonLink>
+              <ButtonLink href="/sermons" variant="text" className="self-start">
+                All sermons
+              </ButtonLink>
+            </div>
+          </div>
           <div className="reveal lg:col-span-7">
             <SermonPlayer
               title={sermon.title}
@@ -19,38 +35,6 @@ export function FeaturedSermon({ sermon }: { sermon: SermonSummary }) {
               audioUrl={sermon.audioUrl}
               poster={sermon.thumbnail ? { url: sermon.thumbnail.url, alt: sermon.thumbnail.alt } : null}
             />
-          </div>
-          <div className="reveal lg:col-span-5">
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-b border-ivory/15 pb-8 text-sm">
-              <div>
-                <dt className="eyebrow text-gold">Preached</dt>
-                <dd className="mt-2 text-ivory">{formatLongDate(sermon.preachedAt)}</dd>
-              </div>
-              {sermon.speaker && (
-                <div>
-                  <dt className="eyebrow text-gold">Speaker</dt>
-                  <dd className="mt-2 text-ivory">{sermon.speaker.name}</dd>
-                </div>
-              )}
-              {sermon.scripture && (
-                <div className="col-span-2">
-                  <dt className="eyebrow text-gold">Scripture</dt>
-                  <dd className="mt-2 font-display text-2xl italic text-ivory">{sermon.scripture}</dd>
-                </div>
-              )}
-            </dl>
-            <h3 id="sermon-heading" className="mt-8 font-display text-display-md font-semibold text-ivory">
-              {sermon.title}
-            </h3>
-            {sermon.summary && <p className="mt-5 leading-relaxed text-mist">{sermon.summary}</p>}
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href={`/sermons/${sermon.slug}`} arrow>
-                View message
-              </ButtonLink>
-              <ButtonLink href="/sermons" variant="outline-light">
-                Sermon library
-              </ButtonLink>
-            </div>
           </div>
         </div>
       </Container>

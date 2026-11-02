@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { getSiteSettings } from "@/lib/content";
@@ -7,22 +7,22 @@ import { siteUrl } from "@/lib/site-url";
 import { RevealObserver } from "@/components/site/reveal-observer";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+// Inter carries headlines and body text; IBM Plex Mono sets the small spaced labels.
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const sans = DM_Sans({
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#101b2d",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Marks JS as available before first paint so scroll-reveal never flashes content. */}
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

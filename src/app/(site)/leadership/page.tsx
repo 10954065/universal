@@ -73,7 +73,7 @@ export default async function LeadershipPage() {
                                 href={href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex h-11 w-11 items-center justify-center border border-navy-900/20 text-navy-900 transition-colors hover:bg-navy-900 hover:text-ivory"
+                                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-sand text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
                               >
                                 <SocialIcon network={network} />
                                 <span className="sr-only">

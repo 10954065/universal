@@ -1,7 +1,15 @@
-import { ButtonLink } from "@/components/ui/button";
-import { Emphasis } from "@/components/ui/emphasis";
+import Link from "next/link";
+import { ButtonLink, LineArrow } from "@/components/ui/button";
+import { stripEmphasis } from "@/components/ui/emphasis";
 import { Photo, type PhotoSource } from "@/components/ui/photo";
+import { SocialIcon, type SocialChannel } from "@/components/site/social-links";
 import { safeHref } from "@/lib/safe-url";
+
+export interface NextService {
+  name: string;
+  when: string;
+  location: string | null;
+}
 
 interface HeroProps {
   eyebrow: string;
@@ -10,47 +18,82 @@ interface HeroProps {
   image: PhotoSource | null;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
-  nextGathering?: string | null;
+  nextService?: NextService | null;
+  social: SocialChannel[];
 }
 
 /**
- * Split hero: navy typographic panel on the left, photograph on the right.
- * On mobile the photograph sits above the text so the subject is never covered.
+ * Full-screen photograph. The headline sits low on the left, a "Follow" rail
+ * runs up the left edge, a "Discover" cue runs down the right, and a frosted
+ * card floats bottom right with this week's service.
  */
-export function Hero({ eyebrow, heading, text, image, primary, secondary, nextGathering }: HeroProps) {
+export function Hero({ eyebrow, heading, text, image, primary, secondary, nextService, social }: HeroProps) {
   return (
-    <section aria-labelledby="hero-heading" className="on-dark relative overflow-hidden bg-navy-950">
-      <div className="grid lg:min-h-[min(52rem,calc(100svh-5rem))] lg:grid-cols-12">
-        <div className="relative aspect-[4/5] max-h-[70svh] w-full sm:aspect-[16/11] lg:order-2 lg:col-span-5 lg:aspect-auto lg:max-h-none">
-          {image && <Photo image={image} priority quality={60} sizes="(min-width: 1024px) 42vw, 100vw" />}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/10 to-transparent lg:bg-gradient-to-r lg:from-navy-950 lg:via-navy-950/0 lg:to-transparent"
-          />
-        </div>
+    <section aria-labelledby="hero-heading" className="on-dark relative isolate flex h-[calc(100svh-4rem)] min-h-[38rem] items-end bg-navy-950 text-white">
+      {image && <Photo image={image} priority quality={60} sizes="100vw" className="-z-10" />}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
 
-        <div className="grain relative z-10 -mt-24 px-5 pb-16 sm:px-8 lg:order-1 lg:col-span-7 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:py-24 lg:pl-[max(2.5rem,calc((100vw-78rem)/2+2.5rem))] lg:pr-14">
+      {social.length > 0 && (
+        <div className="absolute left-6 top-14 hidden flex-col items-center gap-5 md:flex lg:left-10">
+          <ul className="flex flex-col items-center gap-4">
+            {social.map(({ network, href, label }) => (
+              <li key={network}>
+                <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 w-9 items-center justify-center transition-opacity hover:opacity-60">
+                  <SocialIcon network={network} className="h-6 w-6" />
+                  <span className="sr-only">{label} (opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <span aria-hidden="true" className="h-14 w-px bg-white/80" />
+          <span aria-hidden="true" className="rail-label label text-white">
+            Follow
+          </span>
+        </div>
+      )}
+
+      <Link
+        href="#visit"
+        className="absolute bottom-10 right-6 hidden flex-col items-center gap-4 text-white transition-opacity hover:opacity-70 md:flex lg:right-10"
+      >
+        <span aria-hidden="true" className="nudge-down flex flex-col items-center gap-1 text-[0.625rem] leading-none">
+          <span>▼</span>
+          <span className="opacity-70">▼</span>
+          <span className="opacity-40">▼</span>
+        </span>
+        <span className="rail-label label">Discover</span>
+        <span aria-hidden="true" className="h-14 w-px bg-white/80" />
+      </Link>
+
+      <div className="mx-auto w-full max-w-[72rem] px-5 pb-12 sm:px-8 sm:pb-16 md:px-24">
+        <div className="grid items-end gap-10 lg:grid-cols-[1fr_20rem]">
           <div className="animate-rise motion-reduce:animate-none">
-            <p className="eyebrow text-gold">{eyebrow}</p>
-            <h1 id="hero-heading" className="mt-6 font-display text-[clamp(2.6rem,1.4rem+3.6vw,5rem)] font-semibold leading-[1.02] text-ivory">
-              <Emphasis text={heading} accentClassName="text-gold" />
+            {eyebrow && <p className="label text-white/80">{eyebrow}</p>}
+            <h1 id="hero-heading" className="mt-4 max-w-2xl text-display-lg text-white">
+              {stripEmphasis(heading)}
             </h1>
-            <p className="mt-7 max-w-lg text-lg leading-relaxed text-mist sm:text-xl">{text}</p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={safeHref(primary.href) ?? "/plan-your-visit"} arrow className="plausible-event-name=Plan+Visit+Click">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">{text}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href={safeHref(primary.href) ?? "/plan-your-visit"} variant="light" className="plausible-event-name=Plan+Visit+Click">
                 {primary.label}
               </ButtonLink>
               <ButtonLink href={safeHref(secondary.href) ?? "/about"} variant="outline-light">
                 {secondary.label}
               </ButtonLink>
             </div>
-            {nextGathering && (
-              <p className="mt-12 flex items-center gap-3 border-t border-ivory/15 pt-6 text-sm text-mist">
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-gold" />
-                {nextGathering}
-              </p>
-            )}
           </div>
+
+          {nextService && (
+            <aside aria-label="This week" className="frost hidden rounded-2xl p-7 text-navy-900 shadow-[0_20px_60px_rgb(0_0_0/0.25)] lg:block">
+              <p className="text-lg font-medium uppercase tracking-[-0.01em]">{nextService.name}</p>
+              <p className="mt-3 leading-snug">{nextService.when}</p>
+              {nextService.location && <p className="mt-1 text-sm text-muted">{nextService.location}</p>}
+              <Link href="/plan-your-visit" className="label group mt-6 inline-flex items-center gap-3 text-navy-900">
+                Plan your visit
+                <LineArrow length="w-10 group-hover:w-14" />
+              </Link>
+            </aside>
+          )}
         </div>
       </div>
     </section>

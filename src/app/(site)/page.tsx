@@ -11,7 +11,7 @@ import {
 } from "@/lib/content";
 import { formatClock, WEEKDAY_LABELS } from "@/lib/format";
 import { stripEmphasis } from "@/components/ui/emphasis";
-import { Hero } from "@/components/home/hero";
+import { Hero, type NextService } from "@/components/home/hero";
 import { Welcome } from "@/components/home/welcome";
 import { Services } from "@/components/home/services";
 import { MinistriesShowcase } from "@/components/home/ministries-showcase";
@@ -21,6 +21,7 @@ import { Scripture } from "@/components/home/scripture";
 import { Outreach } from "@/components/home/outreach";
 import { VisitInvitation } from "@/components/home/visit-invitation";
 import { OrganizationJsonLd } from "@/components/site/organization-json-ld";
+import { getSocialChannels } from "@/components/site/social-links";
 import { NewsletterSection } from "@/components/home/newsletter-section";
 import { isEmailConfigured } from "@/lib/email";
 
@@ -47,7 +48,7 @@ export default async function HomePage() {
   if (!home) {
     return (
       <section className="px-5 py-32 text-center">
-        <h1 className="font-display text-display-lg text-navy-900">Welcome</h1>
+        <h1 className="text-display-lg text-navy-900">Welcome</h1>
         <p className="mt-4 text-muted">The homepage has not been configured yet. Run the database seed or edit it in the dashboard.</p>
       </section>
     );
@@ -55,13 +56,15 @@ export default async function HomePage() {
 
   const sermon = home.featuredSermon?.status === "PUBLISHED" ? home.featuredSermon : latestSermon;
   const firstService = services[0];
-  const nextGathering = firstService
-    ? `Join us ${WEEKDAY_LABELS[firstService.day]}s at ${formatClock(firstService.startTime)}${firstService.location ? `, ${firstService.location}` : ""}`
+  const nextService: NextService | null = firstService
+    ? {
+        name: firstService.name,
+        when: `Join us every ${WEEKDAY_LABELS[firstService.day]} at ${formatClock(firstService.startTime)}`,
+        location: firstService.location,
+      }
     : null;
 
-  // Sections render in this order.
   const visible = {
-    welcome: true,
     services: home.showServices,
     ministries: home.showMinistries && ministries.length > 0,
     sermon: home.showSermon && Boolean(sermon),
@@ -69,6 +72,7 @@ export default async function HomePage() {
     outreach: home.showOutreach && Boolean(home.outreachHeading && home.outreachText),
   };
 
+  // Sections render in this order.
   return (
     <>
       <OrganizationJsonLd />
@@ -79,18 +83,16 @@ export default async function HomePage() {
         image={home.heroImage}
         primary={{ label: home.primaryCtaLabel, href: home.primaryCtaHref }}
         secondary={{ label: home.secondaryCtaLabel, href: home.secondaryCtaHref }}
-        nextGathering={nextGathering}
+        nextService={nextService}
+        social={getSocialChannels(settings)}
       />
-      <Welcome
-        heading={home.welcomeHeading}
-        text={home.welcomeText}
-        image={home.welcomeImage}
-        accentImage={photos.get("worship-singer.jpg") ?? null}
-      />
+      {/* Target of the hero's "Discover" cue. */}
+      <div id="visit" className="scroll-mt-16" />
       {visible.services && <Services services={services} />}
-      {visible.ministries && <MinistriesShowcase ministries={ministries} />}
-      {visible.sermon && sermon && <FeaturedSermon sermon={sermon} />}
+      <Welcome heading={home.welcomeHeading} text={home.welcomeText} image={home.welcomeImage} />
       {visible.events && <UpcomingEvents events={events} />}
+      {visible.ministries && <MinistriesShowcase ministries={ministries} image={photos.get("worship-singer.jpg") ?? null} />}
+      {visible.sermon && sermon && <FeaturedSermon sermon={sermon} />}
       {home.showScripture && home.scriptureText && home.scriptureReference && (
         <Scripture text={home.scriptureText} reference={home.scriptureReference} translation={home.scriptureTranslation} />
       )}

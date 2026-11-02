@@ -12,7 +12,7 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-/** Serif heading with an optional intro. Used to open most sections. */
+/** Large headline with an optional intro. Used to open most sections. */
 export function SectionHeading({
   id,
   title,
@@ -33,7 +33,11 @@ export function SectionHeading({
       >
         <Emphasis text={title} accentClassName={dark ? "text-gold" : "text-gold-ink"} />
       </Tag>
-      {intro && <div className={`mt-6 text-lg leading-relaxed ${dark ? "text-mist" : "text-muted"}`}>{intro}</div>}
+      {intro && (
+        <div className={`mt-5 max-w-2xl text-xl leading-relaxed sm:text-[1.375rem] sm:leading-[1.45] ${centered ? "mx-auto" : ""} ${dark ? "text-mist" : "text-muted"}`}>
+          {intro}
+        </div>
+      )}
     </div>
   );
 }

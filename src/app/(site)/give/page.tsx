@@ -58,8 +58,8 @@ export default async function GivePage() {
           <div className={`mt-12 grid gap-6 ${online ? "lg:grid-cols-12" : ""}`}>
             <div className={online ? "space-y-6 lg:col-span-6" : "grid gap-6 md:grid-cols-2"}>
               {methods.map(({ icon: Icon, title, body }) => (
-                <article key={title} className="border border-navy-900/10 bg-ivory p-8">
-                  <span className="inline-flex h-12 w-12 items-center justify-center bg-navy-900 text-gold">
+                <article key={title} className="rounded-tile bg-white p-8">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-navy-900 text-gold">
                     <Icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.5} />
                   </span>
                   <h3 className="mt-6 font-display text-2xl font-semibold text-navy-900">{title}</h3>
@@ -67,7 +67,7 @@ export default async function GivePage() {
                 </article>
               ))}
               {methods.length === 0 && (
-                <article className="border border-navy-900/10 bg-ivory p-8 md:col-span-2">
+                <article className="rounded-tile bg-white p-8 md:col-span-2">
                   <h3 className="font-display text-2xl font-semibold text-navy-900">Giving details coming soon</h3>
                   <p className="mt-3 leading-relaxed text-muted">
                     Our official bank and Mobile Money details will be published here once confirmed. For now, please contact us and we will share how you can give.
@@ -80,7 +80,7 @@ export default async function GivePage() {
             </div>
             {online && (
               <div className="lg:col-span-6">
-                <div className="border border-navy-900/10 bg-ivory p-8">
+                <div className="rounded-tile bg-white p-8">
                   <h3 className="font-display text-2xl font-semibold text-navy-900">Give online</h3>
                   <p className="mt-3 leading-relaxed text-muted">Card and Mobile Money payments are processed securely by Paystack. We never see or store your card details.</p>
                   <div className="mt-6">

@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const chipClass =
-  "inline-flex min-h-11 items-center gap-2 border border-navy-900/20 px-4 text-sm font-medium text-navy-900 transition-colors hover:border-navy-900";
+  "inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-sm font-medium text-navy-900 transition-colors hover:border-navy-900";
 
 export default async function EventPage({ params }: Props) {
   const event = await getEventBySlug((await params).slug);
@@ -142,13 +142,13 @@ export default async function EventPage({ params }: Props) {
                   externalUrl={externalRegistration}
                 />
                 {(event.contactEmail || phone) && (
-                  <div className="border border-line p-6">
+                  <div className="rounded-card bg-sand p-6">
                     <h2 className="eyebrow text-gold-ink">Questions?</h2>
                     <ul className="mt-4 space-y-3 text-[0.9375rem]">
                       {event.contactEmail && (
                         <li className="flex items-center gap-3">
                           <Mail aria-hidden="true" className="h-4 w-4 text-gold-ink" strokeWidth={1.5} />
-                          <a href={`mailto:${event.contactEmail}`} className="break-all text-navy-900 underline decoration-gold-ink/50 underline-offset-4">
+                          <a href={`mailto:${event.contactEmail}`} className="break-all text-gold-ink hover:underline hover:underline-offset-4">
                             {event.contactEmail}
                           </a>
                         </li>
@@ -156,7 +156,7 @@ export default async function EventPage({ params }: Props) {
                       {phone && (
                         <li className="flex items-center gap-3">
                           <Phone aria-hidden="true" className="h-4 w-4 text-gold-ink" strokeWidth={1.5} />
-                          <a href={phone} className="text-navy-900 underline decoration-gold-ink/50 underline-offset-4">
+                          <a href={phone} className="text-gold-ink hover:underline hover:underline-offset-4">
                             {event.contactPhone}
                           </a>
                         </li>

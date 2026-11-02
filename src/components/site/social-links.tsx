@@ -34,8 +34,14 @@ export function SocialIcon({ network, className = "h-5 w-5" }: { network: Networ
   );
 }
 
+export interface SocialChannel {
+  network: Network;
+  href: string;
+  label: string;
+}
+
 /** Lists only the official channels configured in Site settings. Renders nothing when none are set. */
-export function getSocialChannels(settings: SiteSettingsView): { network: Network; href: string }[] {
+export function getSocialChannels(settings: SiteSettingsView): SocialChannel[] {
   const candidates: [Network, string | undefined][] = [
     ["facebook", safeExternalUrl(settings.facebookUrl)],
     ["instagram", safeExternalUrl(settings.instagramUrl)],
@@ -44,7 +50,9 @@ export function getSocialChannels(settings: SiteSettingsView): { network: Networ
     ["x", safeExternalUrl(settings.xUrl)],
     ["whatsapp", whatsappHref(settings.whatsapp)],
   ];
-  return candidates.filter((entry): entry is [Network, string] => Boolean(entry[1])).map(([network, href]) => ({ network, href }));
+  return candidates
+    .filter((entry): entry is [Network, string] => Boolean(entry[1]))
+    .map(([network, href]) => ({ network, href, label: LABELS[network] }));
 }
 
 export function SocialLinks({ settings, tone = "dark" }: { settings: SiteSettingsView; tone?: "light" | "dark" }) {
@@ -58,10 +66,10 @@ export function SocialLinks({ settings, tone = "dark" }: { settings: SiteSetting
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex h-11 w-11 items-center justify-center border transition-colors ${
+            className={`pressable inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
               tone === "dark"
-                ? "border-ivory/20 text-ivory hover:border-gold hover:text-gold"
-                : "border-navy-900/20 text-navy-900 hover:border-navy-900 hover:bg-navy-900 hover:text-ivory"
+                ? "bg-white/10 text-ivory hover:bg-white/20"
+                : "bg-navy-900/[0.06] text-navy-900 hover:bg-navy-900 hover:text-white"
             }`}
           >
             <SocialIcon network={network} />

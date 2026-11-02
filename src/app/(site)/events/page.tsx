@@ -23,8 +23,8 @@ export default async function EventsPage({ searchParams }: Props) {
   const [upcoming, past, photos] = await Promise.all([getUpcomingEvents(), getPastEvents(24), getLibraryPhotos("praise-hand-raised.jpg")]);
 
   const tabClass = (active: boolean) =>
-    `inline-flex min-h-11 items-center border-b-2 px-1 text-sm font-semibold uppercase tracking-[0.14em] transition-colors ${
-      active ? "border-gold text-navy-900" : "border-transparent text-muted hover:text-navy-900"
+    `inline-flex min-h-10 items-center rounded-full px-5 text-[0.9375rem] font-medium transition-[background-color,color,box-shadow] duration-200 ${
+      active ? "bg-white text-navy-900 shadow-[0_1px_4px_rgb(0_0_0/0.12)]" : "text-muted hover:text-navy-900"
     }`;
 
   return (
@@ -40,7 +40,7 @@ export default async function EventsPage({ searchParams }: Props) {
           <h2 id="event-list-heading" className="sr-only">
             {view === "upcoming" ? "Upcoming events" : "Past events"}
           </h2>
-          <nav aria-label="Event lists" className="flex gap-8 border-b border-line">
+          <nav aria-label="Event lists" className="inline-flex gap-1 rounded-full bg-sand p-1">
             <Link href="/events" aria-current={view === "upcoming" ? "page" : undefined} className={tabClass(view === "upcoming")}>
               Upcoming ({upcoming.length})
             </Link>
@@ -51,7 +51,7 @@ export default async function EventsPage({ searchParams }: Props) {
 
           {view === "upcoming" ? (
             upcoming.length > 0 ? (
-              <div className="mt-6 border-b border-navy-900/15">
+              <div className="mt-8 space-y-4">
                 {upcoming.map((event) => (
                   <EventRow key={event.id} event={event} />
                 ))}
@@ -71,15 +71,15 @@ export default async function EventsPage({ searchParams }: Props) {
               </div>
             )
           ) : past.length > 0 ? (
-            <ul className="mt-6 divide-y divide-line">
+            <ul className="mt-8 divide-y divide-line">
               {past.map((event) => (
                 <li key={event.id} className="grid gap-2 py-6 sm:grid-cols-[10rem_1fr] sm:items-baseline">
-                  <time dateTime={event.startsAt.toISOString()} className="text-sm font-medium uppercase tracking-[0.14em] text-muted">
+                  <time dateTime={event.startsAt.toISOString()} className="text-[0.9375rem] font-medium text-muted">
                     {formatShortDate(event.startsAt)}
                   </time>
                   <div>
-                    <h2 className="font-display text-2xl font-semibold text-navy-900">
-                      <Link href={`/events/${event.slug}`} className="hover:underline hover:decoration-gold hover:underline-offset-4">
+                    <h2 className="text-2xl font-semibold tracking-[-0.02em] text-navy-900">
+                      <Link href={`/events/${event.slug}`} className="hover:text-gold-ink">
                         {event.title}
                       </Link>
                     </h2>

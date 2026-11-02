@@ -27,7 +27,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 const selectClass =
-  "h-12 w-full appearance-none border border-navy-900/20 bg-ivory-100 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22><path d=%22M5 7l5 5 5-5%22 fill=%22none%22 stroke=%22%23101b2d%22 stroke-width=%221.5%22/></svg>')] bg-[length:1rem] bg-[right_0.9rem_center] bg-no-repeat pl-4 pr-10 text-[0.9375rem] text-navy-900 focus:border-navy-900";
+  "h-12 w-full appearance-none rounded-full border border-line bg-white bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22><path d=%22M5 7l5 5 5-5%22 fill=%22none%22 stroke=%22%23101b2d%22 stroke-width=%221.5%22/></svg>')] bg-[length:1rem] bg-[right_0.9rem_center] bg-no-repeat pl-4 pr-10 text-[0.9375rem] text-navy-900 focus:border-navy-900";
 
 export default async function SermonsPage({ searchParams }: Props) {
   const filters = parseSermonFilters(await searchParams);
@@ -62,7 +62,7 @@ export default async function SermonsPage({ searchParams }: Props) {
                   defaultValue={filters.q}
                   maxLength={100}
                   placeholder="Search by title, scripture or speaker"
-                  className="h-12 w-full border border-navy-900/20 bg-ivory-100 pl-11 pr-4 text-[0.9375rem] text-navy-900 placeholder:text-muted focus:border-navy-900"
+                  className="h-12 w-full rounded-full border border-line bg-white pl-11 pr-4 text-[0.9375rem] text-navy-900 placeholder:text-muted focus:border-navy-900"
                 />
               </div>
               <div>
@@ -102,7 +102,7 @@ export default async function SermonsPage({ searchParams }: Props) {
               <span>
                 {total} {total === 1 ? "message" : "messages"} found
               </span>
-              <Link href="/sermons" className="font-semibold text-navy-900 underline decoration-gold-ink underline-offset-4">
+              <Link href="/sermons" className="font-medium text-gold-ink hover:underline hover:underline-offset-4">
                 Clear filters
               </Link>
             </p>

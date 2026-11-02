@@ -1,44 +1,53 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-export type ButtonVariant = "gold" | "navy" | "outline" | "outline-light" | "text";
+export type ButtonVariant = "primary" | "navy" | "gold" | "light" | "outline" | "outline-light" | "text" | "text-light";
 
 const base =
-  "group inline-flex items-center justify-center gap-2.5 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] transition-[background-color,color,border-color,transform] duration-300 ease-out disabled:pointer-events-none disabled:opacity-60";
+  "pressable group inline-flex items-center justify-center gap-3 font-mono text-[0.8125rem] font-medium uppercase tracking-[0.14em] transition-[background-color,color,box-shadow] duration-200 ease-out disabled:pointer-events-none disabled:opacity-50";
+
+const pill = "min-h-12 rounded-full px-7";
 
 const variants: Record<ButtonVariant, string> = {
-  gold: "min-h-12 bg-gold px-7 text-navy-950 hover:bg-gold-300 active:translate-y-px",
-  navy: "min-h-12 bg-navy-900 px-7 text-ivory hover:bg-navy-700 active:translate-y-px",
-  outline: "min-h-12 border border-navy-900/25 px-7 text-navy-900 hover:border-navy-900 hover:bg-navy-900 hover:text-ivory",
-  "outline-light": "min-h-12 border border-ivory/40 px-7 text-ivory hover:border-ivory hover:bg-ivory hover:text-navy-900",
-  text: "min-h-11 text-navy-900 underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-2",
+  primary: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
+  navy: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
+  gold: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
+  light: `${pill} bg-white text-navy-900 hover:bg-white/85`,
+  outline: `${pill} text-navy-900 shadow-[inset_0_0_0_1px_var(--color-navy-900)] hover:bg-navy-900 hover:text-white`,
+  "outline-light": `${pill} text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.7)] hover:bg-white hover:text-navy-900`,
+  text: "min-h-11 text-navy-900",
+  "text-light": "min-h-11 text-white",
 };
 
-export function buttonClasses(variant: ButtonVariant = "gold", className = ""): string {
+export function buttonClasses(variant: ButtonVariant = "primary", className = ""): string {
   return `${base} ${variants[variant]} ${className}`;
 }
 
-/** Arrow glyph that nudges right on hover. */
-export function Arrow() {
+/** Long hairline arrow that stretches on hover ("LEARN MORE ———→"). */
+export function LineArrow({ length = "w-16 group-hover:w-24" }: { length?: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 10" className="h-2.5 w-5 transition-transform duration-300 group-hover:translate-x-1">
-      <path d="M0 5h18M14 1l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.3" />
-    </svg>
+    <span aria-hidden="true" className={`relative inline-block h-px ${length} bg-current transition-[width] duration-300 ease-out`}>
+      <svg viewBox="0 0 8 8" className="absolute -right-px -top-[3.5px] h-2 w-2">
+        <path d="M1 0.5 7.5 4 1 7.5" fill="none" stroke="currentColor" strokeWidth="1" />
+      </svg>
+    </span>
   );
 }
 
 interface ButtonLinkProps extends Omit<ComponentProps<typeof Link>, "className"> {
   variant?: ButtonVariant;
   className?: string;
+  /** Adds the hairline arrow. Text links always carry one. */
   arrow?: boolean;
   children: ReactNode;
 }
 
-export function ButtonLink({ variant = "gold", className = "", arrow = false, children, ...props }: ButtonLinkProps) {
+export function ButtonLink({ variant = "primary", className = "", arrow = false, children, ...props }: ButtonLinkProps) {
+  const isText = variant === "text" || variant === "text-light";
   return (
     <Link className={buttonClasses(variant, className)} {...props}>
       {children}
-      {arrow && <Arrow />}
+      {(arrow || isText) && <LineArrow length={isText ? "w-16 group-hover:w-24" : "w-6 group-hover:w-9"} />}
     </Link>
   );
 }
@@ -47,6 +56,6 @@ interface ButtonProps extends ComponentProps<"button"> {
   variant?: ButtonVariant;
 }
 
-export function Button({ variant = "gold", className = "", type = "button", ...props }: ButtonProps) {
+export function Button({ variant = "primary", className = "", type = "button", ...props }: ButtonProps) {
   return <button type={type} className={buttonClasses(variant, className)} {...props} />;
 }

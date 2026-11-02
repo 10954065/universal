@@ -19,7 +19,7 @@ export function ContactDetails({ settings }: { settings: SiteSettingsView }) {
         <>
           <span>{address}</span>
           {directions && (
-            <a href={directions} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold underline decoration-gold-ink underline-offset-4">
+            <a href={directions} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-gold-ink hover:underline hover:underline-offset-4">
               <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
               Get directions<span className="sr-only"> (opens in a new tab)</span>
             </a>
@@ -30,13 +30,13 @@ export function ContactDetails({ settings }: { settings: SiteSettingsView }) {
     phone && {
       icon: <Phone aria-hidden="true" className="h-5 w-5" strokeWidth={1.5} />,
       label: "Call",
-      content: <a href={phone} className="underline decoration-gold-ink/50 underline-offset-4 hover:decoration-gold-ink">{settings.phone}</a>,
+      content: <a href={phone} className="text-gold-ink hover:underline hover:underline-offset-4">{settings.phone}</a>,
     },
     whatsapp && {
       icon: <SocialIcon network="whatsapp" />,
       label: "WhatsApp",
       content: (
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="underline decoration-gold-ink/50 underline-offset-4 hover:decoration-gold-ink">
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="text-gold-ink hover:underline hover:underline-offset-4">
           Message us on WhatsApp<span className="sr-only"> (opens in a new tab)</span>
         </a>
       ),
@@ -44,7 +44,7 @@ export function ContactDetails({ settings }: { settings: SiteSettingsView }) {
     settings.email && {
       icon: <Mail aria-hidden="true" className="h-5 w-5" strokeWidth={1.5} />,
       label: "Email",
-      content: <a href={`mailto:${settings.email}`} className="break-all underline decoration-gold-ink/50 underline-offset-4 hover:decoration-gold-ink">{settings.email}</a>,
+      content: <a href={`mailto:${settings.email}`} className="break-all text-gold-ink hover:underline hover:underline-offset-4">{settings.email}</a>,
     },
   ].filter(Boolean) as { icon: React.ReactNode; label: string; content: React.ReactNode }[];
 

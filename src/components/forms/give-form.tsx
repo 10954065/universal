@@ -37,7 +37,7 @@ export function GiveForm({ token, categories }: GiveFormProps) {
             id="give-categoryId"
             name="categoryId"
             defaultValue={state.values?.categoryId ?? ""}
-            className="mt-2 h-12 w-full border border-navy-900/20 bg-white px-4 text-base text-navy-900 focus:border-navy-900"
+            className="mt-2 h-12 w-full rounded-xl border border-line bg-white px-4 text-[1.0625rem] text-navy-900 focus:border-navy-900 focus:shadow-[0_0_0_4px_rgb(18_18_18/0.08)] focus:outline-none"
           >
             <option value="">General offering</option>
             {categories.map((category) => (

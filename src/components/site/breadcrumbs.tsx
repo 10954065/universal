@@ -27,7 +27,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
                     <Link href={crumb.href} className="underline-offset-4 transition-colors hover:text-navy-900 hover:underline">
                       {crumb.label}
                     </Link>
-                    <span aria-hidden="true" className="text-gold-ink">
+                    <span aria-hidden="true" className="text-mist">
                       /
                     </span>
                   </>

@@ -7,17 +7,17 @@ import { PRIMARY_NAV, isActivePath } from "@/lib/navigation";
 export function DesktopNav() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main" className="hidden xl:block">
-      <ul className="flex items-center gap-1">
-        {PRIMARY_NAV.map((item) => {
+    <nav aria-label="Main" className="hidden justify-self-center xl:block">
+      <ul className="flex items-center gap-8">
+        {PRIMARY_NAV.filter((item) => item.href !== "/").map((item) => {
           const active = isActivePath(pathname, item.href);
           return (
             <li key={item.href}>
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative inline-flex min-h-11 items-center px-3.5 text-[0.8125rem] font-medium tracking-wide transition-colors after:absolute after:inset-x-3.5 after:bottom-2 after:h-px after:origin-left after:bg-gold after:transition-transform after:duration-300 hover:text-navy-900 ${
-                  active ? "text-navy-900 after:scale-x-100" : "text-navy-700/80 after:scale-x-0 hover:after:scale-x-100"
+                className={`inline-flex min-h-11 items-center text-[0.9375rem] transition-opacity duration-200 ${
+                  active ? "text-navy-900 underline decoration-1 underline-offset-[6px]" : "text-navy-900 hover:opacity-60"
                 }`}
               >
                 {item.label}

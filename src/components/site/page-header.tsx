@@ -15,31 +15,28 @@ interface PageHeaderProps {
 }
 
 /**
- * Opening band for inner pages. With an image it becomes an editorial split:
- * text on ivory, photograph bleeding off the right edge.
+ * Opening band for inner pages: a large title and intro on white,
+ * with the page photograph presented beneath as a wide rounded tile.
  */
 export function PageHeader({ eyebrow, title, intro, image, crumbs, children }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-ivory">
-      <div className={image ? "lg:grid lg:min-h-[34rem] lg:grid-cols-12" : ""}>
-        <Container className={`relative z-10 py-16 sm:py-20 ${image ? "lg:col-span-7 lg:flex lg:items-center lg:py-24" : "lg:py-28"}`}>
-          <div className="animate-rise motion-reduce:animate-none">
-            {crumbs && <Breadcrumbs items={crumbs} />}
-            {eyebrow && <p className="eyebrow mt-8 text-gold-ink">{eyebrow}</p>}
-            <h1 className={`${eyebrow ? "mt-4" : "mt-8"} max-w-3xl font-display text-display-xl font-semibold text-navy-900`}>
-              <Emphasis text={title} />
-            </h1>
-            {intro && <div className="mt-7 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{intro}</div>}
-            {children && <div className="mt-9">{children}</div>}
-          </div>
-        </Container>
+    <section className="pb-4 pt-10 sm:pt-14">
+      <Container>
+        <div className="animate-rise motion-reduce:animate-none">
+          {crumbs && <Breadcrumbs items={crumbs} />}
+          {eyebrow && <p className="eyebrow mt-10 text-danger">{eyebrow}</p>}
+          <h1 className={`${eyebrow ? "mt-3" : crumbs ? "mt-10" : "mt-4"} max-w-4xl font-display text-display-xl font-semibold text-navy-900`}>
+            <Emphasis text={title} />
+          </h1>
+          {intro && <div className="mt-6 max-w-2xl text-xl leading-relaxed text-muted sm:text-[1.375rem] sm:leading-[1.45]">{intro}</div>}
+          {children && <div className="mt-8">{children}</div>}
+        </div>
         {image && (
-          <div className="relative aspect-[16/10] lg:col-span-5 lg:aspect-auto">
-            <Photo image={image} priority sizes="(min-width: 1024px) 42vw, 100vw" />
-            <div aria-hidden="true" className="absolute inset-y-0 left-0 hidden w-24 bg-gradient-to-r from-ivory to-transparent lg:block" />
+          <div className="relative mt-12 aspect-[4/3] overflow-hidden rounded-tile bg-sand sm:aspect-[16/9] lg:aspect-[21/9]">
+            <Photo image={image} priority sizes="(min-width: 1200px) 1200px, 100vw" />
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

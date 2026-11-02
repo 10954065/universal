@@ -59,7 +59,7 @@ export default async function MinistriesPage() {
                       <h2 className="font-display text-display-sm font-semibold text-navy-900">
                         <Link
                           href={`/ministries/${ministry.slug}`}
-                          className="after:absolute after:inset-0 group-hover:underline group-hover:decoration-gold group-hover:decoration-1 group-hover:underline-offset-4"
+                          className="after:absolute after:inset-0 group-hover:text-gold-ink"
                         >
                           {ministry.name}
                         </Link>

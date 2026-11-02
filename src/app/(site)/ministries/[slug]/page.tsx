@@ -79,7 +79,7 @@ export default async function MinistryPage({ params }: Props) {
                     {ministry.contactEmail && (
                       <li className="flex items-center gap-3">
                         <Mail aria-hidden="true" className="h-4 w-4 text-gold-ink" strokeWidth={1.5} />
-                        <a href={`mailto:${ministry.contactEmail}`} className="break-all text-navy-900 underline decoration-gold-ink/50 underline-offset-4">
+                        <a href={`mailto:${ministry.contactEmail}`} className="break-all text-gold-ink hover:underline hover:underline-offset-4">
                           {ministry.contactEmail}
                         </a>
                       </li>
@@ -87,7 +87,7 @@ export default async function MinistryPage({ params }: Props) {
                     {phone && (
                       <li className="flex items-center gap-3">
                         <Phone aria-hidden="true" className="h-4 w-4 text-gold-ink" strokeWidth={1.5} />
-                        <a href={phone} className="text-navy-900 underline decoration-gold-ink/50 underline-offset-4">
+                        <a href={phone} className="text-gold-ink hover:underline hover:underline-offset-4">
                           {ministry.contactPhone}
                         </a>
                       </li>

@@ -33,7 +33,7 @@ export function ShareLinks({ url, title }: ShareLinksProps) {
   };
 
   const itemClass =
-    "inline-flex h-10 items-center gap-2 border border-navy-900/15 px-3.5 text-sm font-medium text-navy-900 transition-colors hover:border-navy-900 hover:bg-navy-900 hover:text-ivory";
+    "inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-sm font-medium text-navy-900 transition-colors hover:border-navy-900 hover:bg-navy-900 hover:text-ivory";
 
   return (
     <div>

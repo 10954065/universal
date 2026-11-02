@@ -22,7 +22,7 @@ export function EventRegistrationPanel({ event, closed, externalUrl }: PanelProp
   };
 
   return (
-    <div className="border border-line bg-ivory-100 p-6 sm:p-8">
+    <div className="rounded-tile bg-sand p-6 sm:p-8">
       <h2 className="font-display text-2xl font-semibold text-navy-900">Register</h2>
       {state === "external" && externalUrl && (
         <>
