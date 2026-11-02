@@ -66,7 +66,7 @@ Nothing below has been invented. Each item is either empty in the CMS or is mark
 ## Before going live (developer)
 These are set up by the developer; see the README's deployment section.
 - [ ] Production environment variables set, including `CRON_SECRET` and `BLOB_READ_WRITE_TOKEN`.
-- [ ] `npm run db:deploy` and `npm run db:seed` run against the production database. `SEED_SAMPLE_CONTENT` is **not** set, so no "[Sample]" sermons or events exist in production.
+- [ ] The first Vercel build has applied the migrations and seed (the `vercel-build` script does this on every deploy). `SEED_SAMPLE_CONTENT` is **not** set, so no "[Sample]" sermons or events exist in production.
 - [ ] If online giving is on: Paystack webhook URL set to `https://<domain>/api/paystack/webhook`, and one test gift verified end to end.
 - [ ] A test enquiry, prayer request and (if enabled) newsletter sign-up sent from the live site and seen in the dashboard.
 - [ ] Every page reviewed while signed out: no draft wording, placeholder text or unapproved photos visible.

@@ -102,24 +102,21 @@ npm run test:e2e                  # builds the app and runs it on port 3300 agai
 
 Integration and end-to-end tests refuse to run unless the database name ends in `_test`, so they cannot touch real data. Override the database with `TEST_DATABASE_URL`.
 
-## Deploy to Vercel with Neon
+## Deploy to Vercel
 
-1. **Database.** Create a Neon project in the region closest to Ghana that Neon offers (for example `eu-central-1`). Copy the **pooled** connection string for the app. Keep the direct (non-pooled) one for running migrations.
-2. **Project.** Import this repository into Vercel. The defaults are correct: framework Next.js, build command `npm run build`, which also runs `prisma generate`.
-3. **Storage.** In the Vercel project, open **Storage** and create a **Blob** store. This adds `BLOB_READ_WRITE_TOKEN`.
-4. **Environment variables.** Add everything marked *Yes* in the table above for **Production**. Use the final domain for `NEXT_PUBLIC_SITE_URL` and `BETTER_AUTH_URL`. Do not set `SEED_SAMPLE_CONTENT`.
-5. **Tables and first account.** From your machine, point at the production database once:
+1. **Project.** Import this repository into Vercel. Leave the build command empty: Vercel then runs the `vercel-build` script, which applies migrations, runs the seed (it never overwrites existing rows) and builds the site.
+2. **Database.** In the Vercel project, open **Storage** and connect a Postgres database (Prisma Postgres or Neon). This adds `DATABASE_URL`. Use a direct connection string, not a pooled one, because migrations need it.
+3. **Images.** In **Storage**, create a public **Blob** store connected to the project. This adds `BLOB_READ_WRITE_TOKEN`.
+4. **Environment variables.** Add everything marked *Yes* in the table above for **Production**. Use the final domain for `NEXT_PUBLIC_SITE_URL` and `BETTER_AUTH_URL`. Do not set `SEED_SAMPLE_CONTENT`. Redeploy after changing `NEXT_PUBLIC_SITE_URL`, because it is fixed at build time.
+5. **First account.** Copy `DATABASE_URL` from the project and run once from your machine:
 
    ```bash
-   DATABASE_URL="<direct Neon URL>" npm run db:deploy
-   DATABASE_URL="<direct Neon URL>" npm run db:seed
-   DATABASE_URL="<direct Neon URL>" npm run admin:create pastor@example.org "Full Name"
+   DATABASE_URL="<database URL>" npm run admin:create pastor@example.org "Full Name"
    ```
 
-   Run `npm run db:deploy` again whenever a release adds a migration, before or immediately after deploying it.
-6. **Deploy.** Then add the domain under **Settings**, then **Domains**, in Vercel.
-7. **Scheduled job.** [vercel.json](vercel.json) runs `/api/cron/retention` daily at 03:00 GMT. It deletes prayer requests older than the retention period set in **Site settings** (default 180 days) and newsletter sign-ups never confirmed within 30 days. Vercel sends `CRON_SECRET` automatically.
-8. **Preview deployments.** Give previews their own Neon branch so they never write to the live database.
+6. **Domain.** Add the church domain under **Settings**, then **Domains**, then update `NEXT_PUBLIC_SITE_URL` and `BETTER_AUTH_URL` and redeploy.
+7. **Scheduled job.** [vercel.json](vercel.json) runs `/api/cron/retention` daily at 03:00 GMT. It deletes prayer requests older than the retention period set in **Site settings** (default 180 days) and newsletter sign-ups never confirmed within 30 days. Vercel only sends the `CRON_SECRET` header once you have added that variable yourself.
+8. **Preview deployments.** Every build runs migrations, so give previews their own database so they never write to the live one.
 
 ### Email (Resend)
 
