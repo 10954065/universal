@@ -90,6 +90,12 @@ export function SiteFooter({ settings }: { settings: SiteSettingsView }) {
               </li>
             ))}
           </ul>
+          <p className="sm:ml-auto">
+            Created by{" "}
+            <a href="https://www.sunleonrouterenterprise.com/" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline underline-offset-4 transition-opacity hover:opacity-60">
+              Sunleon Router Enterprise<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </p>
         </div>
       </div>
     </footer>
