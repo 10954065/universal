@@ -179,8 +179,8 @@ export const PAGE_SECTIONS: SeedSection[] = [
   { key: "about.mission", page: "about", title: "Our Mission", sortOrder: 2, editorNote: "Mission statement exactly as approved (shown on the banner in the sanctuary)." },
   { key: "about.vision", page: "about", title: "Our Vision", sortOrder: 3, editorNote: "Vision statement exactly as approved (shown on the banner in the sanctuary)." },
   { key: "about.values", page: "about", title: "Our Core Values", sortOrder: 4, editorNote: "Use a bulleted list, one value per line, e.g. '- **Prayer**: short description'." },
-  { key: "about.beliefs", page: "about", title: "What We Believe", sortOrder: 5, editorNote: "Statement of faith. Publish only the ministry's approved wording." },
-  { key: "about.history", page: "about", title: "Our Story", sortOrder: 6, editorNote: "Founding story and history. Publish only verified facts." },
+  { key: "about.beliefs", page: "about", title: "What We Believe", sortOrder: 9, editorNote: "Statement of faith. Publish only the ministry's approved wording." },
+  { key: "about.history", page: "about", title: "Our Story", sortOrder: 10, editorNote: "Founding story and history. Publish only verified facts." },
   {
     key: "visit.expect",
     page: "visit",

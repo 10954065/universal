@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getHomepage, getLibraryPhotos, getPageSectionMap, getPublishedLeaders } from "@/lib/content";
+import { getHomepage, getLibraryPhotos, getPageSectionMap, getPublishedLeaders, getSiteSettings } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -16,17 +16,21 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const [sections, home, leaders, photos] = await Promise.all([
+  const [sections, home, leaders, photos, settings] = await Promise.all([
     getPageSectionMap("about"),
     getHomepage(),
     getPublishedLeaders(),
     getLibraryPhotos("congregation-shiloh.jpg", "praise-hand-raised.jpg", "children-bible-reading.jpg", "prayer-man.jpg", "congregation-standing.jpg"),
+    getSiteSettings(),
   ]);
   const overview = sections.get("about.overview");
   const mission = sections.get("about.mission");
   const vision = sections.get("about.vision");
-  const longForm = ["about.values", "about.beliefs", "about.history"].map((key) => sections.get(key)).filter((section) => section !== undefined);
-  const hasStory = Boolean(overview || mission || vision || longForm.length);
+  const motto = sections.get("about.motto");
+  const longForm = ["about.values", "about.objectives", "about.goals", "about.congregations", "about.beliefs", "about.history"]
+    .map((key) => sections.get(key))
+    .filter((section) => section !== undefined);
+  const hasStory = Boolean(overview || mission || vision || motto || longForm.length);
   const mosaic = ["praise-hand-raised.jpg", "children-bible-reading.jpg", "prayer-man.jpg"].map((file) => photos.get(file)).filter((photo) => photo !== undefined);
 
   return (
@@ -45,11 +49,34 @@ export default async function AboutPage() {
           <Container>
             <div className={`grid gap-4 sm:gap-5 ${mission && vision ? "lg:grid-cols-2" : ""}`}>
               {[mission, vision].filter((item) => item !== undefined).map((item) => (
-                <div key={item.key} className="reveal rounded-tile bg-white/[0.06] p-8 ring-1 ring-white/10 sm:p-12">
-                  <h2 className="font-sans text-[0.9375rem] font-semibold tracking-normal text-gold">{item.title}</h2>
-                  <RichText markdown={item.body} className="mt-4 [&_p]:font-display [&_p]:text-[1.875rem] [&_p]:font-semibold [&_p]:leading-snug [&_p]:tracking-[-0.025em] [&_p]:text-white" />
+                <div key={item.key} className="reveal bg-white/[0.06] p-8 sm:p-12">
+                  <h2 className="label text-mist">{item.title}</h2>
+                  <RichText markdown={item.body} className="mt-6 [&_p]:font-display [&_p]:text-[1.625rem] [&_p]:font-medium [&_p]:leading-snug [&_p]:tracking-[-0.02em] [&_p]:text-white sm:[&_p]:text-[1.875rem]" />
                 </div>
               ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {motto && (
+        <section aria-labelledby="motto-heading" className="bg-ivory py-20 sm:py-28">
+          <Container>
+            <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
+              {settings.logo && (
+                <div className="reveal relative mx-auto aspect-[338/291] w-56 md:col-span-4 md:w-full md:max-w-xs">
+                  <Photo image={settings.logo} alt={settings.logo.alt} sizes="(min-width: 768px) 20rem, 14rem" className="object-contain!" />
+                </div>
+              )}
+              <div className={`reveal ${settings.logo ? "md:col-span-7 md:col-start-6" : "md:col-span-12"}`}>
+                <h2 id="motto-heading" className="label text-muted">
+                  {motto.title}
+                </h2>
+                <RichText
+                  markdown={motto.body}
+                  className="mt-6 [&>p:first-child]:font-display [&>p:first-child]:text-display-lg [&>p:first-child]:font-medium [&>p:first-child]:text-navy-900 [&>p:nth-child(2)]:mt-3 [&>p:nth-child(2)]:font-display [&>p:nth-child(2)]:text-display-sm [&>p:nth-child(2)]:text-muted [&>p:nth-child(3)]:mt-8 [&>p:nth-child(3)]:max-w-xl"
+                />
+              </div>
             </div>
           </Container>
         </section>

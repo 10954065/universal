@@ -13,7 +13,7 @@ import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES } from "./seed-data";
-import { FOOTER_TEXT, LOGO, MOTTO } from "./official-content";
+import { ABOUT_SECTIONS, FOOTER_TEXT, LOGO, MOTTO, type OfficialSection } from "./official-content";
 
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const PHOTO_DIR = path.join(process.cwd(), "public", "images", "ministry");
@@ -133,6 +133,18 @@ async function seedOfficialSettings() {
   await db.siteSettings.updateMany({ where: { id: 1, footerText: null }, data: { footerText: FOOTER_TEXT } });
 }
 
+/** Publishes official page copy: creates missing sections and fills ones that are still empty. */
+async function seedOfficialSections(sections: OfficialSection[]) {
+  for (const section of sections) {
+    const existing = await db.pageSection.findUnique({ where: { key: section.key }, select: { body: true } });
+    if (!existing) {
+      await db.pageSection.create({ data: { ...section, status: "PUBLISHED", editorNote: "Official wording supplied by the ministry." } });
+    } else if (existing.body.trim() === "") {
+      await db.pageSection.update({ where: { key: section.key }, data: { title: section.title, body: section.body, sortOrder: section.sortOrder, status: "PUBLISHED" } });
+    }
+  }
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -191,6 +203,7 @@ async function main() {
   const media = await seedMedia();
   await seedBaseline(media);
   await seedOfficialSettings();
+  await seedOfficialSections(ABOUT_SECTIONS);
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {
