@@ -13,6 +13,7 @@ import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES } from "./seed-data";
+import { FOOTER_TEXT, LOGO, MOTTO } from "./official-content";
 
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const PHOTO_DIR = path.join(process.cwd(), "public", "images", "ministry");
@@ -108,6 +109,30 @@ async function seedBaseline(media: Map<string, string>) {
   }
 }
 
+/** Applies the ministry's official logo and motto, filling only settings that are still empty. */
+async function seedOfficialSettings() {
+  const filePath = path.join(process.cwd(), "public", "images", "brand", LOGO.file);
+  const png = readFileSync(filePath);
+  const storageKey = `static/brand/${LOGO.file}`;
+  const logo = await db.mediaAsset.upsert({
+    where: { storageKey },
+    update: {},
+    create: {
+      storageKey,
+      url: `/images/brand/${LOGO.file}`,
+      alt: LOGO.alt,
+      // PNG IHDR: width and height follow the 8-byte signature and chunk header.
+      width: png.readUInt32BE(16),
+      height: png.readUInt32BE(20),
+      mimeType: "image/png",
+      sizeBytes: png.length,
+    },
+  });
+  await db.siteSettings.updateMany({ where: { id: 1, logoId: null }, data: { logoId: logo.id } });
+  await db.siteSettings.updateMany({ where: { id: 1, tagline: null }, data: { tagline: MOTTO.english } });
+  await db.siteSettings.updateMany({ where: { id: 1, footerText: null }, data: { footerText: FOOTER_TEXT } });
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -165,6 +190,7 @@ async function seedSamples(media: Map<string, string>) {
 async function main() {
   const media = await seedMedia();
   await seedBaseline(media);
+  await seedOfficialSettings();
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {
