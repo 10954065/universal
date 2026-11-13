@@ -13,7 +13,19 @@ import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
-import { ABOUT_SECTIONS, FELLOWSHIPS, FOOTER_TEXT, LEADERS, LEADERSHIP_SECTIONS, LOGO, MINISTRY_SECTIONS, MOTTO, type OfficialSection } from "./official-content";
+import {
+  ABOUT_SECTIONS,
+  FELLOWSHIPS,
+  FOOTER_TEXT,
+  HOMEPAGE_COPY,
+  LEADERS,
+  LEADERSHIP_SECTIONS,
+  LOGO,
+  MINISTRY_SECTIONS,
+  MOTTO,
+  SEO_DESCRIPTION,
+  type OfficialSection,
+} from "./official-content";
 
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const PHOTO_DIR = path.join(process.cwd(), "public", "images", "ministry");
@@ -180,6 +192,29 @@ async function seedOfficialMinistries(media: Map<string, string>) {
   }
 }
 
+/** Swaps the original proposed homepage copy for the ministry's own, field by field, only where it is unchanged. */
+async function seedOfficialHomepage() {
+  const proposed: Record<keyof typeof HOMEPAGE_COPY, string> = {
+    heroEyebrow: "UNIVERSAL TRINITY MINISTRY",
+    heroHeading: HOMEPAGE.heroHeading,
+    heroText: HOMEPAGE.heroText,
+    welcomeText: HOMEPAGE.welcomeText,
+    scriptureText: HOMEPAGE.scriptureText,
+    scriptureReference: HOMEPAGE.scriptureReference,
+    scriptureTranslation: HOMEPAGE.scriptureTranslation,
+    outreachText: HOMEPAGE.outreachText,
+  };
+  const home = await db.homepageContent.findUnique({ where: { id: 1 } });
+  if (!home) return;
+  const updates = Object.fromEntries(
+    (Object.keys(HOMEPAGE_COPY) as (keyof typeof HOMEPAGE_COPY)[])
+      .filter((field) => home[field] === proposed[field])
+      .map((field) => [field, HOMEPAGE_COPY[field]]),
+  );
+  if (Object.keys(updates).length > 0) await db.homepageContent.update({ where: { id: 1 }, data: updates });
+  await db.siteSettings.updateMany({ where: { id: 1, seoDescription: null }, data: { seoDescription: SEO_DESCRIPTION } });
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -243,6 +278,7 @@ async function main() {
   await seedOfficialLeaders();
   await seedOfficialSections(MINISTRY_SECTIONS);
   await seedOfficialMinistries(media);
+  await seedOfficialHomepage();
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {

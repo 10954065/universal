@@ -17,6 +17,25 @@ export const MOTTO = {
 
 export const FOOTER_TEXT = `${MOTTO.local}. ${MOTTO.english}`;
 
+export const SEO_DESCRIPTION =
+  "A spirit-filled Christian ministry in Ghana dedicated to spreading the Gospel of Jesus Christ, transforming lives and building a strong, faith-based community.";
+
+/** Homepage copy drawn from the ministry's own wording. Galatians 4:7 is the verse on the logo. */
+export const HOMEPAGE_COPY = {
+  heroEyebrow: MOTTO.local,
+  heroHeading: MOTTO.english,
+  heroText:
+    "A dynamic and spirit-filled Christian ministry dedicated to spreading the Gospel of Jesus Christ, transforming lives, and building a strong, faith-based community.",
+  welcomeText:
+    "Rooted in the Word of God, we foster an environment of worship, discipleship, and service, equipping believers to grow spiritually and fulfill their divine purpose.",
+  // King James Version (public domain).
+  scriptureText: "Wherefore thou art no more a servant, but a son; and if a son, then an heir of God through Christ.",
+  scriptureReference: "Galatians 4:7",
+  scriptureTranslation: "KJV",
+  outreachText:
+    "We engage in humanitarian and community outreach programs that address social, economic, and spiritual needs, sharing the love of Christ with our communities.",
+};
+
 export interface OfficialSection {
   key: string;
   page: string;
