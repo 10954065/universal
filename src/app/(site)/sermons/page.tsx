@@ -17,12 +17,14 @@ interface Props {
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const filters = parseSermonFilters(await searchParams);
   const filtered = Boolean(filters.q || filters.speaker || filters.category || filters.page > 1);
+  // An empty library reads as a "soft 404" to search engines, so it stays out of the index until a sermon is published.
+  const empty = !filtered && (await getSermonPage(filters)).total === 0;
   return {
     title: "Sermons",
     description: "Watch and listen to messages from Universal Trinity Ministry. Search by topic, speaker or scripture.",
     alternates: { canonical: "/sermons" },
     // Filtered and paginated variants are useful for visitors but not as separate search results.
-    robots: filtered ? { index: false, follow: true } : undefined,
+    robots: filtered || empty ? { index: false, follow: true } : undefined,
   };
 }
 

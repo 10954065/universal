@@ -8,11 +8,16 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/site/page-header";
 import { EventRow } from "@/components/events/event-row";
 
-export const metadata: Metadata = {
-  title: "Events",
-  description: "Upcoming gatherings, programmes and special services at Universal Trinity Ministry.",
-  alternates: { canonical: "/events" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [upcoming, past] = await Promise.all([getUpcomingEvents(), getPastEvents(24)]);
+  return {
+    title: "Events",
+    description: "Upcoming gatherings, programmes and special services at Universal Trinity Ministry.",
+    alternates: { canonical: "/events" },
+    // An empty calendar reads as a "soft 404" to search engines, so it stays out of the index until an event is published.
+    robots: upcoming.length + past.length === 0 ? { index: false, follow: true } : undefined,
+  };
+}
 
 interface Props {
   searchParams: Promise<{ view?: string }>;

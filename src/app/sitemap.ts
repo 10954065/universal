@@ -7,13 +7,27 @@ export const dynamic = "force-dynamic";
 /** Lists every public page plus published (non-sample) sermons, events and ministries. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const staticPaths = ["", "/about", "/leadership", "/ministries", "/sermons", "/events", "/give", "/contact", "/plan-your-visit", "/prayer", "/privacy", "/terms"];
-
   const [sermons, events, ministries] = await Promise.all([
     db.sermon.findMany({ where: { status: "PUBLISHED", isSample: false }, select: { slug: true, updatedAt: true } }),
     db.event.findMany({ where: { status: { in: ["PUBLISHED", "CANCELLED", "ARCHIVED"] }, isSample: false }, select: { slug: true, updatedAt: true } }),
     db.ministry.findMany({ where: { status: "PUBLISHED" }, select: { slug: true, updatedAt: true } }),
   ]);
+
+  // Listing pages join the sitemap once they have something to list (empty ones are noindex).
+  const staticPaths = [
+    "",
+    "/about",
+    "/leadership",
+    "/ministries",
+    ...(sermons.length ? ["/sermons"] : []),
+    ...(events.length ? ["/events"] : []),
+    "/give",
+    "/contact",
+    "/plan-your-visit",
+    "/prayer",
+    "/privacy",
+    "/terms",
+  ];
 
   return [
     ...staticPaths.map((path) => ({ url: `${base}${path}`, changeFrequency: "weekly" as const, priority: path === "" ? 1 : 0.7 })),
