@@ -45,7 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [{ url: ogImage, alt: settings.ministryName }],
     },
     twitter: { card: "summary_large_image" },
-    icons: { icon: "/icon.svg" },
   };
 }
 

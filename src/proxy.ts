@@ -54,7 +54,8 @@ function buildCsp(nonce: string): string {
 export const config = {
   matcher: [
     {
-      source: "/((?!api|_next/static|_next/image|images|uploads|favicon.ico|icon.svg|robots.txt|sitemap.xml).*)",
+      source:
+        "/((?!api|_next/static|_next/image|images|icons|uploads|favicon.ico|icon.png|apple-icon.png|manifest.webmanifest|opengraph-image|robots.txt|sitemap.xml).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },
