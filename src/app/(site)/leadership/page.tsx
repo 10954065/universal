@@ -12,7 +12,8 @@ import { SocialIcon } from "@/components/site/social-links";
 
 export const metadata: Metadata = {
   title: "Our Leadership",
-  description: "Meet the leaders who serve and shepherd Universal Trinity Ministry.",
+  description:
+    "Meet Bishop Esther Korkor Wilson, General Overseer, and the ministers and elders who lead the congregations of Universal Trinity Ministry.",
   alternates: { canonical: "/leadership" },
 };
 

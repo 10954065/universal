@@ -21,6 +21,29 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const SHARE_CARD = "/images/brand/share-card.jpg";
+
+// The names people search for: the ministry, its leader, motto and congregations.
+const SEARCH_KEYWORDS = [
+  "Universal Trinity Ministry",
+  "UTM church",
+  "UTM Ghana",
+  "church in Ghana",
+  "Christian ministry in Ghana",
+  "Bishop Esther Korkor Wilson",
+  "Kristo Nti Yeyɛ Adehyieɛ",
+  "Through Christ We Reign",
+  "Ebenezer Temple Adenta Frafraha",
+  "Holy Ghost Temple Somanya",
+  "Shiloh Emmanuel Temple Dodowa",
+  "Miracle Temple Ayikuma",
+  "church in Adenta",
+  "church in Somanya",
+  "church in Dodowa",
+  "sermons",
+  "prayer requests",
+];
+
 export const viewport: Viewport = {
   themeColor: "#ffffff",
   width: "device-width",
@@ -32,17 +55,24 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     settings.seoDescription ||
     "Universal Trinity Ministry is a church in Ghana. Find service times, watch sermons and plan your visit.";
-  const ogImage = settings.ogImage?.url ?? "/images/ministry/congregation-shiloh.jpg";
+  // An image chosen in Site settings wins; otherwise the branded 1200x630 card is shared.
+  const ogImage = settings.ogImage
+    ? { url: settings.ogImage.url, alt: settings.ogImage.alt || settings.ministryName }
+    : { url: SHARE_CARD, width: 1200, height: 630, alt: `${settings.ministryName}: ${settings.tagline ?? "Through Christ, We Reign."}` };
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
   return {
     metadataBase: new URL(siteUrl()),
     title: { default: settings.seoTitle || settings.ministryName, template: `%s | ${settings.ministryName}` },
     description,
     applicationName: settings.ministryName,
+    keywords: SEARCH_KEYWORDS,
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
+    ...(googleVerification ? { verification: { google: googleVerification } } : {}),
     openGraph: {
       type: "website",
       siteName: settings.ministryName,
       locale: "en_GH",
-      images: [{ url: ogImage, alt: settings.ministryName }],
+      images: [ogImage],
     },
     twitter: { card: "summary_large_image" },
   };

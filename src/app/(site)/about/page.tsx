@@ -11,7 +11,8 @@ import { VisitInvitation } from "@/components/home/visit-invitation";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Who we are, what we believe and how to get involved at Universal Trinity Ministry.",
+  description:
+    "Universal Trinity Ministry (UTM) is a spirit-filled Christian ministry in Ghana. Read our mission, vision, motto, values and goals, and find our congregations.",
   alternates: { canonical: "/about" },
 };
 

@@ -9,7 +9,8 @@ import { PageHeader } from "@/components/site/page-header";
 
 export const metadata: Metadata = {
   title: "Our Ministries",
-  description: "The ministries and groups of Universal Trinity Ministry.",
+  description:
+    "Men Fellowship, Women Fellowship, Youth Fellowship and Children's Service: find a group to grow in faith at Universal Trinity Ministry.",
   alternates: { canonical: "/ministries" },
 };
 

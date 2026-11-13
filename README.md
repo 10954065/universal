@@ -61,6 +61,7 @@ All variables are documented in [.env.example](.env.example).
 | `STAFF_NOTIFICATION_EMAIL` | Optional | Inbox that is told about new enquiries. Prayer request text is never emailed. |
 | `PAYSTACK_SECRET_KEY` | Optional | Online giving. The **Give online** form only appears when this is set *and* online giving is switched on in **Site settings**. |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Optional | Privacy-friendly analytics. Empty disables it. |
+| `GOOGLE_SITE_VERIFICATION` | Optional | Google Search Console HTML-tag code (content value only). Not needed if the domain is verified by DNS. |
 
 Never commit `.env`. It is ignored by git.
 
