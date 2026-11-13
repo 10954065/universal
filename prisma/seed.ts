@@ -12,8 +12,8 @@ import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
-import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES } from "./seed-data";
-import { ABOUT_SECTIONS, FOOTER_TEXT, LOGO, MOTTO, type OfficialSection } from "./official-content";
+import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
+import { ABOUT_SECTIONS, FOOTER_TEXT, LEADERS, LEADERSHIP_SECTIONS, LOGO, MOTTO, type OfficialSection } from "./official-content";
 
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const PHOTO_DIR = path.join(process.cwd(), "public", "images", "ministry");
@@ -35,27 +35,32 @@ function jpegSize(file: string): { width: number; height: number } | null {
   return null;
 }
 
+/** Registers a bundled JPEG from public/images/ministry in the media library. */
+async function upsertPhoto(photo: SeedPhoto) {
+  const filePath = path.join(PHOTO_DIR, photo.file);
+  const size = jpegSize(filePath);
+  const storageKey = `static/ministry/${photo.file}`;
+  return db.mediaAsset.upsert({
+    where: { storageKey },
+    update: {},
+    create: {
+      storageKey,
+      url: `/images/ministry/${photo.file}`,
+      alt: photo.alt,
+      width: size?.width,
+      height: size?.height,
+      mimeType: "image/jpeg",
+      sizeBytes: statSync(filePath).size,
+      focalX: photo.focalX ?? 50,
+      focalY: photo.focalY ?? 50,
+    },
+  });
+}
+
 async function seedMedia() {
   const byFile = new Map<string, string>();
   for (const photo of PHOTOS) {
-    const filePath = path.join(PHOTO_DIR, photo.file);
-    const size = jpegSize(filePath);
-    const storageKey = `static/ministry/${photo.file}`;
-    const asset = await db.mediaAsset.upsert({
-      where: { storageKey },
-      update: {},
-      create: {
-        storageKey,
-        url: `/images/ministry/${photo.file}`,
-        alt: photo.alt,
-        width: size?.width,
-        height: size?.height,
-        mimeType: "image/jpeg",
-        sizeBytes: statSync(filePath).size,
-        focalX: photo.focalX ?? 50,
-        focalY: photo.focalY ?? 50,
-      },
-    });
+    const asset = await upsertPhoto(photo);
     byFile.set(photo.file, asset.id);
   }
   return byFile;
@@ -145,6 +150,18 @@ async function seedOfficialSections(sections: OfficialSection[]) {
   }
 }
 
+/** Publishes the ministry's leader profiles; a profile that already exists is left as edited. */
+async function seedOfficialLeaders() {
+  for (const [index, leader] of LEADERS.entries()) {
+    const portrait = leader.photo ? await upsertPhoto({ file: leader.photo, alt: `Portrait of ${leader.name}`, focalY: 25 }) : null;
+    await db.leadershipProfile.upsert({
+      where: { slug: leader.slug },
+      update: {},
+      create: { slug: leader.slug, name: leader.name, role: leader.role, bio: leader.bio, imageId: portrait?.id, sortOrder: index, status: "PUBLISHED" },
+    });
+  }
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -204,6 +221,8 @@ async function main() {
   await seedBaseline(media);
   await seedOfficialSettings();
   await seedOfficialSections(ABOUT_SECTIONS);
+  await seedOfficialSections(LEADERSHIP_SECTIONS);
+  await seedOfficialLeaders();
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { getPublishedLeaders } from "@/lib/content";
+import { getPageSectionMap, getPublishedLeaders } from "@/lib/content";
+import { ContentSection } from "@/components/site/content-section";
 import { safeExternalUrl } from "@/lib/safe-url";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -16,13 +17,15 @@ export const metadata: Metadata = {
 };
 
 export default async function LeadershipPage() {
-  const leaders = await getPublishedLeaders();
+  const [leaders, sections] = await Promise.all([getPublishedLeaders(), getPageSectionMap("leadership")]);
+  const intro = sections.get("leadership.intro");
+  const commitment = sections.get("leadership.commitment");
 
   return (
     <>
       <PageHeader
         title="Our leaders"
-        intro="The pastors and leaders of our church."
+        intro={intro?.body ?? "The pastors and leaders of our church."}
         crumbs={[
           { label: "About Us", href: "/about" },
           { label: "Our Leadership", href: "/leadership" },
@@ -50,12 +53,15 @@ export default async function LeadershipPage() {
                   ["x", safeExternalUrl(leader.xUrl)],
                 ] as const;
                 const flipped = index % 2 === 1;
+                const textColumn = !leader.image ? "md:col-span-8" : flipped ? "md:order-1 md:col-span-7 md:col-start-1" : "md:col-span-7 md:col-start-6";
                 return (
-                  <li key={leader.id} id={leader.slug} className="reveal grid scroll-mt-28 items-center gap-10 md:grid-cols-12 md:gap-14">
-                    <div className={`relative aspect-[4/5] overflow-hidden bg-sand md:col-span-5 ${flipped ? "md:order-2 md:col-start-8" : ""}`}>
-                      {leader.image && <Photo image={leader.image} alt={`Portrait of ${leader.name}`} sizes="(min-width: 768px) 40vw, 100vw" />}
-                    </div>
-                    <div className={`md:col-span-6 ${flipped ? "md:order-1 md:col-start-1" : "md:col-start-7"}`}>
+                  <li key={leader.id} id={leader.slug} className="reveal grid scroll-mt-28 items-start gap-10 md:grid-cols-12 md:gap-14">
+                    {leader.image && (
+                      <div className={`relative aspect-4/5 w-full max-w-sm overflow-hidden bg-ivory md:col-span-4 md:max-w-none ${flipped ? "md:order-2 md:col-start-9" : ""}`}>
+                        <Photo image={leader.image} alt={`Portrait of ${leader.name}`} sizes="(min-width: 768px) 30vw, 24rem" />
+                      </div>
+                    )}
+                    <div className={textColumn}>
                       <p className="eyebrow text-gold-ink">{leader.role}</p>
                       <h2 className="mt-4 font-display text-display-md font-semibold text-navy-900">{leader.name}</h2>
                       {leader.bio && <RichText markdown={leader.bio} className="mt-6" />}
@@ -92,6 +98,7 @@ export default async function LeadershipPage() {
           )}
         </Container>
       </section>
+      {commitment && <ContentSection title={commitment.title} body={commitment.body} tone="sand" />}
     </>
   );
 }
