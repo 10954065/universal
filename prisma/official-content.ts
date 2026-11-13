@@ -234,6 +234,106 @@ His service reflects the biblical principle of servant leadership, demonstrating
   },
 ];
 
+export interface OfficialMinistry {
+  slug: string;
+  /** Slug of the draft suggestion this replaces, if the seed created one earlier. */
+  legacySlug?: string;
+  name: string;
+  summary: string;
+  description: string;
+  image: string;
+}
+
+export const FELLOWSHIPS: OfficialMinistry[] = [
+  {
+    slug: "mens-fellowship",
+    legacySlug: "mens-fellowship",
+    name: "Men Fellowship",
+    summary: "Raising godly, responsible, disciplined and visionary men who will positively influence their families, the Church and society.",
+    image: "men-group.jpg",
+    description: `The Men Fellowship of Universal Trinity Ministry is committed to raising godly, responsible, disciplined and visionary men who will positively influence their families, the Church and society.
+
+The fellowship provides a platform for men to grow spiritually, strengthen one another through prayer and the Word of God, share experiences, and develop leadership qualities. It also encourages men to embrace their God-given responsibilities as husbands, fathers, leaders and agents of positive transformation.
+
+### Our focus
+
+- Spiritual growth and maturity among men.
+- Promoting responsible fatherhood and godly leadership.
+- Strengthening marriages and families.
+- Encouraging brotherhood, accountability and mutual support.
+- Empowering men to become positive role models in society.`,
+  },
+  {
+    slug: "womens-fellowship",
+    legacySlug: "womens-fellowship",
+    name: "Women Fellowship",
+    summary: "Empowering women to discover their God-given purpose, develop their spiritual gifts and become influential instruments of God's love and transformation.",
+    image: "women-group.jpg",
+    description: `The Women Fellowship of UTM is dedicated to empowering women to discover their God-given purpose, develop their spiritual gifts and become influential instruments of God's love and transformation.
+
+We create an atmosphere where women can fellowship, pray, learn, encourage one another and grow in their walk with Christ. We also promote women's leadership, family values, entrepreneurship and community development.
+
+### Our focus
+
+- Raising spiritually strong and purpose-driven women.
+- Promoting prayer, holiness and biblical values.
+- Empowering women for leadership and service.
+- Strengthening marriages, homes and family relationships.
+- Supporting women through mentorship, encouragement and outreach.
+- Developing the talents, gifts and potential of women.`,
+  },
+  {
+    slug: "youth-fellowship",
+    legacySlug: "youth-ministry",
+    name: "Youth Fellowship",
+    summary: "Raising a generation of Christ-centered, purpose-driven, innovative and responsible young people who will positively impact their generation.",
+    image: "youth-member.jpg",
+    description: `The Youth Fellowship of Universal Trinity Ministry is committed to raising a generation of Christ-centered, purpose-driven, innovative and responsible young people who will positively impact their generation.
+
+We believe that young people are not merely the future of the Church; they are an essential part of the Church today. Through Bible studies, prayer meetings, mentorship, talent development, leadership training and social engagement, we equip young people to overcome life's challenges and fulfill their divine purpose.
+
+### Our focus
+
+- Building a strong spiritual foundation among young people.
+- Promoting godly character, discipline and moral values.
+- Discovering and developing young people's talents and leadership potential.
+- Providing mentorship, counseling and career guidance.
+- Encouraging entrepreneurship, innovation and responsible citizenship.
+- Using music, media, technology, arts and sports for positive influence and evangelism.`,
+  },
+  {
+    slug: "childrens-service",
+    legacySlug: "childrens-ministry",
+    name: "Children's Service",
+    summary: "A safe, welcoming and spiritually enriching place where children learn to know God, love Jesus Christ and grow in godly values.",
+    image: "children-ministry.jpg",
+    description: `At Universal Trinity Ministry, we believe that children are a precious gift from God and must be nurtured in the knowledge, love and fear of the Lord.
+
+Our Children's Service provides a safe, welcoming and spiritually enriching environment where children learn biblical principles through age-appropriate Bible lessons, songs, storytelling, drama, prayers, games and interactive activities.
+
+Our desire is to raise a generation of children who know God, love Jesus Christ, understand His Word and develop godly values from an early age.
+
+### Our focus
+
+- Introducing children to Jesus Christ and the teachings of the Bible.
+- Building strong Christian values and godly character.
+- Encouraging prayer, worship and obedience to God's Word.
+- Discovering and nurturing children's spiritual gifts and talents.
+- Developing confidence, creativity and leadership skills.
+- Promoting child safety, inclusion and positive relationships.`,
+  },
+];
+
+export const MINISTRY_SECTIONS: OfficialSection[] = [
+  {
+    key: "ministries.intro",
+    page: "ministries",
+    title: "Our Fellowship Groups",
+    sortOrder: 1,
+    body: "Universal Trinity Ministry (UTM) believes that the Church is more than a place of worship; it is a family of believers called to grow together in faith, love, unity and service. Through our various fellowship groups and ministries, we provide opportunities for members of all ages and backgrounds to develop their spiritual gifts, build meaningful relationships and contribute to the growth of God's Kingdom.",
+  },
+];
+
 export const LEADERSHIP_SECTIONS: OfficialSection[] = [
   {
     key: "leadership.intro",

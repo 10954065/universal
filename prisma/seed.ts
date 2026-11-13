@@ -13,7 +13,7 @@ import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
-import { ABOUT_SECTIONS, FOOTER_TEXT, LEADERS, LEADERSHIP_SECTIONS, LOGO, MOTTO, type OfficialSection } from "./official-content";
+import { ABOUT_SECTIONS, FELLOWSHIPS, FOOTER_TEXT, LEADERS, LEADERSHIP_SECTIONS, LOGO, MINISTRY_SECTIONS, MOTTO, type OfficialSection } from "./official-content";
 
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const PHOTO_DIR = path.join(process.cwd(), "public", "images", "ministry");
@@ -162,6 +162,24 @@ async function seedOfficialLeaders() {
   }
 }
 
+/**
+ * Publishes the fellowship groups. A draft suggestion the seed created earlier is
+ * upgraded in place while it is still untouched; published or edited groups are left alone.
+ */
+async function seedOfficialMinistries(media: Map<string, string>) {
+  for (const [index, { legacySlug, image, ...ministry }] of FELLOWSHIPS.entries()) {
+    const current =
+      (await db.ministry.findUnique({ where: { slug: ministry.slug } })) ??
+      (legacySlug ? await db.ministry.findUnique({ where: { slug: legacySlug } }) : null);
+    const data = { ...ministry, imageId: media.get(image), sortOrder: index, status: "PUBLISHED" as const };
+    if (!current) {
+      await db.ministry.create({ data });
+    } else if (current.status === "DRAFT" && current.description === "") {
+      await db.ministry.update({ where: { id: current.id }, data });
+    }
+  }
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -223,6 +241,8 @@ async function main() {
   await seedOfficialSections(ABOUT_SECTIONS);
   await seedOfficialSections(LEADERSHIP_SECTIONS);
   await seedOfficialLeaders();
+  await seedOfficialSections(MINISTRY_SECTIONS);
+  await seedOfficialMinistries(media);
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getLibraryPhotos, getPublishedMinistries } from "@/lib/content";
+import { getLibraryPhotos, getPageSectionMap, getPublishedMinistries } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -14,13 +14,17 @@ export const metadata: Metadata = {
 };
 
 export default async function MinistriesPage() {
-  const [ministries, photos] = await Promise.all([getPublishedMinistries(), getLibraryPhotos("children-families.jpg")]);
+  const [ministries, photos, sections] = await Promise.all([
+    getPublishedMinistries(),
+    getLibraryPhotos("children-families.jpg"),
+    getPageSectionMap("ministries"),
+  ]);
 
   return (
     <>
       <PageHeader
         title="Ministries"
-        intro="Find a group where you can grow in faith and get involved."
+        intro={sections.get("ministries.intro")?.body ?? "Find a group where you can grow in faith and get involved."}
         image={photos.get("children-families.jpg") ?? null}
         crumbs={[{ label: "Our Ministries", href: "/ministries" }]}
       />

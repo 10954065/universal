@@ -94,10 +94,6 @@ export interface SeedMinistry {
 export const SUGGESTED_MINISTRIES: SeedMinistry[] = [
   { slug: "worship-and-praise", name: "Worship & Praise", summary: "Leads worship through song and music during services.", image: "worship-leader.jpg" },
   { slug: "prayer-ministry", name: "Prayer Ministry", summary: "Prays for the church, our families and our nation.", image: "prayer-woman.jpg" },
-  { slug: "youth-ministry", name: "Youth Ministry", summary: "For young people who want to know Christ and grow in faith.", image: "youth-member.jpg" },
-  { slug: "childrens-ministry", name: "Children's Ministry", summary: "Teaches children about God's love in ways they understand.", image: "children-ministry.jpg" },
-  { slug: "mens-fellowship", name: "Men's Fellowship", summary: "Men supporting one another in faith and service.", image: "men-group.jpg" },
-  { slug: "womens-fellowship", name: "Women's Fellowship", summary: "Women growing together in prayer and the Word.", image: "women-group.jpg" },
   { slug: "outreach-and-evangelism", name: "Outreach & Evangelism", summary: "Shares the good news of Jesus and serves the community.", image: "outreach-field-front.jpg" },
   { slug: "bible-study-and-discipleship", name: "Bible Study & Discipleship", summary: "Studies the Bible together and helps believers grow as followers of Jesus.", image: "children-bible-reading.jpg" },
 ];
