@@ -61,6 +61,8 @@ export const PHOTOS: SeedPhoto[] = [
   { file: "men-group.jpg", alt: "Three men stand together in the sanctuary" },
   { file: "men-and-boys.jpg", alt: "Men and boys gathered together in the sanctuary" },
   { file: "portrait-clergy-4.jpg", alt: "Studio portrait of a minister in a royal blue suit and clerical collar", focalY: 30 },
+  { file: "school-children.jpg", alt: "Young pupils raise their hands together in a bright classroom", focalY: 40 },
+  { file: "school-lunch.jpg", alt: "Young pupils share a meal around a classroom table", focalY: 55 },
 ];
 
 export const HOMEPAGE = {

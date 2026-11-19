@@ -325,6 +325,7 @@ export interface OfficialMinistry {
   summary: string;
   description: string;
   image: string;
+  contactPhone?: string;
 }
 
 export const FELLOWSHIPS: OfficialMinistry[] = [
@@ -406,6 +407,37 @@ Our desire is to raise a generation of children who know God, love Jesus Christ,
 - Promoting child safety, inclusion and positive relationships.`,
   },
 ];
+
+/** From the school's admissions flyer (November 2026). */
+export const SCHOOL: OfficialMinistry = {
+  slug: "universal-trinity-basic-school",
+  name: "Universal Trinity Basic School",
+  summary: "Admission in progress for Creche, Nursery, Kindergarten and Primary 1 to 4 at Adaam, Dodowa.",
+  image: "school-lunch.jpg",
+  contactPhone: "020 664 1880",
+  description: `Universal Trinity Basic School (U.T.B.S.) cares for and teaches young children from creche to primary school at Adaam, Dodowa.
+
+**Admission is in progress** for:
+
+- Creche
+- Nursery
+- Kindergarten
+- Primary 1 to 4
+
+### Where to find us
+
+Adaam No. 2, after the bridge, behind the House of Chiefs, Dodowa, Accra.
+
+### Admissions enquiries
+
+Call 020 664 1880 or 059 808 9026.`,
+};
+
+export const ANNOUNCEMENT = {
+  message: "Admission in progress at Universal Trinity Basic School, Creche to Primary 4.",
+  linkLabel: "Learn more",
+  linkHref: `/ministries/${SCHOOL.slug}`,
+};
 
 export const MINISTRY_SECTIONS: OfficialSection[] = [
   {

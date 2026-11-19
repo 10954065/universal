@@ -15,6 +15,7 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
 import {
   ABOUT_SECTIONS,
+  ANNOUNCEMENT,
   BROADCAST,
   CONTACT,
   FELLOWSHIPS,
@@ -26,6 +27,7 @@ import {
   LOGO,
   MINISTRY_SECTIONS,
   MOTTO,
+  SCHOOL,
   SEO_DESCRIPTION,
   VISIT_SECTIONS,
   type OfficialSection,
@@ -195,7 +197,7 @@ async function seedOfficialLeaders() {
  * upgraded in place while it is still untouched; published or edited groups are left alone.
  */
 async function seedOfficialMinistries(media: Map<string, string>) {
-  for (const [index, { legacySlug, image, ...ministry }] of FELLOWSHIPS.entries()) {
+  for (const [index, { legacySlug, image, ...ministry }] of [...FELLOWSHIPS, SCHOOL].entries()) {
     const current =
       (await db.ministry.findUnique({ where: { slug: ministry.slug } })) ??
       (legacySlug ? await db.ministry.findUnique({ where: { slug: legacySlug } }) : null);
@@ -235,6 +237,12 @@ async function seedOfficialHomepage() {
   const original = await db.mediaAsset.findUnique({ where: { storageKey: `static/ministry/${HOMEPAGE.heroImage}` }, select: { id: true } });
   const untouched = original ? [{ heroImageId: null }, { heroImageId: original.id }] : [{ heroImageId: null }];
   await db.homepageContent.updateMany({ where: { id: 1, OR: untouched }, data: { heroImageId: hero.id } });
+}
+
+/** Shows the school's admissions notice in the site-wide announcement bar, created once. */
+async function seedOfficialAnnouncement() {
+  const existing = await db.announcement.findFirst({ where: { message: ANNOUNCEMENT.message }, select: { id: true } });
+  if (!existing) await db.announcement.create({ data: { ...ANNOUNCEMENT, active: true } });
 }
 
 /** Publishes the weekly broadcast as an outreach programme once; later edits are kept. */
@@ -312,6 +320,7 @@ async function main() {
   await seedOfficialMinistries(media);
   await seedOfficialHomepage();
   await seedOfficialBroadcast(media);
+  await seedOfficialAnnouncement();
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {
