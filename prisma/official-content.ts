@@ -17,6 +17,28 @@ export const MOTTO = {
 
 export const FOOTER_TEXT = `${MOTTO.local}. ${MOTTO.english}`;
 
+/** From the ministry's broadcast announcement (November 2026). */
+export const CONTACT = {
+  phone: "050 578 9176",
+  otherPhones: ["024 378 3350", "020 664 1880"],
+  addressLine: "Adaam, behind the Greater Accra Regional House of Chiefs",
+  city: "Dodowa",
+  region: "Greater Accra",
+  directionsUrl: "https://www.google.com/maps/search/?api=1&query=Greater+Accra+Regional+House+of+Chiefs%2C+Dodowa",
+};
+
+export const VISIT_SECTIONS: OfficialSection[] = [
+  {
+    key: "visit.directions",
+    page: "visit",
+    title: "Finding us",
+    sortOrder: 2,
+    body: `Our auditorium is at ${CONTACT.addressLine}, ${CONTACT.city}.
+
+If you need help finding us, call ${CONTACT.phone}, ${CONTACT.otherPhones[0]} or ${CONTACT.otherPhones[1]}.`,
+  },
+];
+
 export const SEO_DESCRIPTION =
   "A spirit-filled Christian ministry in Ghana dedicated to spreading the Gospel of Jesus Christ, transforming lives and building a strong, faith-based community.";
 

@@ -15,6 +15,7 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
 import {
   ABOUT_SECTIONS,
+  CONTACT,
   FELLOWSHIPS,
   FOOTER_TEXT,
   HERO_PHOTO,
@@ -25,6 +26,7 @@ import {
   MINISTRY_SECTIONS,
   MOTTO,
   SEO_DESCRIPTION,
+  VISIT_SECTIONS,
   type OfficialSection,
 } from "./official-content";
 
@@ -149,6 +151,9 @@ async function seedOfficialSettings() {
   await db.siteSettings.updateMany({ where: { id: 1, logoId: null }, data: { logoId: logo.id } });
   await db.siteSettings.updateMany({ where: { id: 1, tagline: null }, data: { tagline: MOTTO.english } });
   await db.siteSettings.updateMany({ where: { id: 1, footerText: null }, data: { footerText: FOOTER_TEXT } });
+  for (const field of ["phone", "addressLine", "city", "region", "directionsUrl"] as const) {
+    await db.siteSettings.updateMany({ where: { id: 1, [field]: null }, data: { [field]: CONTACT[field] } });
+  }
 }
 
 /** Publishes official page copy: creates missing sections and fills ones that are still empty. */
@@ -293,6 +298,7 @@ async function main() {
   await seedOfficialSections(LEADERSHIP_SECTIONS);
   await seedOfficialLeaders();
   await seedOfficialSections(MINISTRY_SECTIONS);
+  await seedOfficialSections(VISIT_SECTIONS);
   await seedOfficialMinistries(media);
   await seedOfficialHomepage();
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
