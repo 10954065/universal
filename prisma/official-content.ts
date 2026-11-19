@@ -145,14 +145,26 @@ export interface OfficialLeader {
   /** Portrait in public/images/ministry, when the ministry supplied one. */
   photo?: string;
   bio: string;
+  /** Earlier official values this entry supersedes; the seed upgrades a profile still holding them. */
+  replaces?: { photo?: string; bio?: string };
 }
+
+// Rev. Mensah's profile from "UTM WEBSITE INFO"; his fuller profile (November 2026) builds on it.
+const KOFI_MINISTRY_BIO = `Rev. Kofi Asante Mensah serves as the Minister of Shiloh Emmanuel Temple, Universal Trinity Ministry, Adaam, Dodowa.
+
+He is passionate about preaching the Gospel, teaching the undiluted Word of God, raising disciples and inspiring people to discover and fulfill their God-given purpose. His ministry emphasizes spiritual transformation, leadership development, evangelism, prayer and community impact.
+
+With a strong commitment to Christian ministry, media engagement, youth development and public communication, he believes in using every available platform to spread the Gospel, inspire hope and positively transform lives.
+
+His vision is to build a spiritually vibrant, united and purpose-driven congregation where individuals and families are equipped to live out their faith and serve God with excellence.`;
 
 export const LEADERS: OfficialLeader[] = [
   {
     slug: "esther-korkor-wilson",
     name: "Bishop Esther Korkor Wilson",
     role: "General Overseer",
-    photo: "leader-esther-korkor-wilson.jpg",
+    photo: "leader-esther-korkor-wilson-studio.jpg",
+    replaces: { photo: "leader-esther-korkor-wilson.jpg" },
     bio: `A visionary woman of faith, a servant of God, a spiritual leader and a builder of lives and destinies.
 
 Bishop Esther Korkor Wilson is the General Overseer of Universal Trinity Ministry (UTM), a Christian ministry committed to preaching the Gospel of Jesus Christ, raising spiritually mature believers, transforming lives and advancing the Kingdom of God.
@@ -232,14 +244,25 @@ Her assignment includes providing spiritual guidance, encouraging Christian matu
     slug: "kofi-asante-mensah",
     name: "Rev. Kofi Asante Mensah",
     role: "Minister, Shiloh Emmanuel Temple",
-    photo: "leader-kofi-asante-mensah.jpg",
-    bio: `Rev. Kofi Asante Mensah serves as the Minister of Shiloh Emmanuel Temple, Universal Trinity Ministry, Adaam, Dodowa.
+    photo: "leader-kofi-asante-mensah-portrait.jpg",
+    bio: `${KOFI_MINISTRY_BIO}
 
-He is passionate about preaching the Gospel, teaching the undiluted Word of God, raising disciples and inspiring people to discover and fulfill their God-given purpose. His ministry emphasizes spiritual transformation, leadership development, evangelism, prayer and community impact.
+### Media and Communication
 
-With a strong commitment to Christian ministry, media engagement, youth development and public communication, he believes in using every available platform to spread the Gospel, inspire hope and positively transform lives.
+Rev. Kofi Asante Mensah is a distinguished Ghanaian media personality, communication expert, television host, creative professional, lecturer, trainer and voice-over artist whose professional journey reflects a unique blend of faith, creativity, leadership, communication and public engagement.
 
-His vision is to build a spiritually vibrant, united and purpose-driven congregation where individuals and families are equipped to live out their faith and serve God with excellence.`,
+As a seasoned media practitioner, he has worked with several reputable media organizations in Ghana, including Metro TV, TV3, JoyNews, 3FM, Kapital Radio, Rite FM, Radio Mountains, Green FM and Green TV. His experience spans broadcast journalism, television and radio presentation, production, media management, storytelling, public relations and strategic communication.
+
+He is also the Host of Legal Kids Show and Media Kidz Reality Show, two television programmes dedicated to nurturing young talents, promoting knowledge, developing creativity and empowering children with practical skills and confidence. The programmes air on Metro TV and Original TV.
+
+Beyond broadcasting, he is an accomplished voice-over artist, corporate master of ceremonies, public speaking coach, spoken-word artist, storyteller and music composer. As a lecturer and professional trainer, he is passionate about developing communication competencies, nurturing young talents and equipping individuals with the confidence, knowledge and practical skills required to excel. His training interests include public speaking, voice acting, media presentation, communication skills, leadership and personal development.
+
+### His Ministry
+
+As a Reverend Minister, Rev. Mensah is equally committed to spiritual leadership, Christian ministry, evangelism and the advancement of the Gospel. His ministry is anchored in the conviction that effective leadership must be driven by integrity, humility, service and a commitment to positively transforming lives.
+
+**A voice for positive change, a creative mind for impactful communication, and a servant leader committed to transforming lives and building a better society.**`,
+    replaces: { photo: "leader-kofi-asante-mensah.jpg", bio: KOFI_MINISTRY_BIO },
   },
   {
     slug: "charity-brew",

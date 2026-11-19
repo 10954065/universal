@@ -163,15 +163,24 @@ async function seedOfficialSections(sections: OfficialSection[]) {
   }
 }
 
-/** Publishes the ministry's leader profiles; a profile that already exists is left as edited. */
+/**
+ * Publishes the ministry's leader profiles. An existing profile only picks up a newer official
+ * portrait or bio while it still holds the earlier official one; dashboard edits are left alone.
+ */
 async function seedOfficialLeaders() {
-  for (const [index, leader] of LEADERS.entries()) {
+  for (const [index, { replaces, ...leader }] of LEADERS.entries()) {
     const portrait = leader.photo ? await upsertPhoto({ file: leader.photo, alt: `Portrait of ${leader.name}`, focalY: 25 }) : null;
-    await db.leadershipProfile.upsert({
-      where: { slug: leader.slug },
-      update: {},
-      create: { slug: leader.slug, name: leader.name, role: leader.role, bio: leader.bio, imageId: portrait?.id, sortOrder: index, status: "PUBLISHED" },
-    });
+    const existing = await db.leadershipProfile.findUnique({ where: { slug: leader.slug }, include: { image: { select: { storageKey: true } } } });
+    if (!existing) {
+      await db.leadershipProfile.create({
+        data: { slug: leader.slug, name: leader.name, role: leader.role, bio: leader.bio, imageId: portrait?.id, sortOrder: index, status: "PUBLISHED" },
+      });
+      continue;
+    }
+    const updates: { bio?: string; imageId?: string } = {};
+    if (replaces?.bio && existing.bio === replaces.bio) updates.bio = leader.bio;
+    if (replaces?.photo && portrait && existing.image?.storageKey === `static/ministry/${replaces.photo}`) updates.imageId = portrait.id;
+    if (Object.keys(updates).length > 0) await db.leadershipProfile.update({ where: { id: existing.id }, data: updates });
   }
 }
 

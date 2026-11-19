@@ -58,7 +58,7 @@ export default async function LeadershipPage() {
                 return (
                   <li key={leader.id} id={leader.slug} className="reveal grid scroll-mt-28 items-start gap-10 md:grid-cols-12 md:gap-14">
                     {leader.image && (
-                      <div className={`relative aspect-4/5 w-full max-w-sm overflow-hidden bg-ivory md:col-span-4 md:max-w-none ${flipped ? "md:order-2 md:col-start-9" : ""}`}>
+                      <div className={`relative aspect-4/5 w-full max-w-sm overflow-hidden bg-ivory md:sticky md:top-24 md:col-span-4 md:max-w-none ${flipped ? "md:order-2 md:col-start-9" : ""}`}>
                         <Photo image={leader.image} alt={`Portrait of ${leader.name}`} sizes="(min-width: 768px) 30vw, 24rem" />
                       </div>
                     )}
