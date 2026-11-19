@@ -19,6 +19,7 @@ export const SECONDARY_NAV: readonly NavItem[] = [
   { label: "Our Leadership", href: "/leadership" },
   { label: "Prayer Requests", href: "/prayer" },
   { label: "Plan Your Visit", href: "/plan-your-visit" },
+  { label: "Gallery", href: "/gallery" },
 ];
 
 export const LEGAL_NAV: readonly NavItem[] = [
