@@ -33,7 +33,7 @@ export default function GalleryPage() {
                     width={photo.width}
                     height={photo.height}
                     sizes="(min-width: 1024px) 23rem, (min-width: 640px) 50vw, 100vw"
-                    className="h-auto w-full bg-sand"
+                    className="h-auto w-full rounded-card bg-sand"
                   />
                 </li>
               ))}

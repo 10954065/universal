@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLibraryPhotos, getPageSections, getServiceTimes, getSiteSettings } from "@/lib/content";
 import { createFormToken } from "@/lib/spam";
+import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { RichText } from "@/components/ui/rich-text";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -31,7 +32,7 @@ export default async function PlanYourVisitPage() {
         image={photos.get("minister-banner.jpg") ?? null}
         crumbs={[{ label: "Plan Your Visit", href: "/plan-your-visit" }]}
       >
-        <a href="#let-us-know" className="inline-flex min-h-11 items-center text-[1.0625rem] font-medium text-navy-900 underline decoration-gold decoration-2 underline-offset-[6px]">
+        <a href="#let-us-know" className={buttonClasses("gold")}>
           Let us know you&apos;re coming
         </a>
       </PageHeader>

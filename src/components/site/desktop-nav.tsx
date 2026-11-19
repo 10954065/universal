@@ -8,7 +8,7 @@ export function DesktopNav() {
   const pathname = usePathname();
   return (
     <nav aria-label="Main" className="hidden justify-self-center xl:block">
-      <ul className="flex items-center gap-8">
+      <ul className="flex items-center gap-1">
         {PRIMARY_NAV.filter((item) => item.href !== "/").map((item) => {
           const active = isActivePath(pathname, item.href);
           return (
@@ -16,8 +16,8 @@ export function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-flex min-h-11 items-center text-[0.9375rem] transition-opacity duration-200 ${
-                  active ? "text-navy-900 underline decoration-1 underline-offset-[6px]" : "text-navy-900 hover:opacity-60"
+                className={`inline-flex min-h-11 items-center rounded-full px-4 font-display text-[0.9375rem] font-semibold transition-colors duration-200 ${
+                  active ? "bg-navy-900 text-white" : "text-navy-900 hover:bg-sand"
                 }`}
               >
                 {item.label}

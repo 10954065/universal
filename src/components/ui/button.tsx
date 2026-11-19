@@ -4,19 +4,20 @@ import type { ComponentProps, ReactNode } from "react";
 export type ButtonVariant = "primary" | "navy" | "gold" | "light" | "outline" | "outline-light" | "text" | "text-light";
 
 const base =
-  "pressable group inline-flex items-center justify-center gap-3 font-mono text-[0.8125rem] font-medium uppercase tracking-[0.14em] transition-[background-color,color,box-shadow] duration-200 ease-out disabled:pointer-events-none disabled:opacity-50";
+  "pressable group inline-flex items-center justify-center gap-3 font-display text-[0.875rem] font-bold uppercase tracking-[0.08em] disabled:pointer-events-none disabled:opacity-50";
 
-const pill = "min-h-12 rounded-full px-7";
+const pill = "min-h-13 rounded-full px-8";
+const lift = "shadow-[0_10px_30px_-12px_rgb(10_26_85/0.55)]";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
-  navy: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
-  gold: `${pill} bg-navy-900 text-white hover:bg-navy-700`,
-  light: `${pill} bg-white text-navy-900 hover:bg-white/85`,
-  outline: `${pill} text-navy-900 shadow-[inset_0_0_0_1px_var(--color-navy-900)] hover:bg-navy-900 hover:text-white`,
-  "outline-light": `${pill} text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.7)] hover:bg-white hover:text-navy-900`,
-  text: "min-h-11 text-navy-900",
-  "text-light": "min-h-11 text-white",
+  primary: `${pill} ${lift} bg-royal text-white hover:bg-navy-900`,
+  navy: `${pill} ${lift} bg-navy-900 text-white hover:bg-royal`,
+  gold: `${pill} ${lift} bg-gold text-navy-900 hover:bg-gold-300`,
+  light: `${pill} ${lift} bg-white text-navy-900 hover:bg-gold`,
+  outline: `${pill} text-navy-900 shadow-[inset_0_0_0_2px_var(--color-navy-900)] hover:bg-navy-900 hover:text-white`,
+  "outline-light": `${pill} text-white shadow-[inset_0_0_0_2px_rgb(255_255_255/0.75)] hover:bg-white hover:text-navy-900`,
+  text: "min-h-11 text-royal hover:text-navy-900",
+  "text-light": "min-h-11 text-gold hover:text-white",
 };
 
 export function buttonClasses(variant: ButtonVariant = "primary", className = ""): string {
@@ -26,9 +27,9 @@ export function buttonClasses(variant: ButtonVariant = "primary", className = ""
 /** Long hairline arrow that stretches on hover ("LEARN MORE ———→"). */
 export function LineArrow({ length = "w-16 group-hover:w-24" }: { length?: string }) {
   return (
-    <span aria-hidden="true" className={`relative inline-block h-px ${length} bg-current transition-[width] duration-300 ease-out`}>
-      <svg viewBox="0 0 8 8" className="absolute -right-px -top-[3.5px] h-2 w-2">
-        <path d="M1 0.5 7.5 4 1 7.5" fill="none" stroke="currentColor" strokeWidth="1" />
+    <span aria-hidden="true" className={`relative inline-block h-0.5 ${length} rounded-full bg-current transition-[width] duration-300 ease-out`}>
+      <svg viewBox="0 0 8 8" className="absolute -right-px -top-1 h-2.5 w-2.5">
+        <path d="M1 0.5 7.5 4 1 7.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
   );

@@ -9,7 +9,7 @@ export function NewsletterSection() {
     <section aria-labelledby="newsletter-heading" className="bg-sand py-20 sm:py-24">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 id="newsletter-heading" className="text-display-md font-semibold text-navy-900">
+          <h2 id="newsletter-heading" className="text-display-md text-navy-900">
             Ministry updates by email
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted">Devotionals, programme announcements and news. We will never share your email address.</p>

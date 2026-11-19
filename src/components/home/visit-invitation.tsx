@@ -2,30 +2,37 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Photo, type PhotoSource } from "@/components/ui/photo";
 
-/** Quiet closing invitation: a centred line, two buttons and a small photograph beneath. */
+/** Closing invitation: a royal panel edged in kente, the call to action on the left and a photograph on the right. */
 export function VisitInvitation({ image }: { image: PhotoSource | null }) {
   return (
-    <section aria-labelledby="invite-heading" className="pb-24 sm:pb-32">
+    <section aria-labelledby="invite-heading" className="py-24 sm:py-32">
       <Container>
-        <div className="reveal text-center">
-          <h2 id="invite-heading" className="text-display-lg text-navy-900">
-            Plan your first visit
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-xl text-navy-800">Let us know you are coming and someone will be there to welcome you.</p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <ButtonLink href="/plan-your-visit" className="plausible-event-name=Plan+Visit+Click">
-              Plan your visit
-            </ButtonLink>
-            <ButtonLink href="/prayer" variant="outline">
-              Request prayer
-            </ButtonLink>
+        <div className="reveal on-dark glow-royal relative isolate overflow-hidden rounded-tile text-white">
+          <div aria-hidden="true" className="kente h-3" />
+          <div className="grid lg:grid-cols-2">
+            <div className="px-7 py-14 sm:px-14 sm:py-20">
+              <p className="label text-gold">You are welcome here</p>
+              <h2 id="invite-heading" className="mt-5 text-display-lg text-white">
+                Plan your <span className="text-gold">first visit</span>
+              </h2>
+              <p className="mt-5 max-w-md text-xl leading-relaxed text-mist">Let us know you are coming and someone will be there to welcome you.</p>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <ButtonLink href="/plan-your-visit" variant="gold" arrow className="plausible-event-name=Plan+Visit+Click">
+                  Plan your visit
+                </ButtonLink>
+                <ButtonLink href="/prayer" variant="outline-light">
+                  Request prayer
+                </ButtonLink>
+              </div>
+            </div>
+            {image && (
+              <div className="relative min-h-80 lg:min-h-full">
+                <Photo image={image} sizes="(min-width: 1024px) 38rem, 100vw" alt="" />
+                <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-navy-900/50 to-transparent lg:bg-linear-to-r lg:from-navy-900 lg:via-navy-900/20" />
+              </div>
+            )}
           </div>
         </div>
-        {image && (
-          <div className="reveal relative mx-auto mt-16 aspect-[3/4] w-full max-w-[18rem] overflow-hidden bg-navy-900">
-            <Photo image={image} sizes="18rem" alt="" />
-          </div>
-        )}
       </Container>
     </section>
   );

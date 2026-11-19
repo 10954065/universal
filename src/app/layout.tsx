@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Inter } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Mono, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { getSiteSettings } from "@/lib/content";
@@ -7,7 +7,14 @@ import { siteUrl } from "@/lib/site-url";
 import { RevealObserver } from "@/components/site/reveal-observer";
 import "./globals.css";
 
-// Inter carries headlines and body text; IBM Plex Mono sets the small spaced labels.
+// Bricolage Grotesque sets the bold headlines and labels, Inter the body text,
+// and IBM Plex Mono the small metadata lines (dates, addresses).
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -83,7 +90,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${inter.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Marks JS as available before first paint so scroll-reveal never flashes content. */}
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

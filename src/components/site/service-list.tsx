@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MonitorPlay } from "lucide-react";
+import { CalendarClock, MonitorPlay } from "lucide-react";
 import { formatClock, WEEKDAY_LABELS } from "@/lib/format";
 import { safeExternalUrl } from "@/lib/safe-url";
 
@@ -19,23 +19,28 @@ interface ServiceListProps {
   tone?: "light" | "dark";
 }
 
-/** Gatherings as numbered white cards. Shows a friendly fallback when no schedule is published. */
+/** Gatherings as numbered rounded cards. Shows a friendly fallback when no schedule is published. */
 export function ServiceList({ services, tone = "light" }: ServiceListProps) {
   const dark = tone === "dark";
-  const card = dark ? "bg-white/[0.06] text-white" : "bg-ivory text-navy-900";
+  const card = dark ? "rounded-card bg-white/[0.07] text-white ring-1 ring-white/15" : "rounded-card bg-ivory text-navy-900 ring-1 ring-line";
   const soft = dark ? "text-mist" : "text-muted";
 
   if (services.length === 0) {
     return (
-      <div className={`p-8 sm:p-12 ${card}`}>
-        <p className="text-display-sm">Our service schedule is being updated.</p>
-        <p className={`mt-3 max-w-xl leading-relaxed ${soft}`}>
-          We would love to welcome you in person. Please{" "}
-          <Link href="/contact" className="underline underline-offset-4">
-            get in touch
-          </Link>{" "}
-          and we will share our current gathering times.
-        </p>
+      <div className={`flex flex-col gap-6 p-8 sm:flex-row sm:items-center sm:p-12 ${card}`}>
+        <span aria-hidden="true" className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gold text-navy-900">
+          <CalendarClock className="h-7 w-7" strokeWidth={2} />
+        </span>
+        <div>
+          <p className="text-display-sm">Our service schedule is being updated.</p>
+          <p className={`mt-3 max-w-xl leading-relaxed ${soft}`}>
+            We would love to welcome you in person. Please{" "}
+            <Link href="/contact" className={`font-semibold underline decoration-2 underline-offset-4 ${dark ? "decoration-gold" : "decoration-gold-ink"}`}>
+              get in touch
+            </Link>{" "}
+            and we will share our current gathering times.
+          </p>
+        </div>
       </div>
     );
   }
@@ -47,9 +52,11 @@ export function ServiceList({ services, tone = "light" }: ServiceListProps) {
         const time = service.endTime ? `${formatClock(service.startTime)} to ${formatClock(service.endTime)}` : formatClock(service.startTime);
         return (
           <li key={service.id} className={`flex flex-col p-8 sm:p-10 ${card}`}>
-            <p className="text-2xl tabular-nums">{String(index + 1).padStart(2, "0")}</p>
-            <h3 className="mt-10 text-[1.375rem] font-medium leading-snug tracking-[-0.02em]">{service.name}</h3>
-            <p className="mt-1 text-[1.375rem] leading-snug tracking-[-0.02em]">
+            <p className="flex h-12 w-12 items-center justify-center rounded-full bg-gold font-display text-lg font-extrabold tabular-nums text-navy-900">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <h3 className="mt-8 text-display-sm">{service.name}</h3>
+            <p className={`mt-2 font-display text-xl font-semibold leading-snug tracking-[-0.02em] ${dark ? "text-gold" : "text-royal"}`}>
               {WEEKDAY_LABELS[service.day]}s, {time}
             </p>
             {service.location && <p className={`mt-6 font-mono text-[0.875rem] ${soft}`}>{service.location}</p>}

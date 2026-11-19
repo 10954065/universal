@@ -46,7 +46,7 @@ export default async function MinistriesPage() {
             <ol className="grid gap-x-10 gap-y-16 md:grid-cols-2">
               {ministries.map((ministry, index) => (
                 <li key={ministry.id} className={`reveal group relative ${index % 2 === 1 ? "md:mt-20" : ""}`}>
-                  <div className="relative aspect-[4/3] overflow-hidden bg-sand">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-tile bg-sand">
                     {ministry.image && (
                       <Photo
                         image={ministry.image}

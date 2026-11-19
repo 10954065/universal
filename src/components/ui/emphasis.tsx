@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
 /**
- * Renders editor-supplied headings, turning `*words*` into an italic accent.
- * Plain text only. No HTML is ever interpreted.
+ * Renders editor-supplied headings, turning `*words*` into a coloured accent
+ * at the heading's own weight. Plain text only. No HTML is ever interpreted.
  */
 export function Emphasis({ text, accentClassName = "text-gold-ink" }: { text: string; accentClassName?: string }) {
   const parts = text.split(/(\*[^*]+\*)/g).filter(Boolean);
@@ -10,7 +10,7 @@ export function Emphasis({ text, accentClassName = "text-gold-ink" }: { text: st
     <>
       {parts.map((part, index) =>
         part.startsWith("*") && part.endsWith("*") && part.length > 2 ? (
-          <em key={index} className={`font-medium italic ${accentClassName}`}>
+          <em key={index} className={`not-italic ${accentClassName}`}>
             {part.slice(1, -1)}
           </em>
         ) : (

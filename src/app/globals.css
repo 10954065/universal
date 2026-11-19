@@ -4,64 +4,74 @@
  * Universal Trinity Ministry design tokens.
  * Change the palette here; every component reads these variables.
  *
- * Direction: warm grey paper, white cards, black ink, square photography,
- * medium-weight headlines and small spaced monospace labels.
+ * Direction: "royal celebration". The logo's royal blue and orange, saffron
+ * gold for "Through Christ, We Reign", warm cream paper, extra-bold
+ * headlines, and kente-woven stripes as the signature accent.
  * Token names (navy, ivory, sand, gold) are kept from the first design so the
  * dashboard picks up the palette without renames:
- *   navy  = ink and dark surfaces
- *   paper = page background, ivory = white cards, sand = soft panels
- * Contrast (WCAG 2.2): muted #5f5c56 on paper 5.3:1 and on white 6.5:1.
+ *   navy  = royal ink and deep blue surfaces
+ *   paper = page background, ivory = white cards, sand = warm panels
+ *   gold  = saffron accent (buttons on dark, badges), gold-ink = accent text on light
+ * Contrast (WCAG 2.2): ink on paper 16:1, muted on paper 7.2:1, navy-900 on gold 9:1,
+ * gold-ink on paper 5.4:1, mist on navy-900 9.6:1, white on royal 7.4:1.
  */
 @theme {
-  --color-paper: #e8e6e1;
-  --color-navy-950: #0b0b0b;
-  --color-navy-900: #141414;
-  --color-navy-800: #222222;
-  --color-navy-700: #333333;
-  --color-navy-600: #555555;
+  --color-paper: #fdf8ef;
+  --color-navy-950: #050d33;
+  --color-navy-900: #0a1a55;
+  --color-navy-800: #142a78;
+  --color-navy-700: #1d3fc4;
+  --color-navy-600: #4560d6;
+  --color-royal: #1d3fc4;
   --color-ivory: #ffffff;
-  --color-ivory-100: #fbfbfa;
-  --color-sand: #f2f1ed;
-  --color-sand-300: #dcd9d2;
-  --color-gold: #d8b46e;
-  --color-gold-300: #e8cc98;
-  --color-gold-ink: #141414;
-  --color-accent: #141414;
-  --color-accent-hover: #333333;
+  --color-ivory-100: #fffdf8;
+  --color-sand: #f8eedb;
+  --color-sand-300: #eedcb8;
+  --color-gold: #f7b32b;
+  --color-gold-300: #ffd27a;
+  --color-gold-ink: #b84a0e;
+  --color-flame: #ef6a1f;
+  --color-accent: #1d3fc4;
+  --color-accent-hover: #142a78;
   --color-sage: #8a9a86;
   --color-sage-ink: #3f6a3a;
-  --color-ink: #141414;
-  --color-muted: #5f5c56;
-  --color-mist: #b5b2ab;
-  --color-line: #d4d1ca;
+  --color-kente-green: #1f8a4c;
+  --color-kente-red: #d62f2f;
+  --color-ink: #111735;
+  --color-muted: #4f5470;
+  --color-mist: #c3c8e6;
+  --color-line: #eadfca;
   --color-danger: #b42318;
   --color-success: #1f7a35;
 
-  --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-bricolage), "Arial Black", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Medium-weight headlines; tracking tightens as size grows. */
-  --text-display-xl: clamp(2.5rem, 1.5rem + 3.6vw, 4.5rem);
-  --text-display-xl--line-height: 1.04;
-  --text-display-xl--letter-spacing: -0.03em;
-  --text-display-lg: clamp(2.125rem, 1.4rem + 2.6vw, 3.5rem);
-  --text-display-lg--line-height: 1.08;
-  --text-display-lg--letter-spacing: -0.025em;
-  --text-display-md: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
-  --text-display-md--line-height: 1.12;
-  --text-display-md--letter-spacing: -0.022em;
+  /* Extra-bold headlines; tracking tightens as size grows. */
+  --text-display-hero: clamp(3rem, 1.4rem + 6vw, 7rem);
+  --text-display-hero--line-height: 0.92;
+  --text-display-hero--letter-spacing: -0.045em;
+  --text-display-xl: clamp(2.75rem, 1.5rem + 4.4vw, 5.25rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-lg: clamp(2.25rem, 1.4rem + 3vw, 4rem);
+  --text-display-lg--line-height: 1;
+  --text-display-lg--letter-spacing: -0.035em;
+  --text-display-md: clamp(1.75rem, 1.25rem + 1.8vw, 2.875rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.028em;
   --text-display-sm: clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem);
-  --text-display-sm--line-height: 1.2;
-  --text-display-sm--letter-spacing: -0.015em;
+  --text-display-sm--line-height: 1.15;
+  --text-display-sm--letter-spacing: -0.02em;
 
-  --tracking-label: 0.16em;
+  --tracking-label: 0.14em;
 
-  /* Photography and cards are square-cornered; pills and floating panels round themselves. */
-  --radius-tile: 0;
-  --radius-card: 0;
+  /* Photography and cards round generously; pills are fully round. */
+  --radius-tile: 1.75rem;
+  --radius-card: 1.5rem;
 
-  --container-site: 70rem;
+  --container-site: 76rem;
   --container-prose: 42rem;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -83,7 +93,7 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -107,7 +117,7 @@
   h3,
   [class*="text-display-"] {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 800;
   }
 
   h1,
@@ -126,28 +136,28 @@
   }
 
   ::selection {
-    background: var(--color-navy-900);
-    color: var(--color-ivory);
+    background: var(--color-gold);
+    color: var(--color-navy-900);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-navy-900);
+    outline: 3px solid var(--color-royal);
     outline-offset: 3px;
   }
 
   .on-dark :focus-visible,
   .on-dark:focus-visible {
-    outline-color: var(--color-ivory);
+    outline-color: var(--color-gold);
   }
 }
 
 @layer components {
-  /* Small spaced monospace label, e.g. "WATCH NOW" or "LEARN MORE". */
+  /* Small bold spaced label, e.g. "LATEST SERMON" or "LEARN MORE". */
   .label,
   .eyebrow {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
   }
@@ -162,23 +172,25 @@
     margin-top: 1.1em;
   }
   .prose-ministry h2 {
-    font-size: 1.75rem;
-    line-height: 1.15;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-size: 1.875rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--color-navy-900);
     margin-top: 1.8em;
   }
   .prose-ministry h3 {
     font-size: 1.375rem;
-    font-weight: 500;
-    letter-spacing: -0.015em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     color: var(--color-navy-900);
     margin-top: 1.5em;
   }
   .prose-ministry a {
-    color: var(--color-navy-900);
+    color: var(--color-royal);
     text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 2px;
     text-underline-offset: 4px;
   }
   .prose-ministry ul,
@@ -195,18 +207,19 @@
     margin-top: 0.4em;
   }
   .prose-ministry li::marker {
-    color: var(--color-muted);
+    color: var(--color-flame);
   }
   .prose-ministry blockquote {
-    border-left: 2px solid var(--color-navy-900);
+    border-left: 4px solid var(--color-gold);
     padding-left: 1.25rem;
-    font-size: 1.375rem;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    color: var(--color-navy-800);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-navy-900);
   }
   .prose-ministry strong {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--color-navy-900);
   }
   .on-dark .prose-ministry {
@@ -214,28 +227,53 @@
   }
   .on-dark .prose-ministry strong,
   .on-dark .prose-ministry h2,
-  .on-dark .prose-ministry h3 {
+  .on-dark .prose-ministry h3,
+  .on-dark .prose-ministry blockquote {
     color: var(--color-ivory);
   }
 
   /* Frosted panel floating over photography. */
   .frost {
-    background: rgb(240 238 234 / 0.78);
-    backdrop-filter: saturate(140%) blur(26px);
-    -webkit-backdrop-filter: saturate(140%) blur(26px);
+    background: rgb(255 253 248 / 0.82);
+    backdrop-filter: saturate(160%) blur(22px);
+    -webkit-backdrop-filter: saturate(160%) blur(22px);
   }
   @media (prefers-reduced-transparency: reduce) {
     .frost {
-      background: rgb(255 255 255 / 0.96);
+      background: rgb(255 255 255 / 0.97);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
   }
 
-  /* Vertical label running up the edge of the hero ("FOLLOW", "DISCOVER"). */
-  .rail-label {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+  /*
+   * Kente-woven stripe: repeating blocks of gold, green, red and royal blue,
+   * separated by dark warp lines and crossed by a thin weft. Used as a band on section edges.
+   */
+  .kente {
+    background-color: var(--color-gold);
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 5px, rgb(0 0 0 / 0.18) 5px 6px),
+      repeating-linear-gradient(
+        90deg,
+        var(--color-gold) 0 34px,
+        var(--color-navy-950) 34px 40px,
+        var(--color-kente-green) 40px 62px,
+        var(--color-navy-950) 62px 68px,
+        var(--color-gold) 68px 96px,
+        var(--color-kente-red) 96px 118px,
+        var(--color-navy-950) 118px 124px,
+        var(--color-royal) 124px 140px,
+        var(--color-navy-950) 140px 146px
+      );
+  }
+
+  /* Deep royal band with a blue glow top right and a warm one bottom left. */
+  .glow-royal {
+    background-color: var(--color-navy-900);
+    background-image:
+      radial-gradient(60rem 30rem at 85% -10%, rgb(29 63 196 / 0.85), transparent 60%),
+      radial-gradient(40rem 24rem at -10% 110%, rgb(239 106 31 / 0.28), transparent 60%);
   }
 
   /* Hide the scrollbar on horizontal rows; they keep keyboard and swipe scrolling. */
@@ -263,26 +301,43 @@
 
   /* Press feedback lands on pointer-down, not on release. */
   .pressable {
-    transition: transform 160ms var(--ease-out-soft);
+    transition:
+      transform 160ms var(--ease-out-soft),
+      background-color 200ms ease-out,
+      color 200ms ease-out,
+      box-shadow 200ms ease-out;
   }
   .pressable:active {
     transform: scale(0.97);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .nudge-down {
-      animation: nudge-down 2.4s var(--ease-out-soft) infinite;
+  /* Endless ticker: the track holds the items twice and slides by half its width. */
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
     }
   }
-  @keyframes nudge-down {
-    0%,
-    100% {
-      transform: translateY(0);
-      opacity: 1;
+
+  /* Slow spin for the circular motto badge. */
+  .spin-slow {
+    animation: spin-slow 28s linear infinite;
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
     }
-    50% {
-      transform: translateY(6px);
-      opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .spin-slow {
+      animation: none;
     }
   }
 }

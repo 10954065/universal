@@ -5,12 +5,15 @@ import { EventCard, type EventSummary } from "@/components/events/event-row";
 
 export function UpcomingEvents({ events }: { events: EventSummary[] }) {
   return (
-    <section aria-labelledby="events-heading" className="pb-24 sm:pb-32">
+    <section aria-labelledby="events-heading" className="py-24 sm:py-32">
       <Container>
         <div className="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <h2 id="events-heading" className="text-display-lg text-navy-900">
-            Calendar
-          </h2>
+          <div>
+            <p className="label text-gold-ink">What&apos;s on</p>
+            <h2 id="events-heading" className="mt-4 text-display-lg text-navy-900">
+              Upcoming <span className="text-royal">events</span>
+            </h2>
+          </div>
           {events.length > 0 && (
             <ButtonLink href="/events" variant="text" className="self-start sm:self-auto">
               All events

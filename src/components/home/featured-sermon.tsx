@@ -11,8 +11,8 @@ export function FeaturedSermon({ sermon }: { sermon: SermonSummary }) {
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
           <div className="reveal lg:col-span-5">
-            <p className="label text-muted">Latest sermon</p>
-            <h2 id="sermon-heading" className="mt-4 text-display-md text-navy-900">
+            <p className="label inline-flex rounded-full bg-gold px-4 py-2 text-navy-900">Latest sermon</p>
+            <h2 id="sermon-heading" className="mt-6 text-display-lg text-navy-900">
               {sermon.title}
             </h2>
             <p className="mt-5 font-mono text-[0.875rem] leading-relaxed text-muted">

@@ -21,7 +21,7 @@ import { Scripture } from "@/components/home/scripture";
 import { Outreach } from "@/components/home/outreach";
 import { VisitInvitation } from "@/components/home/visit-invitation";
 import { OrganizationJsonLd } from "@/components/site/organization-json-ld";
-import { getSocialChannels } from "@/components/site/social-links";
+import { MottoTicker } from "@/components/home/motto-ticker";
 import { NewsletterSection } from "@/components/home/newsletter-section";
 import { isEmailConfigured } from "@/lib/email";
 
@@ -81,11 +81,12 @@ export default async function HomePage() {
         heading={home.heroHeading}
         text={home.heroText}
         image={home.heroImage}
+        logo={settings.logo}
         primary={{ label: home.primaryCtaLabel, href: home.primaryCtaHref }}
         secondary={{ label: home.secondaryCtaLabel, href: home.secondaryCtaHref }}
         nextService={nextService}
-        social={getSocialChannels(settings)}
       />
+      <MottoTicker items={[home.heroEyebrow, stripEmphasis(home.heroHeading), "You are no longer a slave. Galatians 4:7", "Everyone is welcome"]} />
       {/* Target of the hero's "Discover" cue. */}
       <div id="visit" className="scroll-mt-16" />
       {visible.services && <Services services={services} />}
