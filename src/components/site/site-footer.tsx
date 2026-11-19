@@ -15,7 +15,7 @@ export function SiteFooter({ settings }: { settings: SiteSettingsView }) {
   const address = [settings.addressLine, settings.city, settings.region].filter(Boolean).join(", ");
   const phoneHref = telHref(settings.phone);
   const social = getSocialChannels(settings);
-  const links = [...PRIMARY_NAV.filter((item) => item.href !== "/"), ...SECONDARY_NAV];
+  const links = [...PRIMARY_NAV, ...SECONDARY_NAV];
 
   return (
     <footer className="on-dark bg-navy-950 text-white">

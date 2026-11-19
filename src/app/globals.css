@@ -311,19 +311,6 @@
     transform: scale(0.97);
   }
 
-  /* Endless ticker: the track holds the items twice and slides by half its width. */
-  .marquee-track {
-    animation: marquee 38s linear infinite;
-  }
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
-  }
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
   /* Slow spin for the circular motto badge. */
   .spin-slow {
     animation: spin-slow 28s linear infinite;
@@ -335,7 +322,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track,
     .spin-slow {
       animation: none;
     }
