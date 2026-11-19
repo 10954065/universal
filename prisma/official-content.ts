@@ -39,6 +39,17 @@ If you need help finding us, call ${CONTACT.phone}, ${CONTACT.otherPhones[0]} or
   },
 ];
 
+/** The ministry's weekly television broadcast, as announced in its outro. */
+export const BROADCAST = {
+  title: "Let Us Trade Our Salvation Too",
+  summary:
+    "Our television broadcast, every Friday at 5:30 am on Sunny TV. Remember, your life has a source, a purpose and a destination. Take time to reflect, grow and walk in the path God has set for you.",
+  ctaLabel: "Connect with us",
+  ctaHref: "/contact",
+  // The outreach team's shirts carry the same words, with John 3:16.
+  image: "outreach-field-back.jpg",
+};
+
 export const SEO_DESCRIPTION =
   "A spirit-filled Christian ministry in Ghana dedicated to spreading the Gospel of Jesus Christ, transforming lives and building a strong, faith-based community.";
 

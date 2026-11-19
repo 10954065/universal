@@ -15,6 +15,7 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { HOMEPAGE, PAGE_SECTIONS, PHOTOS, SUGGESTED_MINISTRIES, type SeedPhoto } from "./seed-data";
 import {
   ABOUT_SECTIONS,
+  BROADCAST,
   CONTACT,
   FELLOWSHIPS,
   FOOTER_TEXT,
@@ -236,6 +237,15 @@ async function seedOfficialHomepage() {
   await db.homepageContent.updateMany({ where: { id: 1, OR: untouched }, data: { heroImageId: hero.id } });
 }
 
+/** Publishes the weekly broadcast as an outreach programme once; later edits are kept. */
+async function seedOfficialBroadcast(media: Map<string, string>) {
+  const { image, ...broadcast } = BROADCAST;
+  const existing = await db.outreachProgramme.findFirst({ where: { title: broadcast.title }, select: { id: true } });
+  if (!existing) {
+    await db.outreachProgramme.create({ data: { ...broadcast, imageId: media.get(image), sortOrder: 0, status: "PUBLISHED" } });
+  }
+}
+
 async function seedSamples(media: Map<string, string>) {
   const speaker = await db.speaker.upsert({ where: { slug: "sample-speaker" }, update: {}, create: { slug: "sample-speaker", name: "Sample Speaker" } });
   const category = await db.sermonCategory.upsert({ where: { slug: "sunday-service" }, update: {}, create: { slug: "sunday-service", name: "Sunday Service" } });
@@ -301,6 +311,7 @@ async function main() {
   await seedOfficialSections(VISIT_SECTIONS);
   await seedOfficialMinistries(media);
   await seedOfficialHomepage();
+  await seedOfficialBroadcast(media);
   console.info(`Seeded ${media.size} photos, settings, homepage, ${PAGE_SECTIONS.length} page sections, ${SUGGESTED_MINISTRIES.length} draft ministries.`);
 
   if (process.env.SEED_SAMPLE_CONTENT === "true") {
