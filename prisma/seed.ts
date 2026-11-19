@@ -17,6 +17,7 @@ import {
   ABOUT_SECTIONS,
   FELLOWSHIPS,
   FOOTER_TEXT,
+  HERO_PHOTO,
   HOMEPAGE_COPY,
   LEADERS,
   LEADERSHIP_SECTIONS,
@@ -213,6 +214,12 @@ async function seedOfficialHomepage() {
   );
   if (Object.keys(updates).length > 0) await db.homepageContent.update({ where: { id: 1 }, data: updates });
   await db.siteSettings.updateMany({ where: { id: 1, seoDescription: null }, data: { seoDescription: SEO_DESCRIPTION } });
+
+  // The hero moves to the General Overseer's portrait while it still shows the original photograph.
+  const hero = await upsertPhoto(HERO_PHOTO);
+  const original = await db.mediaAsset.findUnique({ where: { storageKey: `static/ministry/${HOMEPAGE.heroImage}` }, select: { id: true } });
+  const untouched = original ? [{ heroImageId: null }, { heroImageId: original.id }] : [{ heroImageId: null }];
+  await db.homepageContent.updateMany({ where: { id: 1, OR: untouched }, data: { heroImageId: hero.id } });
 }
 
 async function seedSamples(media: Map<string, string>) {

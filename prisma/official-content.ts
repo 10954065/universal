@@ -20,6 +20,14 @@ export const FOOTER_TEXT = `${MOTTO.local}. ${MOTTO.english}`;
 export const SEO_DESCRIPTION =
   "A spirit-filled Christian ministry in Ghana dedicated to spreading the Gospel of Jesus Christ, transforming lives and building a strong, faith-based community.";
 
+/** Homepage hero: the General Overseer's studio portrait, widened with its own backdrop so the headline sits beside her. */
+export const HERO_PHOTO = {
+  file: "bishop-hero.jpg",
+  alt: "Bishop Esther Korkor Wilson, General Overseer, in a blue clerical suit",
+  focalX: 70,
+  focalY: 30,
+};
+
 /** Homepage copy drawn from the ministry's own wording. Galatians 4:7 is the verse on the logo. */
 export const HOMEPAGE_COPY = {
   heroEyebrow: MOTTO.local,

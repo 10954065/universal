@@ -30,7 +30,8 @@ interface HeroProps {
 export function Hero({ eyebrow, heading, text, image, primary, secondary, nextService, social }: HeroProps) {
   return (
     <section aria-labelledby="hero-heading" className="on-dark relative isolate flex h-[calc(100svh-4rem)] min-h-[38rem] items-end bg-navy-950 text-white">
-      {image && <Photo image={image} priority quality={60} sizes="100vw" className="-z-10" />}
+      {/* On tall screens the cover crop draws the photo far wider than the viewport, so ask for a larger file. */}
+      {image && <Photo image={image} priority quality={75} sizes="(orientation: portrait) 260vw, 100vw" className="-z-10" />}
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
 
       {social.length > 0 && (
